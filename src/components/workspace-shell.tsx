@@ -1,16 +1,21 @@
 import Link from "next/link";
 import {
-  ArrowUpRight, GearSix, ListDashes, SidebarSimple, SquaresFour,
+  ArrowUpRight, FileText, GearSix, ListDashes, SidebarSimple, SquaresFour,
 } from "@phosphor-icons/react/dist/ssr";
+
+type Section = "overview" | "setup" | "requests";
+const sections: Record<Section, string> = {
+  overview: "Ringkasan", setup: "Konfigurasi", requests: "Permintaan pembelian",
+};
 
 export function WorkspaceShell({
   current,
   children,
 }: {
-  current: "overview" | "setup";
+  current: Section;
   children: React.ReactNode;
 }) {
-  const section = current === "overview" ? "Ringkasan" : "Konfigurasi";
+  const section = sections[current];
   return (
     <div className="workspace">
       <aside className="sidebar">
@@ -23,7 +28,7 @@ export function WorkspaceShell({
         </nav>
         <div className="sidebar-foot">
           <span className="local-dot" />
-          Workspace lokal
+          Workspace
         </div>
       </aside>
       <div className="workspace-body">
@@ -45,11 +50,14 @@ export function WorkspaceShell({
   );
 }
 
-function WorkspaceLinks({ current }: { current: "overview" | "setup" }) {
+function WorkspaceLinks({ current }: { current: Section }) {
   return (
     <>
       <Link href="/" aria-current={current === "overview" ? "page" : undefined}>
         <SquaresFour size={19} aria-hidden /> Ringkasan
+      </Link>
+      <Link href="/permintaan" aria-current={current === "requests" ? "page" : undefined}>
+        <FileText size={19} aria-hidden /> Permintaan pembelian
       </Link>
       <Link href="/konfigurasi" aria-current={current === "setup" ? "page" : undefined}>
         <GearSix size={19} aria-hidden /> Konfigurasi

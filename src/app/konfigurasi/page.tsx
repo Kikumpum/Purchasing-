@@ -4,12 +4,14 @@ import { ConfigurationStatus } from "@/components/configuration-status";
 import { WorkspaceShell } from "@/components/workspace-shell";
 import { CopyTemplate } from "@/features/setup/copy-template";
 import { localEnvTemplate, readSupabaseConfig } from "@/lib/supabase/config";
+import { checkSupabaseConnection } from "@/lib/supabase/check-connection";
 
 export const metadata: Metadata = { title: "Konfigurasi" };
 export const dynamic = "force-dynamic";
 
-export default function SetupPage() {
-  const { fields } = readSupabaseConfig(process.env);
+export default async function SetupPage() {
+  const { config, fields } = readSupabaseConfig(process.env);
+  const connection = config && await checkSupabaseConnection(config);
 
   return (
     <WorkspaceShell current="setup">
@@ -39,7 +41,11 @@ export default function SetupPage() {
           <div className="section-icon"><Database size={23} aria-hidden /></div>
           <h2 id="status-heading">Status konfigurasi</h2>
           <ConfigurationStatus fields={fields} />
-          <p className="setup-note">Pemeriksaan ini memvalidasi format. Koneksi database diverifikasi saat migrasi tersedia.</p>
+          <p className="setup-note">{config
+            ? connection
+              ? "Supabase Auth terhubung dan merespons."
+              : "Supabase Auth tidak merespons dengan konfigurasi ini. Periksa URL proyek dan kunci publik."
+            : "Koneksi Supabase Auth diperiksa setelah URL dan kunci publik tersedia."}</p>
         </section>
       </div>
     </WorkspaceShell>

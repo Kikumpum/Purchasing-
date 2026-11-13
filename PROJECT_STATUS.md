@@ -14,4 +14,6 @@ ESLint 9 digunakan karena peer dependency plugin Next.js belum menerima ESLint 1
 
 ## Berikutnya
 
+Alur pertama mencakup login Supabase, draft satu barang, pengajuan, keputusan manager dan histori. Data disimpan di PostgreSQL dengan RLS. Migrasi diterapkan ke purchasing-db dan aturan akses diuji pada PostgreSQL lokal. Nama barang untuk rilis awal diisi langsung. Katalog, pemenuhan dan modul persediaan masih mengikuti rencana.
+
 Phase 2 menyiapkan migrasi schema, fixture pengembangan, generated types dan verifikasi reset lokal. Lihat [rencana dan keputusan terbuka](IMPLEMENTATION_PLAN.md).

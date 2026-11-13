@@ -1,6 +1,6 @@
 import Link from "next/link";
 import {
-  ArrowRight, Database, FileText, Package, ShieldCheck, Truck,
+  ArrowRight, Database, Package, Truck,
 } from "@phosphor-icons/react/dist/ssr";
 import { ConfigurationStatus } from "@/components/configuration-status";
 import { WorkspaceShell } from "@/components/workspace-shell";
@@ -9,8 +9,6 @@ import { readSupabaseConfig } from "@/lib/supabase/config";
 export const dynamic = "force-dynamic";
 
 const modules = [
-  { icon: FileText, name: "Permintaan pembelian", detail: "Draft, pengajuan, dan histori PR." },
-  { icon: ShieldCheck, name: "Persetujuan", detail: "Keputusan manager dan catatan revisi." },
   { icon: Truck, name: "Pengadaan", detail: "Vendor, quotation, dan purchase order." },
   { icon: Package, name: "Persediaan", detail: "Penerimaan, pengeluaran, dan transfer stok." },
 ];
@@ -29,12 +27,12 @@ export default function OverviewPage() {
         <div className="readiness-main">
           <div className="section-icon"><Database size={23} aria-hidden /></div>
           <div>
-            <h2 id="readiness-heading">{config ? "Format konfigurasi Supabase valid" : "Siapkan koneksi Supabase"}</h2>
+            <h2 id="readiness-heading">{config ? "Permintaan pembelian" : "Siapkan koneksi Supabase"}</h2>
             <p>{config
-              ? "URL dan kunci publik sudah terbaca. Koneksi dan akses database diperiksa pada fase berikutnya."
+              ? "Buat draft, ajukan kebutuhan, dan lihat keputusan manager."
               : "Isi URL proyek dan kunci publik untuk menyiapkan workspace bagi integrasi database."}</p>
-            <Link className="button button-primary" href="/konfigurasi">
-              Buka Konfigurasi <ArrowRight size={17} aria-hidden />
+            <Link className="button button-primary" href={config ? "/permintaan" : "/konfigurasi"}>
+              {config ? "Buka permintaan" : "Buka Konfigurasi"} <ArrowRight size={17} aria-hidden />
             </Link>
           </div>
         </div>
