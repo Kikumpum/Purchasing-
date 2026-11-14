@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-11-14 · Isian referensi OPKB
+
+- Menambahkan nomor dan tanggal OPKB, satuan barang di luar katalog, serta keterangan pada draft dan detail PR. Daftar permintaan menampilkan nomor OPKB jika terisi.
+- Menambahkan migrasi 011 yang menyimpan isian bersama draft melalui kontrol akses dan versi yang sudah berlaku.
+
 ## 2026-11-14 · Pemulihan kata sandi
 
 - Menambahkan permintaan tautan pemulihan Supabase dan dukungan tautan tersebut pada halaman pengaturan kata sandi.

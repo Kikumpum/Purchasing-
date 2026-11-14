@@ -44,6 +44,10 @@ const requestFields = z.object({
   product: z.uuid().nullable(),
   quantity: z.string().regex(/^\d{1,7}$/).transform(Number).pipe(z.number().int().min(1).max(1000000)),
   needBy: z.iso.date(),
+  opkbNumber: z.string().trim().max(80),
+  opkbDate: z.iso.date().nullable(),
+  requestedUnit: z.string().trim().max(30),
+  note: z.string().trim().max(500),
 });
 
 export async function saveRequest(form: FormData) {
@@ -52,13 +56,17 @@ export async function saveRequest(form: FormData) {
     purpose: form.get("purpose"), item: form.get("item") ?? "",
     product: form.get("product") || null,
     quantity: form.get("quantity"), needBy: form.get("needBy"),
+    opkbNumber: form.get("opkbNumber") ?? "", opkbDate: form.get("opkbDate") || null,
+    requestedUnit: form.get("requestedUnit") ?? "", note: form.get("note") ?? "",
   });
   if (!input.success || (!input.data.product && !input.data.item)) redirect("/permintaan?error=input");
-  const { id, version, purpose, item, product, quantity, needBy } = input.data;
+  const { id, version, purpose, item, product, quantity, needBy, opkbNumber, opkbDate, requestedUnit, note } = input.data;
   const supabase = await createSupabaseServerClient({ writableCookies: true });
-  const { error } = await supabase.rpc("save_catalog_request", {
+  const { error } = await supabase.rpc("save_request_with_opkb", {
     p_id: id, p_version: version, p_purpose: purpose,
     p_item: item, p_quantity: quantity, p_need_by: needBy, p_product: product,
+    p_opkb_number: opkbNumber || null, p_opkb_date: opkbDate,
+    p_requested_unit: requestedUnit || null, p_note: note || null,
   });
   if (error) redirect("/permintaan?error=conflict");
   redirect(`/permintaan/${id}`);

@@ -21,7 +21,7 @@ export default async function RequestPage({ params, searchParams }: {
   const { error } = await searchParams;
   const { supabase, profile } = await requireRequestSession();
   const { data: request, error: loadError } = await supabase.from("purchase_requests")
-    .select("id, number, version, requester_id, approver_id, item_name, item_sku, item_unit, product_id, quantity, purpose, need_by, status")
+    .select("id, number, version, requester_id, approver_id, item_name, item_sku, item_unit, product_id, quantity, purpose, need_by, status, opkb_number, opkb_date, requested_unit, request_note")
     .eq("id", id).maybeSingle();
   if (loadError) throw new Error("Permintaan gagal dimuat.");
   if (!request || !profile) notFound();
@@ -51,9 +51,12 @@ export default async function RequestPage({ params, searchParams }: {
           <h2>Detail kebutuhan</h2>
           {canEdit ? <RequestForm draft={request} /> : (
             <dl className="request-form">
-              <div><dt>Kuantitas</dt><dd>{request.quantity}</dd></div>
+              {request.opkb_number && <div><dt>Nomor OPKB</dt><dd className="wrap-anywhere">{request.opkb_number}</dd></div>}
+              {request.opkb_date && <div><dt>Tanggal OPKB</dt><dd>{request.opkb_date}</dd></div>}
+              <div><dt>Kuantitas</dt><dd>{request.quantity} {request.item_unit ?? request.requested_unit}</dd></div>
               <div><dt>Tanggal kebutuhan</dt><dd>{request.need_by}</dd></div>
-              <div><dt>Tujuan</dt><dd className="whitespace-pre-wrap wrap-anywhere">{request.purpose}</dd></div>
+              <div><dt>Kebutuhan</dt><dd className="whitespace-pre-wrap wrap-anywhere">{request.purpose}</dd></div>
+              {request.request_note && <div><dt>Keterangan</dt><dd className="whitespace-pre-wrap wrap-anywhere">{request.request_note}</dd></div>}
               {fulfillment?.data && <>
                 <div><dt>Sudah diserahkan</dt><dd>{fulfillment.data.issued} dari {request.quantity} {request.item_unit}</dd></div>
                 <div><dt>Siap diserahkan</dt><dd>{fulfillment.data.awaiting_handover} {request.item_unit}</dd></div>

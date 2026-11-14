@@ -16,6 +16,8 @@
 
 ## Keputusan yang perlu ditinjau
 
+Contoh OPKB memakai satu nomor untuk beberapa barang. Referensi nomor dapat diulang pada PR satu barang yang sudah tersedia. Untuk dukungan satu dokumen dengan beberapa barang dan pelacakan pengiriman, tinjau keterkaitan approval, penawaran, PO, penerimaan dan alokasi pada level baris. Contoh pengiriman mencantumkan PT, vendor, keterangan, kebutuhan dan referensi OPKB. Cakupan PT dan lokasi perlu dipetakan terhadap departemen, tujuan kirim dan akses pengguna sebelum perubahan skema pengiriman.
+
 | Keputusan/usulan Phase 0 | Alasan dan batas waktu |
 |---|---|
 | Satu perusahaan, beberapa departemen dan gudang. Manager ditugaskan per departemen. Approval satu tingkat dengan satu approver tercatat saat submit. | Model akses dan histori bergantung pada kebijakan ini. Konfirmasi cakupan tim, alih tugas dan pengganti sebelum Phase 2–3. |

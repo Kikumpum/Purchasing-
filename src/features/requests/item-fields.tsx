@@ -6,7 +6,7 @@ export type CatalogOption = { id: string; name: string; sku: string; unit: strin
 
 export function ItemFields({ products, draft }: {
   products: CatalogOption[];
-  draft?: { product_id: string | null; item_name: string; item_sku: string | null; item_unit: string | null };
+  draft?: { product_id: string | null; item_name: string; item_sku: string | null; item_unit: string | null; requested_unit: string | null };
 }) {
   const [productId, setProductId] = useState(draft?.product_id ?? "");
   const snapshot = draft?.product_id && {
@@ -25,6 +25,7 @@ export function ItemFields({ products, draft }: {
         </label>
       )}
       {!productId && <label>Nama barang<input name="item" defaultValue={draft?.product_id ? "" : draft?.item_name} required maxLength={160} /></label>}
+      {!productId && <label>Satuan (opsional)<input name="requestedUnit" defaultValue={draft?.requested_unit ?? ""} maxLength={30} placeholder="Contoh: PCS, SET, ROLL" /></label>}
     </>
   );
 }

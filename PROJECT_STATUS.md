@@ -1,5 +1,9 @@
 # Status proyek
 
+Form permintaan di workspace mendukung referensi nomor dan tanggal OPKB, satuan barang di luar katalog, dan keterangan. Detail mempertahankan tanggal kebutuhan sebagai isian terpisah. Referensi OPKB boleh berulang dan setiap PR masih memuat satu barang. Data contoh Excel tidak diimpor.
+
+Typecheck dan lint lulus. Migrasi 011 dan build aplikasi perlu dirilis berurutan. Uji database/RLS dan alur bisnis OPKB belum dijalankan. Satu dokumen OPKB dengan beberapa barang serta pelacakan pengiriman per barang masih terbuka.
+
 Pemulihan kata sandi ditambahkan di halaman masuk. Undangan dan pemulihan menggunakan halaman pengaturan kata sandi yang sama. Pengiriman email pemulihan belum diverifikasi pada akun Production.
 
 Login dan aktivasi mengarah ke dashboard berdasarkan peran. Dashboard Employee menampilkan PR sendiri, Manager melihat antrean keputusan, Admin Procurement melihat PR disetujui, dan Warehouse melihat penerimaan serta alokasi dalam cakupan gudangnya. Angka memakai data yang diizinkan oleh RLS.

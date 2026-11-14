@@ -10,7 +10,7 @@ export default async function RequestsPage({ searchParams }: { searchParams: Pro
   const start = (page - 1) * 25;
   const { supabase, profile, profileError } = await requireRequestSession();
   const requests = profile && await supabase.from("purchase_requests")
-    .select("id, number, item_name, quantity, need_by, status")
+    .select("id, number, item_name, status, opkb_number")
     .order("created_at", { ascending: false }).order("id").range(start, start + 25);
 
   return (
@@ -32,7 +32,7 @@ export default async function RequestsPage({ searchParams }: { searchParams: Pro
                 {requests.data.slice(0, 25).map((request) => (
                   <li key={request.id}>
                     <Link className="inline-link flex-wrap" href={`/permintaan/${request.id}`}>
-                      PR-{request.number} · {request.item_name} <span className="badge">{statusLabel[request.status]}</span>
+                      PR-{request.number}{request.opkb_number && ` · ${request.opkb_number}`} · {request.item_name} <span className="badge">{statusLabel[request.status]}</span>
                     </Link>
                   </li>
                 ))}
