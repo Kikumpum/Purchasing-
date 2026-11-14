@@ -1,21 +1,27 @@
 import Link from "next/link";
 import {
-  ArrowUpRight, FileText, GearSix, ListDashes, Package, SidebarSimple, SquaresFour, Truck,
+  ArrowUpRight, Bell, ChartBar, FileText, GearSix, ListDashes, Package, SidebarSimple, SquaresFour, Truck,
 } from "@phosphor-icons/react/dist/ssr";
 
-type Section = "overview" | "setup" | "requests" | "catalog" | "procurement";
+type Section = "overview" | "dashboard" | "setup" | "requests" | "catalog" | "procurement" | "warehouse" | "notifications" | "reports";
 const sections: Record<Section, string> = {
   overview: "Ringkasan", setup: "Konfigurasi", requests: "Permintaan pembelian", catalog: "Katalog barang",
   procurement: "Pengadaan",
+  warehouse: "Gudang",
+  notifications: "Notifikasi",
+  reports: "Laporan",
+  dashboard: "Dashboard",
 };
 
 export function WorkspaceShell({
   current,
   canProcure = current === "procurement",
+  canWarehouse = canProcure,
   children,
 }: {
   current: Section;
   canProcure?: boolean;
+  canWarehouse?: boolean;
   children: React.ReactNode;
 }) {
   const section = sections[current];
@@ -27,7 +33,7 @@ export function WorkspaceShell({
           <span>Purchasing</span>
         </Link>
         <nav className="desktop-navigation" aria-label="Navigasi utama">
-          <WorkspaceLinks current={current} canProcure={canProcure} />
+          <WorkspaceLinks current={current} canProcure={canProcure} canWarehouse={canWarehouse} />
         </nav>
         <div className="sidebar-foot">
           <span className="local-dot" />
@@ -38,7 +44,7 @@ export function WorkspaceShell({
         <header className="topbar">
           <details className="mobile-navigation">
             <summary aria-label="Buka navigasi"><SidebarSimple size={21} aria-hidden /></summary>
-            <nav aria-label="Navigasi utama"><WorkspaceLinks current={current} canProcure={canProcure} /></nav>
+            <nav aria-label="Navigasi utama"><WorkspaceLinks current={current} canProcure={canProcure} canWarehouse={canWarehouse} /></nav>
           </details>
           <div className="breadcrumb"><span>Workspace</span><span aria-hidden>/</span><strong>{section}</strong></div>
           <a className="top-link" href="https://supabase.com/docs/guides/getting-started" target="_blank" rel="noreferrer">
@@ -53,11 +59,13 @@ export function WorkspaceShell({
   );
 }
 
-function WorkspaceLinks({ current, canProcure }: { current: Section; canProcure: boolean }) {
+function WorkspaceLinks({ current, canProcure, canWarehouse }: {
+  current: Section; canProcure: boolean; canWarehouse: boolean;
+}) {
   return (
     <>
-      <Link href="/" aria-current={current === "overview" ? "page" : undefined}>
-        <SquaresFour size={19} aria-hidden /> Ringkasan
+      <Link href="/dashboard" aria-current={current === "dashboard" ? "page" : undefined}>
+        <SquaresFour size={19} aria-hidden /> Dashboard
       </Link>
       <Link href="/permintaan" aria-current={current === "requests" ? "page" : undefined}>
         <FileText size={19} aria-hidden /> Permintaan pembelian
@@ -68,6 +76,15 @@ function WorkspaceLinks({ current, canProcure }: { current: Section; canProcure:
       {canProcure && <Link href="/pengadaan" aria-current={current === "procurement" ? "page" : undefined}>
         <Truck size={19} aria-hidden /> Pengadaan
       </Link>}
+      {canWarehouse && <Link href="/gudang" aria-current={current === "warehouse" ? "page" : undefined}>
+        <Package size={19} aria-hidden /> Gudang
+      </Link>}
+      <Link href="/notifikasi" aria-current={current === "notifications" ? "page" : undefined}>
+        <Bell size={19} aria-hidden /> Notifikasi
+      </Link>
+      <Link href="/laporan" aria-current={current === "reports" ? "page" : undefined}>
+        <ChartBar size={19} aria-hidden /> Laporan
+      </Link>
       <Link href="/konfigurasi" aria-current={current === "setup" ? "page" : undefined}>
         <GearSix size={19} aria-hidden /> Konfigurasi
       </Link>

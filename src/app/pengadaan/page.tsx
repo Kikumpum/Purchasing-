@@ -6,9 +6,9 @@ import { procurementPage, requireProcurementSession } from "@/features/procureme
 const dateFormat = new Intl.DateTimeFormat("id-ID", { dateStyle: "medium", timeZone: "UTC" });
 
 export default async function ProcurementPage({ searchParams }: {
-  searchParams: Promise<{ halaman?: string }>;
+  searchParams: Promise<{ halaman?: string; error?: string }>;
 }) {
-  const { halaman } = await searchParams;
+  const { halaman, error: formError } = await searchParams;
   const page = procurementPage(halaman);
   const start = (page - 1) * 25;
   const supabase = await requireProcurementSession();
@@ -23,13 +23,14 @@ export default async function ProcurementPage({ searchParams }: {
         <Link className="button button-primary" href="/pengadaan/vendor">Kelola vendor</Link>
       </div>
       <section className="setup-panel">
+        {formError === "input" && <p role="alert" className="copy-error">Isian formulir belum valid. Buka kembali permintaan dan periksa isian.</p>}
         {error ? <p role="alert">Antrean gagal dimuat. Muat ulang halaman untuk mencoba lagi.</p>
           : !data?.length ? <p>Belum ada permintaan yang disetujui pada halaman ini.</p>
           : <ul className="module-list">
             {data.slice(0, 25).map((request) => (
               <li key={request.id} className="justify-between flex-wrap gap-y-1">
                 <div className="min-w-0">
-                  <Link className="inline-link wrap-anywhere" href={`/permintaan/${request.id}`}>PR-{request.number} · {request.item_name}</Link>
+                  <Link className="inline-link wrap-anywhere" href={`/pengadaan/${request.id}`}>PR-{request.number} · {request.item_name}</Link>
                   <p>{request.item_sku && <>{request.item_sku} · </>}{request.quantity} {request.item_unit}</p>
                 </div>
                 <time dateTime={request.need_by}>{dateFormat.format(new Date(request.need_by))}</time>

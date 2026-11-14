@@ -14,7 +14,8 @@ export default async function RequestsPage({ searchParams }: { searchParams: Pro
     .order("created_at", { ascending: false }).order("id").range(start, start + 25);
 
   return (
-    <WorkspaceShell current="requests" canProcure={profile?.role === "admin_procurement"}>
+    <WorkspaceShell current="requests" canProcure={profile?.role === "admin_procurement"}
+      canWarehouse={profile?.role === "warehouse" || profile?.role === "admin_procurement"}>
       <div className="page-heading flex flex-wrap items-start justify-between gap-3">
         <div><h1>Permintaan pembelian</h1>{profile && <p>{profile.display_name}</p>}</div>
         <form action={signOut}><button className="button" type="submit">Keluar</button></form>

@@ -1,5 +1,28 @@
 # Changelog
 
+## 2026-11-14 · Dashboard berdasarkan jobdesk
+
+- Menambahkan halaman pembuka sesuai peran dan mengarahkan login serta aktivasi ke dashboard.
+
+## 2026-11-14 · Serah terima penerimaan PO
+
+- Mereservasi barang yang baru diterima untuk PR asal dalam transaksi penerimaan.
+- Menampilkan progres serah terima pada detail PR.
+
+## 2026-11-14 · Reservasi PR dan ekspor laporan
+
+- Menambahkan ketersediaan stok per gudang, reservasi untuk PR, pengeluaran parsial, dan penghitungan sisa untuk PO.
+- Menambahkan filter periode WIB dan unduhan CSV untuk ringkasan operasional.
+
+## 2026-11-14 · Penawaran, PO dan penerimaan
+
+- Menambahkan perbandingan penawaran, draft PO, dokumen cetak, pencatatan pengiriman dan pembatalan.
+- Menambahkan gudang tujuan, penerimaan parsial dengan batas jumlah, serta rekap barang diterima.
+- Menambahkan saldo stok, pengeluaran dan transfer langsung yang dibatasi akses gudang.
+- Menambahkan pengajuan hasil hitung fisik dan persetujuan penyesuaian stok.
+- Menambahkan notifikasi pengajuan dan keputusan PR dalam aplikasi.
+- Menambahkan ringkasan status PR dan aktivitas gudang berdasarkan akses pengguna.
+
 ## 2026-11-14 · Vendor dan antrean pengadaan
 
 - Menambahkan pencarian, pembuatan, perubahan, dan penonaktifan vendor oleh Admin Procurement.

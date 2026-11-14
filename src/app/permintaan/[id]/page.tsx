@@ -25,8 +25,13 @@ export default async function RequestPage({ params, searchParams }: {
     .eq("id", id).maybeSingle();
   if (loadError) throw new Error("Permintaan gagal dimuat.");
   if (!request || !profile) notFound();
-  const history = await supabase.from("purchase_request_status_history")
-    .select("id, status, note, created_at").eq("request_id", id).order("id", { ascending: false });
+  const [history, fulfillment] = await Promise.all([
+    supabase.from("purchase_request_status_history")
+      .select("id, status, note, created_at").eq("request_id", id).order("id", { ascending: false }),
+    request.status === "approved" ? supabase.rpc("request_fulfillment", { p_id: id }).maybeSingle<{
+      issued: number; awaiting_handover: number;
+    }>() : null,
+  ]);
   const canEdit = profile.role === "employee" && request.requester_id === profile.id &&
     ["draft", "revision_requested"].includes(request.status);
   const canDecide = profile.role === "manager" && request.approver_id === profile.id &&
@@ -49,6 +54,11 @@ export default async function RequestPage({ params, searchParams }: {
               <div><dt>Kuantitas</dt><dd>{request.quantity}</dd></div>
               <div><dt>Tanggal kebutuhan</dt><dd>{request.need_by}</dd></div>
               <div><dt>Tujuan</dt><dd className="whitespace-pre-wrap wrap-anywhere">{request.purpose}</dd></div>
+              {fulfillment?.data && <>
+                <div><dt>Sudah diserahkan</dt><dd>{fulfillment.data.issued} dari {request.quantity} {request.item_unit}</dd></div>
+                <div><dt>Siap diserahkan</dt><dd>{fulfillment.data.awaiting_handover} {request.item_unit}</dd></div>
+              </>}
+              {fulfillment?.error && <div><dt>Serah terima</dt><dd>Data serah terima gagal dimuat.</dd></div>}
             </dl>
           )}
           {(canEdit || canDecide) && (

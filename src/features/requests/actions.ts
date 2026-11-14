@@ -11,7 +11,7 @@ export async function signIn(form: FormData) {
   const supabase = await createSupabaseServerClient({ writableCookies: true });
   const { error } = await supabase.auth.signInWithPassword(input.data);
   if (error) redirect("/masuk?error=credentials");
-  redirect("/permintaan");
+  redirect("/dashboard");
 }
 
 export async function signOut() {

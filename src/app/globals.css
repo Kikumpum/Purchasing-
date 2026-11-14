@@ -235,6 +235,12 @@ h3 { font-size: 1.125rem; line-height: 1.3; font-weight: 600; }
 .request-form .button { justify-self: start; }
 .request-form .catalog-toggle { display: flex; align-items: center; }
 
+@media print {
+  .workspace { display: block; }
+  .workspace .sidebar, .workspace .topbar, .skip-link { display: none; }
+  .workspace-content, .setup-panel { padding: 0; }
+}
+
 @media (max-width: 1023px) {
   .workspace { grid-template-columns: minmax(0, 1fr); }
   .sidebar { display: none; }

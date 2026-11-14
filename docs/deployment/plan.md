@@ -15,3 +15,9 @@
 4. Setelah fase database dan auth selesai, terapkan migrasi pada environment tujuan sebelum mengaktifkan alur yang bergantung pada database. Tambahkan callback Auth yang telah diverifikasi dan jalankan uji akses.
 
 Lihat [panduan GitHub di Vercel](https://vercel.com/docs/git/vercel-for-github) dan [panduan Next.js di Vercel](https://vercel.com/docs/frameworks/full-stack/nextjs).
+
+## Penyiapan akun operasional
+
+Undang pengguna melalui Supabase Auth. Setelah akun muncul, gunakan ID Auth sebagai ID profil dan tetapkan departemen serta peran yang disetujui. Admin Procurement memakai peran `admin_procurement`. Petugas gudang memakai peran `warehouse` dan memerlukan baris penugasan di `user_warehouse_access` untuk setiap gudang yang diberikan.
+
+Gunakan tujuan undangan Production `https://purchasing-inky.vercel.app/aktifkan`. Pemilik akun menetapkan kata sandi melalui tautan undangan. Periksa profil aktif, peran dan penugasan gudang setelah provisioning.

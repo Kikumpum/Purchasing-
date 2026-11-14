@@ -1,5 +1,7 @@
 # Status proyek
 
+Login dan aktivasi mengarah ke dashboard berdasarkan peran. Dashboard Employee menampilkan PR sendiri, Manager melihat antrean keputusan, Admin Procurement melihat PR disetujui, dan Warehouse melihat penerimaan serta alokasi dalam cakupan gudangnya. Angka memakai data yang diizinkan oleh RLS.
+
 ## Phase 0 · Selesai untuk ditinjau
 
 Pada awal Phase 0, D:/Purchasing kosong dan belum menjadi repositori Git. Brief dianalisis dan keputusan awal dicatat sebagai usulan. Deliverable mencakup instruksi kerja, spesifikasi, tahapan, arsitektur, ERD, skema, akses, lifecycle, aturan bisnis, desain, keamanan, QA dan deployment.
@@ -20,4 +22,12 @@ Katalog pertama menambah pencarian barang dan pengelolaan SKU, nama, satuan dan 
 
 Admin Procurement dapat mengelola vendor serta melihat antrean PR yang disetujui menurut tanggal kebutuhan. Hak baca dan tulis vendor dibatasi oleh RLS. Akun Admin Procurement perlu ditetapkan untuk menggunakan kedua fitur di Production.
 
-Tahap berikutnya adalah penawaran vendor dan pembuatan PO. Lihat [rencana dan keputusan terbuka](IMPLEMENTATION_PLAN.md).
+Penawaran vendor, PO serta penerimaan gudang sudah ditambahkan di workspace. Pengadaan dapat membandingkan harga satuan, membuat satu PO aktif per PR, mencetaknya dan mencatat pengiriman ke gudang tujuan. Gudang yang ditugaskan dapat mencatat penerimaan penuh atau sebagian. Rekap gudang menjumlahkan penerimaan barang.
+
+Implementasi awal mencakup satu barang per PR dan harga IDR. Nama barang bebas dapat ditautkan ke produk katalog saat PO dikirim. Saldo stok dijumlahkan dari penerimaan, pengeluaran, transfer dan koreksi opname yang disetujui. Transfer langsung memerlukan akses ke kedua gudang. Notifikasi tersedia untuk pengajuan PR dan keputusan manager baru.
+
+Admin Procurement dapat mengalokasikan stok untuk PR yang menggunakan katalog. Warehouse dapat mengeluarkan stok secara bertahap dari alokasi gudangnya. Sistem melindungi sisa reservasi dari pengeluaran umum dan menghitung kuantitas PO dari bagian PR yang belum dialokasikan. Reservasi dilakukan sebelum PO aktif dibuat. Laporan ringkasan menampilkan filter tanggal WIB dan menyediakan CSV dengan filter serta cakupan akses yang sama.
+
+Penerimaan PO yang dicatat setelah migrasi 010 otomatis membuat reservasi untuk PR asal. Warehouse dapat menyerahkan barang melalui alokasi tersebut. Detail PR menampilkan kuantitas yang siap diserahkan dan yang sudah diserahkan. Penerimaan historis tidak diberi reservasi retroaktif karena stoknya mungkin sudah bergerak.
+
+Alur transit, pajak dan diskon, notifikasi gudang, serta laporan transaksi terperinci masih terbuka. Migrasi 004–010 sudah diterapkan ke Production setelah pemeriksaan urutan schema lokal. Akun Admin Procurement dan Warehouse sudah diberi peran di Production. Akses Warehouse dibatasi ke Gudang Utama. Pengujian alur bisnis ditunda sampai rangkaian modul selesai sesuai arahan.

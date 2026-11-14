@@ -37,7 +37,7 @@ export function ActivateAccount({ config }: { config: SupabaseConfiguration }) {
         setError("Kata sandi tidak dapat disimpan. Coba kata sandi yang lebih kuat.");
         return;
       }
-      window.location.replace("/permintaan");
+      window.location.replace("/dashboard");
     } catch {
       setError("Aktivasi gagal. Coba lagi.");
     } finally {
