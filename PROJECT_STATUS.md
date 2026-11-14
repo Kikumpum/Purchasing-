@@ -16,4 +16,6 @@ ESLint 9 digunakan karena peer dependency plugin Next.js belum menerima ESLint 1
 
 Alur pertama mencakup login Supabase, draft satu barang, pengajuan, keputusan manager dan histori. Data disimpan di PostgreSQL dengan RLS. Migrasi diterapkan ke purchasing-db dan aturan akses diuji pada PostgreSQL lokal. Nama barang untuk rilis awal diisi langsung. Katalog, pemenuhan dan modul persediaan masih mengikuti rencana.
 
-Phase 2 menyiapkan migrasi schema, fixture pengembangan, generated types dan verifikasi reset lokal. Lihat [rencana dan keputusan terbuka](IMPLEMENTATION_PLAN.md).
+Katalog pertama menambah pencarian barang dan pengelolaan SKU, nama, satuan dan status oleh Admin Procurement. Employee dapat memilih barang aktif atau mencatat barang di luar katalog. PR menyimpan snapshot barang, dan pengujian database lokal meliputi akses role, produk nonaktif, pengulangan save serta PR lama.
+
+Tahap berikutnya adalah master vendor dan antrean procurement. Lihat [rencana dan keputusan terbuka](IMPLEMENTATION_PLAN.md).

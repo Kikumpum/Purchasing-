@@ -1,11 +1,11 @@
 import Link from "next/link";
 import {
-  ArrowUpRight, FileText, GearSix, ListDashes, SidebarSimple, SquaresFour,
+  ArrowUpRight, FileText, GearSix, ListDashes, Package, SidebarSimple, SquaresFour,
 } from "@phosphor-icons/react/dist/ssr";
 
-type Section = "overview" | "setup" | "requests";
+type Section = "overview" | "setup" | "requests" | "catalog";
 const sections: Record<Section, string> = {
-  overview: "Ringkasan", setup: "Konfigurasi", requests: "Permintaan pembelian",
+  overview: "Ringkasan", setup: "Konfigurasi", requests: "Permintaan pembelian", catalog: "Katalog barang",
 };
 
 export function WorkspaceShell({
@@ -58,6 +58,9 @@ function WorkspaceLinks({ current }: { current: Section }) {
       </Link>
       <Link href="/permintaan" aria-current={current === "requests" ? "page" : undefined}>
         <FileText size={19} aria-hidden /> Permintaan pembelian
+      </Link>
+      <Link href="/katalog" aria-current={current === "catalog" ? "page" : undefined}>
+        <Package size={19} aria-hidden /> Katalog barang
       </Link>
       <Link href="/konfigurasi" aria-current={current === "setup" ? "page" : undefined}>
         <GearSix size={19} aria-hidden /> Konfigurasi

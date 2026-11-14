@@ -21,7 +21,7 @@ export default async function RequestPage({ params, searchParams }: {
   const { error } = await searchParams;
   const { supabase, profile } = await requireRequestSession();
   const { data: request, error: loadError } = await supabase.from("purchase_requests")
-    .select("id, number, version, requester_id, approver_id, item_name, quantity, purpose, need_by, status")
+    .select("id, number, version, requester_id, approver_id, item_name, item_sku, item_unit, product_id, quantity, purpose, need_by, status")
     .eq("id", id).maybeSingle();
   if (loadError) throw new Error("Permintaan gagal dimuat.");
   if (!request || !profile) notFound();
@@ -38,6 +38,7 @@ export default async function RequestPage({ params, searchParams }: {
         <Link className="inline-link" href="/permintaan">Kembali ke daftar</Link>
         <h1>PR-{request.number} · {request.item_name}</h1>
         <p>{statusLabel[request.status]}</p>
+        {request.item_sku && <p>SKU {request.item_sku} · {request.item_unit}</p>}
       </div>
       {error && errors[error] && <p role="alert" className="copy-error">{errors[error]}</p>}
       <div className="setup-grid">

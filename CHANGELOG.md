@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-11-14 · Katalog barang
+
+- Menambahkan katalog aktif bagi pengguna dan pengelolaan produk bagi Admin Procurement.
+- Menambahkan pilihan produk pada draft PR dan snapshot SKU, nama dan satuan.
+
 ## 2026-11-14 · Alur permintaan pertama
 
 - Menambahkan login dan aktivasi akun Supabase, draft, pengajuan, keputusan manager dan histori permintaan.

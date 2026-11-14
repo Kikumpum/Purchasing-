@@ -223,7 +223,7 @@ h3 { font-size: 1.125rem; line-height: 1.3; font-weight: 600; }
 
 .request-form { display: grid; gap: 16px; margin-block: 16px; }
 .request-form label { display: grid; gap: 6px; font-weight: 550; }
-.request-form input:not([type="hidden"]), .request-form textarea {
+.request-form input:not([type="hidden"]):not([type="checkbox"]), .request-form select, .request-form textarea {
   min-height: 44px;
   width: 100%;
   border: 1px solid var(--control);
@@ -233,6 +233,7 @@ h3 { font-size: 1.125rem; line-height: 1.3; font-weight: 600; }
   font-weight: 400;
 }
 .request-form .button { justify-self: start; }
+.request-form .catalog-toggle { display: flex; align-items: center; }
 
 @media (max-width: 1023px) {
   .workspace { grid-template-columns: minmax(0, 1fr); }

@@ -25,7 +25,8 @@ const requestFields = z.object({
   id: z.uuid(),
   version: z.string().regex(/^\d{1,9}$/).transform(Number).nullable(),
   purpose: z.string().trim().min(1).max(500),
-  item: z.string().trim().min(1).max(160),
+  item: z.string().trim().max(160),
+  product: z.uuid().nullable(),
   quantity: z.string().regex(/^\d{1,7}$/).transform(Number).pipe(z.number().int().min(1).max(1000000)),
   needBy: z.iso.date(),
 });
@@ -33,15 +34,16 @@ const requestFields = z.object({
 export async function saveRequest(form: FormData) {
   const input = requestFields.safeParse({
     id: form.get("id"), version: form.get("version") || null,
-    purpose: form.get("purpose"), item: form.get("item"),
+    purpose: form.get("purpose"), item: form.get("item") ?? "",
+    product: form.get("product") || null,
     quantity: form.get("quantity"), needBy: form.get("needBy"),
   });
-  if (!input.success) redirect("/permintaan?error=input");
-  const { id, version, purpose, item, quantity, needBy } = input.data;
+  if (!input.success || (!input.data.product && !input.data.item)) redirect("/permintaan?error=input");
+  const { id, version, purpose, item, product, quantity, needBy } = input.data;
   const supabase = await createSupabaseServerClient({ writableCookies: true });
-  const { error } = await supabase.rpc("save_purchase_request", {
+  const { error } = await supabase.rpc("save_catalog_request", {
     p_id: id, p_version: version, p_purpose: purpose,
-    p_item: item, p_quantity: quantity, p_need_by: needBy,
+    p_item: item, p_quantity: quantity, p_need_by: needBy, p_product: product,
   });
   if (error) redirect("/permintaan?error=conflict");
   redirect(`/permintaan/${id}`);
