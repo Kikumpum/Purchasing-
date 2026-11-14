@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-14 · Pelacakan barang OPKB
+
+- Detail PR menampilkan progres PO, penerimaan dan serah terima barang, serta tautan ke daftar barang dengan nomor OPKB yang sama.
+
 ## 2026-11-14 · Input beberapa barang OPKB
 
 - Employee dapat menyimpan beberapa draft PR sekaligus dengan satu referensi OPKB. Daftar permintaan dapat difilter dengan nomor OPKB.

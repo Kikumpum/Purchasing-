@@ -1,5 +1,9 @@
 # Status proyek
 
+Detail PR yang disetujui menampilkan status PO aktif, vendor, gudang tujuan, jumlah diterima, siap diserahkan, dan sudah diserahkan. Migrasi 013 memakai cakupan akses pemenuhan yang sudah ada dan hanya mengembalikan data operasional. Pelacakan resi atau armada dan persetujuan bersama satu dokumen OPKB masih terbuka.
+
+Lint dan typecheck lulus. Migrasi 013 berhasil dijalankan di Production. Uji alur dengan transaksi riil masih ditunda.
+
 Form permintaan di workspace mendukung referensi nomor dan tanggal OPKB, satuan barang di luar katalog, dan keterangan. Detail mempertahankan tanggal kebutuhan sebagai isian terpisah. Referensi OPKB boleh berulang dan setiap PR masih memuat satu barang. Data contoh Excel tidak diimpor.
 
 Migrasi 011 dan isian OPKB sudah aktif di Production (6596960). Daftar permintaan berhasil dibuka dengan akun Warehouse.

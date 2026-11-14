@@ -12,6 +12,13 @@ const errors: Record<string, string> = {
   conflict: "Permintaan berubah atau tindakan tidak diizinkan. Periksa status sebelum mencoba lagi.",
 };
 
+const orderStatus: Record<string, string> = {
+  draft: "Draft PO",
+  sent: "PO dikirim ke vendor",
+  partial: "Diterima sebagian",
+  received: "Diterima lengkap",
+};
+
 export default async function RequestPage({ params, searchParams }: {
   params: Promise<{ id: string }>;
   searchParams: Promise<{ error?: string }>;
@@ -28,8 +35,10 @@ export default async function RequestPage({ params, searchParams }: {
   const [history, fulfillment] = await Promise.all([
     supabase.from("purchase_request_status_history")
       .select("id, status, note, created_at").eq("request_id", id).order("id", { ascending: false }),
-    request.status === "approved" ? supabase.rpc("request_fulfillment", { p_id: id }).maybeSingle<{
+    request.status === "approved" ? supabase.rpc("request_delivery_progress", { p_id: id }).maybeSingle<{
       issued: number; awaiting_handover: number;
+      po_number: number | null; po_status: string | null; ordered: number | null; received: number;
+      vendor_name: string | null; warehouse_name: string | null;
     }>() : null,
   ]);
   const canEdit = profile.role === "employee" && request.requester_id === profile.id &&
@@ -41,6 +50,7 @@ export default async function RequestPage({ params, searchParams }: {
     <WorkspaceShell current="requests" canProcure={profile.role === "admin_procurement"}>
       <div className="page-heading">
         <Link className="inline-link" href="/permintaan">Kembali ke daftar</Link>
+        {request.opkb_number && <Link className="inline-link ml-4" href={`/permintaan?${new URLSearchParams({ opkb: request.opkb_number })}`}>Barang dengan nomor OPKB ini</Link>}
         <h1>PR-{request.number} · {request.item_name}</h1>
         <p>{statusLabel[request.status]}</p>
         {request.item_sku && <p>SKU {request.item_sku} · {request.item_unit}</p>}
@@ -57,11 +67,6 @@ export default async function RequestPage({ params, searchParams }: {
               <div><dt>Tanggal kebutuhan</dt><dd>{request.need_by}</dd></div>
               <div><dt>Kebutuhan</dt><dd className="whitespace-pre-wrap wrap-anywhere">{request.purpose}</dd></div>
               {request.request_note && <div><dt>Keterangan</dt><dd className="whitespace-pre-wrap wrap-anywhere">{request.request_note}</dd></div>}
-              {fulfillment?.data && <>
-                <div><dt>Sudah diserahkan</dt><dd>{fulfillment.data.issued} dari {request.quantity} {request.item_unit}</dd></div>
-                <div><dt>Siap diserahkan</dt><dd>{fulfillment.data.awaiting_handover} {request.item_unit}</dd></div>
-              </>}
-              {fulfillment?.error && <div><dt>Serah terima</dt><dd>Data serah terima gagal dimuat.</dd></div>}
             </dl>
           )}
           {(canEdit || canDecide) && (
@@ -95,6 +100,23 @@ export default async function RequestPage({ params, searchParams }: {
             ))}
           </ol>}
         </section>
+        {fulfillment && <section className="setup-panel">
+          <h2>Pelacakan barang</h2>
+          {fulfillment.error ? <p role="alert">Pelacakan gagal dimuat. Muat ulang halaman untuk mencoba lagi.</p>
+            : !fulfillment.data ? <p>Data pelacakan belum tersedia.</p>
+            : <dl className="request-form tabular-nums">
+              <div><dt>Purchase Order</dt><dd>{fulfillment.data.po_number
+                ? `PO-${fulfillment.data.po_number} · ${orderStatus[fulfillment.data.po_status ?? ""] ?? "Status belum tersedia"}`
+                : "Belum ada PO aktif"}</dd></div>
+              {fulfillment.data.po_number && <>
+                <div><dt>Vendor</dt><dd className="wrap-anywhere">{fulfillment.data.vendor_name}</dd></div>
+                <div><dt>Gudang tujuan</dt><dd className="wrap-anywhere">{fulfillment.data.warehouse_name ?? "Belum ditetapkan"}</dd></div>
+                <div><dt>Diterima dari vendor</dt><dd>{fulfillment.data.received} dari {fulfillment.data.ordered} {request.item_unit ?? request.requested_unit}</dd></div>
+              </>}
+              <div><dt>Siap diserahkan</dt><dd>{fulfillment.data.awaiting_handover} {request.item_unit ?? request.requested_unit}</dd></div>
+              <div><dt>Sudah diserahkan</dt><dd>{fulfillment.data.issued} dari {request.quantity} {request.item_unit ?? request.requested_unit}</dd></div>
+            </dl>}
+        </section>}
       </div>
     </WorkspaceShell>
   );
