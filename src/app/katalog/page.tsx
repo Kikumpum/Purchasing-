@@ -43,7 +43,7 @@ export default async function CatalogPage({ searchParams }: {
   const pageHref = (target: number) => `/katalog?${new URLSearchParams({ q: term, halaman: String(target) })}`;
 
   return (
-    <WorkspaceShell current="catalog">
+    <WorkspaceShell current="catalog" canProcure={canManage}>
       <div className="page-heading"><h1>Katalog barang</h1></div>
       {error && messages[error] && <p role="alert" className="copy-error">{messages[error]}</p>}
       {saved && <p role="status">Barang tersimpan.</p>}

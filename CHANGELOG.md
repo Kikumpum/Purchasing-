@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-11-14 · Vendor dan antrean pengadaan
+
+- Menambahkan pencarian, pembuatan, perubahan, dan penonaktifan vendor oleh Admin Procurement.
+- Menambahkan antrean permintaan yang disetujui, diurutkan menurut tanggal kebutuhan.
+
 ## 2026-11-14 · Katalog barang
 
 - Menambahkan katalog aktif bagi pengguna dan pengelolaan produk bagi Admin Procurement.

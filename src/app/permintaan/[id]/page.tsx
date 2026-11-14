@@ -33,7 +33,7 @@ export default async function RequestPage({ params, searchParams }: {
     request.status === "pending_approval";
 
   return (
-    <WorkspaceShell current="requests">
+    <WorkspaceShell current="requests" canProcure={profile.role === "admin_procurement"}>
       <div className="page-heading">
         <Link className="inline-link" href="/permintaan">Kembali ke daftar</Link>
         <h1>PR-{request.number} · {request.item_name}</h1>

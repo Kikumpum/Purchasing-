@@ -18,4 +18,6 @@ Alur pertama mencakup login Supabase, draft satu barang, pengajuan, keputusan ma
 
 Katalog pertama menambah pencarian barang dan pengelolaan SKU, nama, satuan dan status oleh Admin Procurement. Employee dapat memilih barang aktif atau mencatat barang di luar katalog. PR menyimpan snapshot barang, dan pengujian database lokal meliputi akses role, produk nonaktif, pengulangan save serta PR lama.
 
-Tahap berikutnya adalah master vendor dan antrean procurement. Lihat [rencana dan keputusan terbuka](IMPLEMENTATION_PLAN.md).
+Admin Procurement dapat mengelola vendor serta melihat antrean PR yang disetujui menurut tanggal kebutuhan. Hak baca dan tulis vendor dibatasi oleh RLS. Akun Admin Procurement perlu ditetapkan untuk menggunakan kedua fitur di Production.
+
+Tahap berikutnya adalah penawaran vendor dan pembuatan PO. Lihat [rencana dan keputusan terbuka](IMPLEMENTATION_PLAN.md).
