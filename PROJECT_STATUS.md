@@ -1,5 +1,9 @@
 # Status proyek
 
+Pengeluaran stok PR di Gudang kini memiliki kolom penerima dan referensi pengiriman opsional di workspace. Migrasi 014 menyimpan keduanya dalam transaksi pengeluaran yang sama dan riwayat menggunakan RLS pergerakan stok. Status armada dari penyedia eksternal dan persetujuan satu dokumen OPKB masih terbuka.
+
+Lint dan typecheck lulus. Migrasi 014 berhasil dijalankan di Production. Uji posting menggunakan akun Warehouse masih ditunda.
+
 Detail PR yang disetujui menampilkan status PO aktif, vendor, gudang tujuan, jumlah diterima, siap diserahkan, dan sudah diserahkan. Migrasi 013 memakai cakupan akses pemenuhan yang sudah ada dan hanya mengembalikan data operasional. Pelacakan resi atau armada dan persetujuan bersama satu dokumen OPKB masih terbuka.
 
 Lint dan typecheck lulus. Migrasi 013 berhasil dijalankan di Production. Uji alur dengan transaksi riil masih ditunda.

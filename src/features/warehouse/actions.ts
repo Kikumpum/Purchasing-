@@ -52,12 +52,15 @@ export async function issueReservation(form: FormData) {
     id: z.uuid(), reservation: z.uuid(),
     quantity: z.string().regex(/^\d{1,7}$/).transform(Number).pipe(z.number().int().min(1).max(1000000)),
     note: z.string().trim().min(1).max(500),
+    recipient: z.string().trim().min(1).max(160),
+    shippingReference: z.string().trim().max(120),
   }).safeParse(Object.fromEntries(form));
   if (!input.success) redirect("/gudang?error=input");
-  const { id, reservation, quantity, note } = input.data;
+  const { id, reservation, quantity, note, recipient, shippingReference } = input.data;
   const supabase = await createSupabaseServerClient({ writableCookies: true });
-  const { error } = await supabase.rpc("issue_reserved_stock", {
+  const { error } = await supabase.rpc("issue_reserved_stock_with_handover", {
     p_id: id, p_reservation: reservation, p_quantity: quantity, p_note: note,
+    p_recipient: recipient, p_shipping_reference: shippingReference || null,
   });
   redirect(error ? "/gudang?error=issue" : "/gudang?saved=1");
 }

@@ -32,7 +32,7 @@ export default async function WarehousePage({ searchParams }: {
     canManage ? null : supabase.rpc("warehouse_orders"),
     supabase.from("inventory_availability").select("warehouse_id, product_id, quantity, available, reserved")
       .order("warehouse_id").order("product_id"),
-    supabase.from("stock_movements").select("id, product_id, warehouse_id, destination_id, quantity, note, created_at")
+    supabase.from("stock_movements").select("id, product_id, warehouse_id, destination_id, quantity, note, created_at, recipient, shipping_reference")
       .order("created_at", { ascending: false }).order("id").limit(25),
     supabase.from("stock_counts").select("id, product_id, warehouse_id, expected_quantity, actual_quantity, note, status")
       .order("counted_at", { ascending: false }).order("id").limit(25),
@@ -150,7 +150,9 @@ export default async function WarehousePage({ searchParams }: {
                   <input type="hidden" name="id" value={randomUUID()} />
                   <input type="hidden" name="reservation" value={entry.id} />
                   <label>Jumlah keluar<input name="quantity" type="number" min={1} max={entry.remaining} required /></label>
-                  <label>Penerima atau referensi serah terima<textarea name="note" rows={2} maxLength={500} required /></label>
+                  <label>Penerima<input name="recipient" maxLength={160} required /></label>
+                  <label>Referensi pengiriman (opsional)<input name="shippingReference" maxLength={120} placeholder="Nomor resi, surat jalan, atau armada" /></label>
+                  <label>Catatan serah terima<textarea name="note" rows={2} maxLength={500} required /></label>
                   <button className="button button-primary">Keluarkan stok PR</button>
                 </form>}
               </div></li>
@@ -184,6 +186,8 @@ export default async function WarehousePage({ searchParams }: {
                 <p>{warehouseById.get(movement.warehouse_id) ?? "Gudang asal"}
                   {movement.destination_id && ` → ${warehouseById.get(movement.destination_id) ?? "Gudang tujuan"}`}</p>
                 <p className="wrap-anywhere">{movement.note}</p>
+                {movement.recipient && <p className="wrap-anywhere">Penerima {movement.recipient}</p>}
+                {movement.shipping_reference && <p className="wrap-anywhere">Referensi pengiriman {movement.shipping_reference}</p>}
                 <time dateTime={movement.created_at}>{new Intl.DateTimeFormat("id-ID", {
                   dateStyle: "medium", timeStyle: "short", timeZone: "Asia/Jakarta",
                 }).format(new Date(movement.created_at))}</time>

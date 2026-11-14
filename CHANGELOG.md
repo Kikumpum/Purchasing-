@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-14 · Referensi pengiriman gudang
+
+- Pengeluaran stok PR mencatat penerima dan referensi pengiriman opsional. Riwayat pergerakan menampilkan keduanya sesuai akses gudang.
+
 ## 2026-11-14 · Pelacakan barang OPKB
 
 - Detail PR menampilkan progres PO, penerimaan dan serah terima barang, serta tautan ke daftar barang dengan nomor OPKB yang sama.
