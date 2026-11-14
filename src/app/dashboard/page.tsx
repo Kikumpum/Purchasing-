@@ -3,6 +3,8 @@ import { WorkspaceShell } from "@/components/workspace-shell";
 import { signOut } from "@/features/requests/actions";
 import { requireRequestSession } from "@/features/requests/session";
 
+export const dynamic = "force-dynamic";
+
 const roles = {
   employee: { title: "Employee", action: "Buka permintaan saya", href: "/permintaan",
     links: [{ label: "Katalog barang", href: "/katalog" }] },
