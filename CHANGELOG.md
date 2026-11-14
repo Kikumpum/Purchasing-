@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-11-14 · Input beberapa barang OPKB
+
+- Employee dapat menyimpan beberapa draft PR sekaligus dengan satu referensi OPKB. Daftar permintaan dapat difilter dengan nomor OPKB.
+- Migrasi 012 menyimpan seluruh batch secara atomik melalui fungsi draft yang sudah tersedia.
+
 ## 2026-11-14 · Isian referensi OPKB
 
 - Menambahkan nomor dan tanggal OPKB, satuan barang di luar katalog, serta keterangan pada draft dan detail PR. Daftar permintaan menampilkan nomor OPKB jika terisi.

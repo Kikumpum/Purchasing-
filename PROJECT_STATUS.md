@@ -2,7 +2,11 @@
 
 Form permintaan di workspace mendukung referensi nomor dan tanggal OPKB, satuan barang di luar katalog, dan keterangan. Detail mempertahankan tanggal kebutuhan sebagai isian terpisah. Referensi OPKB boleh berulang dan setiap PR masih memuat satu barang. Data contoh Excel tidak diimpor.
 
-Typecheck dan lint lulus. Migrasi 011 dan build aplikasi perlu dirilis berurutan. Uji database/RLS dan alur bisnis OPKB belum dijalankan. Satu dokumen OPKB dengan beberapa barang serta pelacakan pengiriman per barang masih terbuka.
+Migrasi 011 dan isian OPKB sudah aktif di Production (6596960). Daftar permintaan berhasil dibuka dengan akun Warehouse.
+
+Perubahan berikutnya menambahkan pengisian 2–30 barang dengan nomor OPKB yang sama dan filter nomor OPKB. Migrasi 012 menyimpan seluruh batch dalam satu transaksi melalui fungsi simpan draft yang sudah menerapkan role dan kepemilikan. Persetujuan dan pemenuhan tetap per PR. Persetujuan satu dokumen dan pelacakan pengiriman masih terbuka.
+
+Lint, typecheck dan build lulus. SQL Editor Production melaporkan migrasi 012 berhasil. Uji simpan batch lintas akun ditunda sampai pengujian alur bisnis.
 
 Pemulihan kata sandi ditambahkan di halaman masuk. Undangan dan pemulihan menggunakan halaman pengaturan kata sandi yang sama. Pengiriman email pemulihan belum diverifikasi pada akun Production.
 

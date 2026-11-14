@@ -38,6 +38,8 @@ Spacing 4, 8, 12, 16, 24, 32, 48 px. Radius 4 untuk status, 6 untuk kontrol, 8 u
 
 ## Layout dan navigasi
 
+Form OPKB menempatkan nomor dan tanggal bersama di awal. Setiap barang memakai kelompok isian berlabel dengan tombol hapus per baris. Tombol tambah dan simpan mengikuti kelompok terakhir dan dapat membungkus pada layar kecil.
+
 - Desktop memakai sidebar 232 px, top bar 56 px untuk lokasi/breadcrumb, notifikasi dan akun. Content gutter 24–32 px. Struktur halaman judul, keterangan relevan, satu aksi primer, filter, daftar/form, dan aksi kontekstual.
 - Sidebar Employee berisi Ringkasan, Permintaan Saya dan Notifikasi. Manager berisi Ringkasan, Persetujuan dan Permintaan Tim. Procurement berisi Antrean PR, Vendor, Quotation, PO, Master Data dan Laporan. Warehouse berisi Stok, Penerimaan, Pengeluaran, Transfer, Opname dan Laporan. Profil/notifikasi konsisten di top bar. Menu mengikuti matrix dan capability.
 - Di bawah 1024 px, sidebar menjadi drawer. Pada 768 px ke bawah, tabel menampilkan kolom inti lalu membuka detail untuk kolom tambahan. Area scroll horizontal hanya untuk tabel yang perlu mempertahankan perbandingan dan memiliki label serta fokus keyboard. Pada 375 px, filter terbuka lewat tombol dan form satu kolom. Kontrol sentuh utama memberi target minimal 44 px.

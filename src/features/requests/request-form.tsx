@@ -1,6 +1,7 @@
 import { randomUUID } from "node:crypto";
 import { saveRequest } from "./actions";
 import { ItemFields } from "./item-fields";
+import { NewRequestForm } from "./new-request-form";
 import { requireRequestSession } from "./session";
 
 type Draft = {
@@ -14,10 +15,14 @@ export async function RequestForm({ draft }: { draft?: Draft }) {
   const { supabase } = await requireRequestSession();
   const { data, error } = await supabase.from("products").select("id, name, sku, unit")
     .eq("active", true).order("sku").limit(500);
+  if (!draft) return <>
+    {error && <p role="status">Katalog belum dapat dimuat. Anda bisa mengisi nama barang sendiri.</p>}
+    <NewRequestForm firstId={randomUUID()} products={data ?? []} />
+  </>;
   return (
     <form action={saveRequest} className="request-form">
-      <input type="hidden" name="id" value={draft?.id ?? randomUUID()} />
-      {draft && <input type="hidden" name="version" value={draft.version} />}
+      <input type="hidden" name="id" value={draft.id} />
+      <input type="hidden" name="version" value={draft.version} />
       {error && <p role="status">Katalog belum dapat dimuat. Anda bisa mengisi nama barang sendiri.</p>}
       <label>Nomor OPKB (opsional)<input name="opkbNumber" defaultValue={draft?.opkb_number ?? ""} maxLength={80} /></label>
       <label>Tanggal OPKB (opsional)<input name="opkbDate" type="date" defaultValue={draft?.opkb_date ?? ""} /></label>
