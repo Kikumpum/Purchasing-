@@ -1,5 +1,7 @@
 # Status proyek
 
+Pemulihan kata sandi ditambahkan di halaman masuk. Undangan dan pemulihan menggunakan halaman pengaturan kata sandi yang sama. Pengiriman email pemulihan belum diverifikasi pada akun Production.
+
 Login dan aktivasi mengarah ke dashboard berdasarkan peran. Dashboard Employee menampilkan PR sendiri, Manager melihat antrean keputusan, Admin Procurement melihat PR disetujui, dan Warehouse melihat penerimaan serta alokasi dalam cakupan gudangnya. Angka memakai data yang diizinkan oleh RLS.
 
 ## Phase 0 · Selesai untuk ditinjau

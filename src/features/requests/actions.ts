@@ -1,7 +1,9 @@
 "use server";
 
 import { redirect } from "next/navigation";
+import { createClient } from "@supabase/supabase-js";
 import { z } from "zod";
+import { readSupabaseConfig } from "@/lib/supabase/config";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 
 export async function signIn(form: FormData) {
@@ -19,6 +21,19 @@ export async function signOut() {
   const { error } = await supabase.auth.signOut({ scope: "local" });
   if (error) redirect("/permintaan?error=logout");
   redirect("/masuk");
+}
+
+export async function requestPasswordReset(form: FormData) {
+  const email = z.email().max(254).safeParse(String(form.get("email") ?? "").trim());
+  if (!email.success) redirect("/masuk?pemulihan=email");
+  const { config } = readSupabaseConfig(process.env);
+  if (!config) redirect("/konfigurasi");
+  const supabase = createClient(config.url, config.key, {
+    auth: { flowType: "implicit", persistSession: false, autoRefreshToken: false },
+  });
+  await supabase.auth.resetPasswordForEmail(email.data);
+  // Keep the response uniform for unknown addresses and provider errors.
+  redirect("/masuk?pemulihan=dikirim");
 }
 
 const requestFields = z.object({

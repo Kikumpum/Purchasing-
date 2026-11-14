@@ -17,8 +17,9 @@ export function ActivateAccount({ config }: { config: SupabaseConfiguration }) {
       const params = new URLSearchParams(window.location.hash.slice(1));
       const accessToken = params.get("access_token");
       const refreshToken = params.get("refresh_token");
-      if (!accessToken || !refreshToken || params.get("type") !== "invite") {
-        setError("Buka tautan undangan terbaru dari email Anda.");
+      const type = params.get("type");
+      if (!accessToken || !refreshToken || (type !== "invite" && type !== "recovery")) {
+        setError("Buka tautan undangan atau pemulihan terbaru dari email Anda.");
         return;
       }
       const supabase = createBrowserClient(config.url, config.key, {
@@ -29,7 +30,7 @@ export function ActivateAccount({ config }: { config: SupabaseConfiguration }) {
         access_token: accessToken, refresh_token: refreshToken,
       });
       if (sessionError) {
-        setError("Sesi undangan tidak dapat dibuka. Hubungi pengelola Purchasing.");
+        setError("Tautan tidak dapat digunakan. Minta tautan baru.");
         return;
       }
       const { error: passwordError } = await supabase.auth.updateUser({ password });
@@ -39,7 +40,7 @@ export function ActivateAccount({ config }: { config: SupabaseConfiguration }) {
       }
       window.location.replace("/dashboard");
     } catch {
-      setError("Aktivasi gagal. Coba lagi.");
+      setError("Kata sandi gagal disimpan. Coba lagi.");
     } finally {
       setPending(false);
     }
@@ -52,7 +53,7 @@ export function ActivateAccount({ config }: { config: SupabaseConfiguration }) {
         <input name="password" type="password" autoComplete="new-password" required minLength={12} maxLength={72} />
       </label>
       <button type="submit" className="button button-primary" disabled={pending}>
-        {pending ? "Menyimpan…" : "Aktifkan akun"}
+        {pending ? "Menyimpan…" : "Simpan kata sandi"}
       </button>
     </form>
   );

@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-14 · Pemulihan kata sandi
+
+- Menambahkan permintaan tautan pemulihan Supabase dan dukungan tautan tersebut pada halaman pengaturan kata sandi.
+
 ## 2026-11-14 · Dashboard berdasarkan jobdesk
 
 - Menambahkan halaman pembuka sesuai peran dan mengarahkan login serta aktivasi ke dashboard.
