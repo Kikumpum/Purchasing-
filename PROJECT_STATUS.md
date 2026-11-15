@@ -1,5 +1,7 @@
 # Status proyek
 
+Employee dapat mengajukan hingga 25 PR miliknya per halaman dari hasil filter OPKB. Migrasi 017 menggunakan fungsi transisi PR yang sama untuk pengajuan dan persetujuan bersama. Migrasi berhasil di Production, lint dan typecheck lulus, dan uji lintas akun masih ditunda.
+
 Persetujuan beberapa PR dengan nomor OPKB yang sama tersedia di workspace melalui migrasi 016. Pilihan eksplisit dibatasi 25 PR per halaman dan seluruh transaksi dibatalkan jika ada PR yang berubah atau di luar kewenangan Manager. Model dokumen tetap satu PR per barang.
 
 Migrasi 016 berhasil diterapkan ke Production. Lint, typecheck, dan pemeriksaan diff lulus. Uji persetujuan dengan akun Manager masih ditunda.

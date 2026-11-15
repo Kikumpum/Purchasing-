@@ -138,7 +138,10 @@ export async function transitionRequest(form: FormData) {
   redirect(href);
 }
 
-export async function approveOpkbRequests(form: FormData) {
+export async function updateOpkbRequests(form: FormData) {
+  const action = z.enum(["submit", "approve"]).safeParse(form.get("operation"));
+  if (!action.success) redirect("/permintaan?error=input");
+  const submitting = action.data === "submit";
   const reference = z.string().trim().min(1).max(80).safeParse(form.get("reference"));
   if (!reference.success) redirect("/permintaan?error=approval");
   const query = new URLSearchParams({ opkb: reference.data });
@@ -151,10 +154,12 @@ export async function approveOpkbRequests(form: FormData) {
     const ids = z.array(z.uuid()).safeParse(items.map(([id]) => id));
     if (!ids.success) redirect(`/permintaan?${query}&error=approval`);
     const supabase = await createSupabaseServerClient({ writableCookies: true });
-    const { error } = await supabase.rpc("approve_opkb_requests", {
+    const { error } = await supabase.rpc("transition_opkb_requests", {
+      p_action: action.data,
       p_reference: reference.data, p_ids: ids.data, p_versions: items.map(([, version]) => Number(version)),
     });
-    query.set(error ? "error" : "disetujui", error ? "approval" : String(ids.data.length));
+    if (error) query.set("error", submitting ? (error.code === "P0002" ? "approver" : "submit") : "approval");
+    else query.set(submitting ? "diajukan" : "disetujui", String(ids.data.length));
   }
   redirect(`/permintaan?${query}`);
 }

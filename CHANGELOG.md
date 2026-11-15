@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-15 · Pengajuan beberapa PR OPKB
+
+- Employee dapat memilih dan mengajukan draft atau PR yang diminta revisi dari satu hasil filter OPKB.
+
 ## 2026-11-15 · Persetujuan beberapa PR OPKB
 
 - Manager dapat memilih PR yang ditugaskan dari satu hasil filter OPKB dan menyetujuinya dalam satu transaksi. Histori dan notifikasi tetap per PR.
