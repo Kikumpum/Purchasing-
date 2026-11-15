@@ -137,3 +137,24 @@ export async function transitionRequest(form: FormData) {
   if (error) redirect(`${href}?error=${error.code === "P0002" ? "approver" : "conflict"}`);
   redirect(href);
 }
+
+export async function approveOpkbRequests(form: FormData) {
+  const reference = z.string().trim().min(1).max(80).safeParse(form.get("reference"));
+  if (!reference.success) redirect("/permintaan?error=approval");
+  const query = new URLSearchParams({ opkb: reference.data });
+  const rows = z.array(z.string().regex(/^[0-9a-f-]{36}:\d{1,9}$/i)).min(1).max(25)
+    .safeParse(form.getAll("selected"));
+  if (!rows.success) {
+    query.set("error", "approval-selection");
+  } else {
+    const items = rows.data.map((row) => row.split(":"));
+    const ids = z.array(z.uuid()).safeParse(items.map(([id]) => id));
+    if (!ids.success) redirect(`/permintaan?${query}&error=approval`);
+    const supabase = await createSupabaseServerClient({ writableCookies: true });
+    const { error } = await supabase.rpc("approve_opkb_requests", {
+      p_reference: reference.data, p_ids: ids.data, p_versions: items.map(([, version]) => Number(version)),
+    });
+    query.set(error ? "error" : "disetujui", error ? "approval" : String(ids.data.length));
+  }
+  redirect(`/permintaan?${query}`);
+}

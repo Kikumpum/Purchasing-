@@ -1,5 +1,9 @@
 # Status proyek
 
+Persetujuan beberapa PR dengan nomor OPKB yang sama tersedia di workspace melalui migrasi 016. Pilihan eksplisit dibatasi 25 PR per halaman dan seluruh transaksi dibatalkan jika ada PR yang berubah atau di luar kewenangan Manager. Model dokumen tetap satu PR per barang.
+
+Migrasi 016 berhasil diterapkan ke Production. Lint, typecheck, dan pemeriksaan diff lulus. Uji persetujuan dengan akun Manager masih ditunda.
+
 Halaman Konfigurasi membedakan deployment Vercel dari workspace lokal. Deployment yang terhubung menampilkan status Supabase Auth dan tautan masuk.
 
 Bukti cetak serah terima tersedia dari detail PR yang disetujui setelah ada transaksi. Halaman cetak memakai akses dan batas 50 transaksi dari migrasi 015. Perubahan ini tidak memerlukan migrasi baru.

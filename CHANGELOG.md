@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-15 · Persetujuan beberapa PR OPKB
+
+- Manager dapat memilih PR yang ditugaskan dari satu hasil filter OPKB dan menyetujuinya dalam satu transaksi. Histori dan notifikasi tetap per PR.
+
 ## 2026-11-15 · Status integrasi di Vercel
 
 - Halaman Konfigurasi di Vercel menampilkan status Supabase Auth. Panduan .env.local tampil pada lingkungan lokal.
