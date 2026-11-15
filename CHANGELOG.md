@@ -1,5 +1,7 @@
 # Changelog
 
+- Menjadikan Konfigurasi dan panduan Supabase khusus pengembangan lokal. Tautan Konfigurasi lama di Vercel mengarah ke dashboard.
+
 - Memisahkan layar masuk dan aktivasi dari navigasi internal. Production membuka dashboard berdasarkan peran setelah autentikasi.
 - Menggunakan foto jabat tangan yang diberikan pengguna sebagai latar layar masuk dan aktivasi.
 

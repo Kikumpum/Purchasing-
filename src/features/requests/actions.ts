@@ -27,7 +27,7 @@ export async function requestPasswordReset(form: FormData) {
   const email = z.email().max(254).safeParse(String(form.get("email") ?? "").trim());
   if (!email.success) redirect("/masuk?pemulihan=email");
   const { config } = readSupabaseConfig(process.env);
-  if (!config) redirect("/konfigurasi");
+  if (!config) redirect(process.env.VERCEL_ENV ? "/masuk" : "/konfigurasi");
   const supabase = createClient(config.url, config.key, {
     auth: { flowType: "implicit", persistSession: false, autoRefreshToken: false },
   });

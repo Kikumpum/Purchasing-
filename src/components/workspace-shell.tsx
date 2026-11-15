@@ -25,6 +25,7 @@ export function WorkspaceShell({
   children: React.ReactNode;
 }) {
   const section = sections[current];
+  const showSetup = !process.env.VERCEL_ENV;
   return (
     <div className="workspace">
       <aside className="sidebar">
@@ -33,7 +34,7 @@ export function WorkspaceShell({
           <span>Purchasing</span>
         </Link>
         <nav className="desktop-navigation" aria-label="Navigasi utama">
-          <WorkspaceLinks current={current} canProcure={canProcure} canWarehouse={canWarehouse} />
+          <WorkspaceLinks current={current} canProcure={canProcure} canWarehouse={canWarehouse} showSetup={showSetup} />
         </nav>
         <div className="sidebar-foot">
           <span className="local-dot" />
@@ -44,12 +45,12 @@ export function WorkspaceShell({
         <header className="topbar">
           <details className="mobile-navigation">
             <summary aria-label="Buka navigasi"><SidebarSimple size={21} aria-hidden /></summary>
-            <nav aria-label="Navigasi utama"><WorkspaceLinks current={current} canProcure={canProcure} canWarehouse={canWarehouse} /></nav>
+            <nav aria-label="Navigasi utama"><WorkspaceLinks current={current} canProcure={canProcure} canWarehouse={canWarehouse} showSetup={showSetup} /></nav>
           </details>
           <div className="breadcrumb"><span>Workspace</span><span aria-hidden>/</span><strong>{section}</strong></div>
-          <a className="top-link" href="https://supabase.com/docs/guides/getting-started" target="_blank" rel="noreferrer">
+          {showSetup && <a className="top-link" href="https://supabase.com/docs/guides/getting-started" target="_blank" rel="noreferrer">
             Panduan Supabase <ArrowUpRight size={13} aria-hidden />
-          </a>
+          </a>}
         </header>
         <main className="workspace-content" id="main-content" tabIndex={-1}>
           {children}
@@ -59,8 +60,8 @@ export function WorkspaceShell({
   );
 }
 
-function WorkspaceLinks({ current, canProcure, canWarehouse }: {
-  current: Section; canProcure: boolean; canWarehouse: boolean;
+function WorkspaceLinks({ current, canProcure, canWarehouse, showSetup }: {
+  current: Section; canProcure: boolean; canWarehouse: boolean; showSetup: boolean;
 }) {
   return (
     <>
@@ -85,9 +86,9 @@ function WorkspaceLinks({ current, canProcure, canWarehouse }: {
       <Link href="/laporan" aria-current={current === "reports" ? "page" : undefined}>
         <ChartBar size={19} aria-hidden /> Laporan
       </Link>
-      <Link href="/konfigurasi" aria-current={current === "setup" ? "page" : undefined}>
+      {showSetup && <Link href="/konfigurasi" aria-current={current === "setup" ? "page" : undefined}>
         <GearSix size={19} aria-hidden /> Konfigurasi
-      </Link>
+      </Link>}
     </>
   );
 }

@@ -1,5 +1,7 @@
 # Status proyek
 
+Konfigurasi dan panduan Supabase ditampilkan di lingkungan lokal. Di Vercel, URL Konfigurasi lama dialihkan ke Dashboard dan pengunjung tanpa sesi melanjutkan ke halaman masuk.
+
 Production mengarahkan pengunjung dari beranda ke dashboard terproteksi dan meminta login jika belum ada sesi. Layar masuk dan aktivasi memakai panel tersendiri. Konfigurasi hosting memerlukan sesi, sementara panduan lokal tetap dapat dibuka untuk penyiapan.
 
 Latar layar autentikasi memakai foto jabat tangan dari lampiran pengguna.

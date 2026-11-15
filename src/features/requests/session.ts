@@ -4,7 +4,7 @@ import { readSupabaseConfig } from "@/lib/supabase/config";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 
 export const requireRequestSession = cache(async function requireRequestSession() {
-  if (!readSupabaseConfig(process.env).config) redirect("/konfigurasi");
+  if (!readSupabaseConfig(process.env).config) redirect(process.env.VERCEL_ENV ? "/masuk" : "/konfigurasi");
   const supabase = await createSupabaseServerClient();
   const { data, error } = await supabase.auth.getClaims();
   const id = data?.claims?.sub;
