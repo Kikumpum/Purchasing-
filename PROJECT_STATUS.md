@@ -2,6 +2,8 @@
 
 Production mengarahkan pengunjung dari beranda ke dashboard terproteksi dan meminta login jika belum ada sesi. Layar masuk dan aktivasi memakai panel tersendiri. Konfigurasi hosting memerlukan sesi, sementara panduan lokal tetap dapat dibuka untuk penyiapan.
 
+Latar layar autentikasi memakai foto jabat tangan dari lampiran pengguna.
+
 Employee dapat mengajukan hingga 25 PR miliknya per halaman dari hasil filter OPKB. Migrasi 017 menggunakan fungsi transisi PR yang sama untuk pengajuan dan persetujuan bersama. Migrasi berhasil di Production, lint dan typecheck lulus, dan uji lintas akun masih ditunda.
 
 Persetujuan beberapa PR dengan nomor OPKB yang sama tersedia di workspace melalui migrasi 016. Pilihan eksplisit dibatasi 25 PR per halaman dan seluruh transaksi dibatalkan jika ada PR yang berubah atau di luar kewenangan Manager. Model dokumen tetap satu PR per barang.

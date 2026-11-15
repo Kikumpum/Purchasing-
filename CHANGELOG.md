@@ -1,6 +1,7 @@
 # Changelog
 
 - Memisahkan layar masuk dan aktivasi dari navigasi internal. Production membuka dashboard berdasarkan peran setelah autentikasi.
+- Menggunakan foto jabat tangan yang diberikan pengguna sebagai latar layar masuk dan aktivasi.
 
 ## 2026-11-15 · Pengajuan beberapa PR OPKB
 
