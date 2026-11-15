@@ -1,5 +1,7 @@
 # Rencana pengujian
 
+Untuk smoke test publik tanpa akun, atur `PURCHASING_SMOKE_URL` ke domain deployment dan `PURCHASING_SMOKE_HOSTED=1`, lalu jalankan `npm run test:smoke`. Pengujian memverifikasi branding layar masuk dan akses tamu ke halaman privat serta ekspor CSV.
+
 Gunakan unit runner TypeScript yang kompatibel, PostgreSQL/Supabase lokal untuk migrasi dan tes RLS, dan Playwright untuk E2E. Fixture sintetis mencakup dua departemen, dua manager, dua gudang dengan assignment berbeda, produk aktif/nonaktif, dan vendor. Jalankan tes integrasi dengan JWT pengguna biasa melalui Data API/RPC dan tes SQL transaksi menggunakan pengaturan sesi yang merepresentasikan actor. Admin database digunakan untuk fixture dan rekonsiliasi.
 
 | Tingkat | Skenario dan hasil yang diharapkan |

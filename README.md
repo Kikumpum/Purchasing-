@@ -1,5 +1,7 @@
 # Purchasing Workspace
 
+© 2026 Aryocorp. Hak cipta dilindungi. Dependensi dan materi pihak ketiga mengikuti ketentuan lisensinya masing-masing.
+
 Fondasi web Next.js untuk pengadaan dan persediaan. Buka [status implementasi](PROJECT_STATUS.md) dan [rencana proyek](IMPLEMENTATION_PLAN.md) untuk perkembangan modul.
 
 ## Jalankan lokal

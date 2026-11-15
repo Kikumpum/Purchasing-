@@ -1,5 +1,7 @@
 # Status proyek
 
+Identitas penerbit dan pemberitahuan hak cipta Aryocorp ditambahkan ke aplikasi. Domain publik menampilkan layar masuk, dan akses transaksi tetap memakai sesi serta cakupan peran.
+
 Konfigurasi dan panduan Supabase ditampilkan di lingkungan lokal. Di Vercel, URL Konfigurasi lama dialihkan ke Dashboard dan pengunjung tanpa sesi melanjutkan ke halaman masuk.
 
 Production mengarahkan pengunjung dari beranda ke dashboard terproteksi dan meminta login jika belum ada sesi. Layar masuk dan aktivasi memakai panel tersendiri. Konfigurasi hosting memerlukan sesi, sementara panduan lokal tetap dapat dibuka untuk penyiapan.

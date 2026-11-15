@@ -1,5 +1,7 @@
 # Changelog
 
+- Menampilkan identitas penerbit Aryocorp pada judul browser, metadata, layar masuk, dan footer workspace.
+
 - Menjadikan Konfigurasi dan panduan Supabase khusus pengembangan lokal. Tautan Konfigurasi lama di Vercel mengarah ke dashboard.
 
 - Memisahkan layar masuk dan aktivasi dari navigasi internal. Production membuka dashboard berdasarkan peran setelah autentikasi.

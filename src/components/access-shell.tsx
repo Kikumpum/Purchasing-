@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { Stack } from "@phosphor-icons/react/dist/ssr";
+import { PublisherFooter } from "@/components/publisher-footer";
 
 export function AccessShell({ title, description, children }: { title: string; description?: string; children: ReactNode }) {
   return (
@@ -8,6 +9,7 @@ export function AccessShell({ title, description, children }: { title: string; d
         <div className="section-icon"><Stack size={24} aria-hidden /></div>
         <div className="page-heading"><h1 id="access-title">{title}</h1>{description && <p>{description}</p>}</div>
         {children}
+        <PublisherFooter className="mt-6 border-t border-current/15 pt-4" />
       </section>
     </main>
   );

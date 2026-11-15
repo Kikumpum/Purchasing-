@@ -128,6 +128,8 @@ body {
 .mobile-navigation { display: none; }
 
 .workspace-content { max-width: 1264px; margin-inline: auto; padding: 40px 32px 64px; }
+.publisher-footer { color: var(--muted); font-size: 0.8125rem; }
+.workspace-publisher { padding: 0 32px 24px; text-align: center; }
 .page-heading { margin-bottom: 32px; }
 .page-heading h1 {
   margin: 0 0 6px;

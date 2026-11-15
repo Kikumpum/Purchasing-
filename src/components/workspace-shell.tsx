@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { PublisherFooter } from "@/components/publisher-footer";
 import {
   ArrowUpRight, Bell, ChartBar, FileText, GearSix, ListDashes, Package, SidebarSimple, SquaresFour, Truck,
 } from "@phosphor-icons/react/dist/ssr";
@@ -55,6 +56,7 @@ export function WorkspaceShell({
         <main className="workspace-content" id="main-content" tabIndex={-1}>
           {children}
         </main>
+        <PublisherFooter className="workspace-publisher print:hidden" />
       </div>
     </div>
   );

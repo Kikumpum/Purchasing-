@@ -3,8 +3,10 @@ import "@fontsource-variable/geist";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: { default: "Purchasing Workspace", template: "%s · Purchasing Workspace" },
-  description: "Ruang kerja pengadaan dan persediaan.",
+  title: { default: "Purchasing · Aryocorp", template: "%s · Purchasing Aryocorp" },
+  description: "Purchasing Aryocorp untuk permintaan pembelian, pengadaan, dan persediaan.",
+  applicationName: "Purchasing",
+  publisher: "Aryocorp",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
