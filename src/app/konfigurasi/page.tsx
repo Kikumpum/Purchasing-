@@ -1,22 +1,28 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { redirect } from "next/navigation";
 import { ArrowUpRight, Database } from "@phosphor-icons/react/dist/ssr";
 import { ConfigurationStatus } from "@/components/configuration-status";
 import { WorkspaceShell } from "@/components/workspace-shell";
 import { CopyTemplate } from "@/features/setup/copy-template";
 import { localEnvTemplate, readSupabaseConfig } from "@/lib/supabase/config";
 import { checkSupabaseConnection } from "@/lib/supabase/check-connection";
+import { requireRequestSession } from "@/features/requests/session";
 
 export const metadata: Metadata = { title: "Konfigurasi" };
 export const dynamic = "force-dynamic";
 
 export default async function SetupPage() {
   const { config, fields } = readSupabaseConfig(process.env);
-  const connection = config && await checkSupabaseConnection(config);
   const hosted = Boolean(process.env.VERCEL_ENV);
+  if (hosted && !config) redirect("/masuk");
+  const session = hosted ? await requireRequestSession() : null;
+  if (session && !session.profile) redirect("/dashboard");
+  const role = session?.profile?.role;
+  const connection = config && await checkSupabaseConnection(config);
 
   return (
-    <WorkspaceShell current="setup">
+    <WorkspaceShell current="setup" canProcure={role === "admin_procurement"}
+      canWarehouse={role === "warehouse" || role === "admin_procurement"}>
       <div className="page-heading">
         <h1>Konfigurasi</h1>
         <p>{hosted ? "Periksa status koneksi Supabase untuk Purchasing." : "Atur koneksi Supabase untuk workspace lokal."}</p>
@@ -50,7 +56,6 @@ export default async function SetupPage() {
             : hosted
               ? "Konfigurasi Supabase untuk deployment ini belum lengkap. Hubungi pengelola Purchasing."
               : "Koneksi Supabase Auth diperiksa setelah URL dan kunci publik tersedia."}</p>
-          {hosted && connection && <Link className="button button-primary" href="/masuk">Masuk ke Purchasing</Link>}
         </section>
       </div>
     </WorkspaceShell>

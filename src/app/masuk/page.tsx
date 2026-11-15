@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { WorkspaceShell } from "@/components/workspace-shell";
+import { AccessShell } from "@/components/access-shell";
 import { readSupabaseConfig } from "@/lib/supabase/config";
 import { requestPasswordReset, signIn } from "@/features/requests/actions";
 
@@ -9,9 +9,7 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
   const { error, pemulihan } = await searchParams;
   const { config } = readSupabaseConfig(process.env);
   return (
-    <WorkspaceShell current="requests">
-      <div className="page-heading"><h1>Masuk ke Purchasing</h1></div>
-      <section className="setup-panel max-w-lg">
+    <AccessShell title="Purchasing" description="Masuk dengan email akun Purchasing Anda.">
         {config ? (
           <>
           <form action={signIn} className="request-form">
@@ -30,8 +28,9 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
             </form>
           </details>
           </>
-        ) : <p>Hubungkan Supabase sebelum masuk. <Link className="inline-link" href="/konfigurasi">Buka konfigurasi</Link></p>}
-      </section>
-    </WorkspaceShell>
+        ) : process.env.VERCEL_ENV
+          ? <p role="alert">Layanan masuk belum tersedia. Hubungi pengelola Purchasing.</p>
+          : <p>Hubungkan Supabase sebelum masuk. <Link className="inline-link" href="/konfigurasi">Buka konfigurasi</Link></p>}
+    </AccessShell>
   );
 }

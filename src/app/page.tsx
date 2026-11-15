@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import {
   ArrowRight, Database, Package, Truck,
 } from "@phosphor-icons/react/dist/ssr";
@@ -15,6 +16,7 @@ const modules = [
 
 export default function OverviewPage() {
   const { config, fields } = readSupabaseConfig(process.env);
+  if (process.env.VERCEL_ENV) redirect(config ? "/dashboard" : "/masuk");
 
   return (
     <WorkspaceShell current="overview">

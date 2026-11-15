@@ -38,6 +38,8 @@ Spacing 4, 8, 12, 16, 24, 32, 48 px. Radius 4 untuk status, 6 untuk kontrol, 8 u
 
 ## Layout dan navigasi
 
+Layar masuk dan aktivasi memakai latar fotografi gedung dengan panel di kanan pada desktop dan panel di tengah pada layar sempit. Navigasi workspace muncul setelah autentikasi di Production. [Foto Sean Pollock](https://unsplash.com/photos/PhYq704ffdA)
+
 Form OPKB menempatkan nomor dan tanggal bersama di awal. Setiap barang memakai kelompok isian berlabel dengan tombol hapus per baris. Tombol tambah dan simpan mengikuti kelompok terakhir dan dapat membungkus pada layar kecil.
 
 - Desktop memakai sidebar 232 px, top bar 56 px untuk lokasi/breadcrumb, notifikasi dan akun. Content gutter 24–32 px. Struktur halaman judul, keterangan relevan, satu aksi primer, filter, daftar/form, dan aksi kontekstual.

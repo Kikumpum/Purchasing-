@@ -1,14 +1,10 @@
 import Link from "next/link";
-import { WorkspaceShell } from "@/components/workspace-shell";
+import { AccessShell } from "@/components/access-shell";
 
 export default function NotFound() {
   return (
-    <WorkspaceShell current="overview">
-      <div className="page-heading">
-        <h1>Halaman tidak ditemukan</h1>
-        <p>Periksa alamat halaman atau kembali ke ringkasan workspace.</p>
-      </div>
-      <Link className="button button-primary" href="/">Kembali ke ringkasan</Link>
-    </WorkspaceShell>
+    <AccessShell title="Halaman tidak ditemukan" description="Periksa alamat halaman atau kembali ke awal.">
+      <Link className="button button-primary" href="/">Kembali ke awal</Link>
+    </AccessShell>
   );
 }
