@@ -19,4 +19,5 @@ export const statusLabel: Record<string, string> = {
   approved: "Disetujui",
   rejected: "Ditolak",
   revision_requested: "Perlu revisi",
+  cancelled: "Dibatalkan",
 };

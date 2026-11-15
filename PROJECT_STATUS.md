@@ -1,5 +1,7 @@
 # Status proyek
 
+Employee dapat membuang draft dan membatalkan pengajuan sendiri sebelum persetujuan. Status terminal dan alasan disimpan di histori melalui migrasi 018. Perubahan stok dan PR yang sudah disetujui mengikuti prosedur operasional masing-masing.
+
 Identitas penerbit dan pemberitahuan hak cipta Aryocorp ditambahkan ke aplikasi. Domain publik menampilkan layar masuk, dan akses transaksi tetap memakai sesi serta cakupan peran.
 
 Konfigurasi dan panduan Supabase ditampilkan di lingkungan lokal. Di Vercel, URL Konfigurasi lama dialihkan ke Dashboard dan pengunjung tanpa sesi melanjutkan ke halaman masuk.

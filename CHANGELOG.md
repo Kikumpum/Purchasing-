@@ -1,5 +1,7 @@
 # Changelog
 
+- Menambahkan Hapus draft dan Batalkan pengajuan untuk pemohon sebelum PR disetujui dengan jejak histori.
+
 - Menampilkan identitas penerbit Aryocorp pada judul browser, metadata, layar masuk, dan footer workspace.
 
 - Menjadikan Konfigurasi dan panduan Supabase khusus pengembangan lokal. Tautan Konfigurasi lama di Vercel mengarah ke dashboard.

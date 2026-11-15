@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { z } from "zod";
 import { WorkspaceShell } from "@/components/workspace-shell";
-import { transitionRequest } from "@/features/requests/actions";
+import { transitionRequest, withdrawRequest } from "@/features/requests/actions";
 import { handoverDate, loadHandovers } from "@/features/requests/handovers";
 import { RequestForm } from "@/features/requests/request-form";
 import { requireRequestSession, statusLabel } from "@/features/requests/session";
@@ -11,6 +11,7 @@ const errors: Record<string, string> = {
   note: "Isi alasan penolakan atau catatan revisi.",
   approver: "Departemen Anda belum memiliki manager yang aktif.",
   conflict: "Permintaan berubah atau tindakan tidak diizinkan. Periksa status sebelum mencoba lagi.",
+  withdraw: "Permintaan gagal dibatalkan. Periksa status, alasan, dan hak akses.",
 };
 
 const orderStatus: Record<string, string> = {
@@ -47,6 +48,8 @@ export default async function RequestPage({ params, searchParams }: {
     ["draft", "revision_requested"].includes(request.status);
   const canDecide = profile.role === "manager" && request.approver_id === profile.id &&
     request.status === "pending_approval";
+  const canWithdraw = profile.role === "employee" && request.requester_id === profile.id &&
+    ["draft", "pending_approval", "revision_requested"].includes(request.status);
 
   return (
     <WorkspaceShell current="requests" canProcure={profile.role === "admin_procurement"}>
@@ -87,6 +90,18 @@ export default async function RequestPage({ params, searchParams }: {
               </div>
             </form>
           )}
+          {canWithdraw && <details className="border-t border-current/15 pt-4">
+            <summary className="inline-link cursor-pointer">{request.status === "draft" ? "Hapus draft" : "Batalkan pengajuan"}</summary>
+            <form action={withdrawRequest} className="request-form">
+              <input type="hidden" name="id" value={id} />
+              <input type="hidden" name="version" value={request.version} />
+              <p>Permintaan ditutup dan jejaknya tetap tersedia di riwayat.</p>
+              <label>Alasan {request.status === "draft" && "(opsional)"}
+                <textarea name="reason" maxLength={500} rows={2} required={request.status !== "draft"} />
+              </label>
+              <button className="button copy-error" type="submit">Konfirmasi {request.status === "draft" ? "hapus draft" : "pembatalan"}</button>
+            </form>
+          </details>}
         </section>
         <section className="setup-panel">
           <h2>Riwayat</h2>

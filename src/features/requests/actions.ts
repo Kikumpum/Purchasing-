@@ -163,3 +163,18 @@ export async function updateOpkbRequests(form: FormData) {
   }
   redirect(`/permintaan?${query}`);
 }
+
+export async function withdrawRequest(form: FormData) {
+  const input = z.object({
+    id: z.uuid(),
+    version: z.string().regex(/^\d{1,9}$/).transform(Number),
+    reason: z.string().trim().max(500),
+  }).safeParse(Object.fromEntries(form));
+  if (!input.success) redirect("/permintaan?error=input");
+  const { id, version, reason } = input.data;
+  const supabase = await createSupabaseServerClient({ writableCookies: true });
+  const { error } = await supabase.rpc("withdraw_purchase_request", {
+    p_id: id, p_version: version, p_reason: reason,
+  });
+  redirect(`/permintaan/${id}${error ? "?error=withdraw" : ""}`);
+}
