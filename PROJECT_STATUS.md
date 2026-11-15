@@ -1,5 +1,9 @@
 # Status proyek
 
+Migrasi 015 menambahkan riwayat hingga 50 serah terima terbaru per PR. Akses mengikuti pemeriksaan pemenuhan PR dan riwayat dibaca dari transaksi stok; transaksi lama tetap terlihat bila penerimanya belum tercatat.
+
+Migrasi 015 diterapkan ke Production. Lint dan typecheck lulus. Verifikasi isi riwayat dengan transaksi nyata masih ditunda.
+
 Pengeluaran stok PR di Gudang kini memiliki kolom penerima dan referensi pengiriman opsional di workspace. Migrasi 014 menyimpan keduanya dalam transaksi pengeluaran yang sama dan riwayat menggunakan RLS pergerakan stok. Status armada dari penyedia eksternal dan persetujuan satu dokumen OPKB masih terbuka.
 
 Lint dan typecheck lulus. Migrasi 014 berhasil dijalankan di Production. Uji posting menggunakan akun Warehouse masih ditunda.

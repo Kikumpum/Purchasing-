@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-15 · Riwayat serah terima PR
+
+- Detail PR yang disetujui menampilkan transaksi serah terima terbaru dengan waktu WIB, gudang, jumlah, penerima, dan referensi pengiriman.
+
 ## 2026-11-14 · Referensi pengiriman gudang
 
 - Pengeluaran stok PR mencatat penerima dan referensi pengiriman opsional. Riwayat pergerakan menampilkan keduanya sesuai akses gudang.
