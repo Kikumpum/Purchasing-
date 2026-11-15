@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
-import { ArrowUpRight, Database } from "@phosphor-icons/react/dist/ssr";
+import { ArrowUpRight, Database } from "lucide-react";
 import { ConfigurationStatus } from "@/components/configuration-status";
 import { WorkspaceShell } from "@/components/workspace-shell";
 import { CopyTemplate } from "@/features/setup/copy-template";

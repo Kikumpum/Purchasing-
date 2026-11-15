@@ -1,8 +1,10 @@
 import Link from "next/link";
 import { PublisherFooter } from "@/components/publisher-footer";
+import { signOut } from "@/features/requests/actions";
+import { requireRequestSession } from "@/features/requests/session";
 import {
-  ArrowUpRight, Bell, ChartBar, FileText, GearSix, ListDashes, Package, SidebarSimple, SquaresFour, Truck,
-} from "@phosphor-icons/react/dist/ssr";
+  ArrowUpRight, Bell, ChartBar, FileText, Settings, ListChecks, Package, PanelLeft, LayoutGrid, Truck,
+} from "lucide-react";
 
 type Section = "overview" | "dashboard" | "setup" | "requests" | "catalog" | "procurement" | "warehouse" | "notifications" | "reports";
 const sections: Record<Section, string> = {
@@ -14,7 +16,7 @@ const sections: Record<Section, string> = {
   dashboard: "Dashboard",
 };
 
-export function WorkspaceShell({
+export async function WorkspaceShell({
   current,
   canProcure = current === "procurement",
   canWarehouse = canProcure,
@@ -27,11 +29,12 @@ export function WorkspaceShell({
 }) {
   const section = sections[current];
   const showSetup = !process.env.VERCEL_ENV;
+  const profile = showSetup ? null : (await requireRequestSession()).profile;
   return (
     <div className="workspace">
       <aside className="sidebar">
         <Link href="/" className="wordmark">
-          <span className="brand-mark"><ListDashes size={19} weight="bold" aria-hidden /></span>
+          <span className="brand-mark"><ListChecks size={19} aria-hidden /></span>
           <span>Purchasing</span>
         </Link>
         <nav className="desktop-navigation" aria-label="Navigasi utama">
@@ -45,13 +48,23 @@ export function WorkspaceShell({
       <div className="workspace-body">
         <header className="topbar">
           <details className="mobile-navigation">
-            <summary aria-label="Buka navigasi"><SidebarSimple size={21} aria-hidden /></summary>
+            <summary aria-label="Buka navigasi"><PanelLeft size={21} aria-hidden /></summary>
             <nav aria-label="Navigasi utama"><WorkspaceLinks current={current} canProcure={canProcure} canWarehouse={canWarehouse} showSetup={showSetup} /></nav>
           </details>
           <div className="breadcrumb"><span>Workspace</span><span aria-hidden>/</span><strong>{section}</strong></div>
           {showSetup && <a className="top-link" href="https://supabase.com/docs/guides/getting-started" target="_blank" rel="noreferrer">
             Panduan Supabase <ArrowUpRight size={13} aria-hidden />
           </a>}
+          {profile && <div className="workspace-account">
+            <Link href="/notifikasi" className="notification-link" aria-label="Notifikasi"><Bell size={19} aria-hidden /></Link>
+            <details className="profile-menu">
+              <summary aria-label="Menu profil">{profile.display_name.trim().slice(0, 2).toUpperCase()}</summary>
+              <div className="profile-popover">
+                <p className="wrap-anywhere font-medium">{profile.display_name}</p>
+                <form action={signOut}><button className="button mt-3" type="submit">Keluar</button></form>
+              </div>
+            </details>
+          </div>}
         </header>
         <main className="workspace-content" id="main-content" tabIndex={-1}>
           {children}
@@ -68,7 +81,7 @@ function WorkspaceLinks({ current, canProcure, canWarehouse, showSetup }: {
   return (
     <>
       <Link href="/dashboard" aria-current={current === "dashboard" ? "page" : undefined}>
-        <SquaresFour size={19} aria-hidden /> Dashboard
+        <LayoutGrid size={19} aria-hidden /> Dashboard
       </Link>
       <Link href="/permintaan" aria-current={current === "requests" ? "page" : undefined}>
         <FileText size={19} aria-hidden /> Permintaan pembelian
@@ -89,7 +102,7 @@ function WorkspaceLinks({ current, canProcure, canWarehouse, showSetup }: {
         <ChartBar size={19} aria-hidden /> Laporan
       </Link>
       {showSetup && <Link href="/konfigurasi" aria-current={current === "setup" ? "page" : undefined}>
-        <GearSix size={19} aria-hidden /> Konfigurasi
+        <Settings size={19} aria-hidden /> Konfigurasi
       </Link>}
     </>
   );

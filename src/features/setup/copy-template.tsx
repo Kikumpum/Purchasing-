@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { CopySimple } from "@phosphor-icons/react";
+import { Copy } from "lucide-react";
 
 export function CopyTemplate({ value }: { value: string }) {
   const [status, setStatus] = useState<"idle" | "copied" | "error">("idle");
@@ -18,7 +18,7 @@ export function CopyTemplate({ value }: { value: string }) {
   return (
     <>
       <button className="copy-button" type="button" onClick={copy}>
-        <CopySimple size={16} aria-hidden /> {status === "copied" ? "Disalin" : "Salin template"}
+        <Copy size={16} aria-hidden /> {status === "copied" ? "Disalin" : "Salin template"}
       </button>
       <span className={status === "error" ? "copy-error" : "sr-only"} role="status">
         {status === "copied" && "Template disalin."}

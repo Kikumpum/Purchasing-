@@ -1,4 +1,4 @@
-import { CheckCircle, Circle, WarningCircle } from "@phosphor-icons/react/dist/ssr";
+import { CircleCheck, Circle, CircleAlert } from "lucide-react";
 import type { readSupabaseConfig } from "@/lib/supabase/config";
 
 type ConfigurationFields = ReturnType<typeof readSupabaseConfig>["fields"];
@@ -19,7 +19,7 @@ function ConfigurationRow({
   label: string;
   status: ConfigurationFields[keyof ConfigurationFields];
 }) {
-  const Icon = { valid: CheckCircle, invalid: WarningCircle, missing: Circle }[status];
+  const Icon = { valid: CircleCheck, invalid: CircleAlert, missing: Circle }[status];
   const text = { valid: "Format valid", invalid: "Format salah", missing: "Belum diisi" }[status];
 
   return (

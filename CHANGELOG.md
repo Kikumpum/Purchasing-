@@ -1,5 +1,7 @@
 # Changelog
 
+- Menerapkan fondasi tampilan ERP forest green pada navigasi, login, dan dashboard. Login menampilkan status proses dan opsi melihat kata sandi.
+
 - Menambahkan Hapus draft dan Batalkan pengajuan untuk pemohon sebelum PR disetujui dengan jejak histori.
 
 - Menampilkan identitas penerbit Aryocorp pada judul browser, metadata, layar masuk, dan footer workspace.

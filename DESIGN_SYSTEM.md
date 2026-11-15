@@ -14,27 +14,11 @@ Review konsep pada rancangan menemukan bahwa kartu statistik bisa menyembunyikan
 
 ## Token
 
-Palet light dengan strategi restrained. Gunakan base sebagai bidang terbesar, surface pada area kerja, dan accent terbatas pada kontrol aktif. Nilai sRGB berikut adalah referensi komputasi dan fallback. Saat implementasi, gunakan warna OKLCH yang dikonversi dari nilai ini dan uji ulang computed styles.
+Palet forest green terpusat di `src/app/globals.css`. Sidebar dan aksi utama memakai #174D38, hover #216247, fokus #2F7A58 dan pilihan aktif #E7F1EB. Latar #F5F8F6 dan permukaan #FFFFFF dipisahkan oleh border #DCE5DE. Teks utama #26352D dan metadata #64736A. Warna status #16A36A, #D97706, #DC2626, dan #2563EB disediakan sebagai token. Pesan teks menggunakan nada gelap agar kontras.
 
-| Token | Hex | Penggunaan |
-|---|---|---|
-| bg | #F4F6F1 | Latar workspace |
-| surface | #FBFCF9 | Tabel, form, panel |
-| text | #202A24 | Judul dan isi |
-| text-muted | #4D5D53 | Metadata dan helper |
-| accent | #24543C | Aksi primer, tautan dan focus |
-| on-accent | #FBFCF9 | Label primer |
-| control-border | #748277 | Batas input |
-| divider | #D9DFD7 | Pemisah tabel/section |
-| success-bg / success-text | #E6F0E8 / #24543C | Posted, diterima, selesai |
-| warning-bg / warning-text | #FBF0D9 / #68430E | Perlu tindakan, parsial |
-| danger-bg / danger-text | #FCECEF / #852F36 | Ditolak, gagal atau aksi destruktif |
+Gunakan Inter untuk judul, form dan data. Pakai tabular-nums pada angka dan rata kanan untuk kuantitas dan uang. Ukuran dalam px sebagai target token. Display 32–40/1,15, h1 24–32/1,2, h2 22/1,25, h3 18/1,3, body-lg 18/1,5, body 16/1,5, body-sm 14/1,45 untuk metadata, caption 13/1,4, button 14/1,25 medium. Prosa panjang dibatasi sekitar 65ch.
 
-Kontras sRGB yang dihitung untuk pasangan rencana. Text/surface 14,38:1, muted/bg 6,42:1, on-accent/accent 8,47:1, focus/surface 8,47:1, focus/bg 8,01:1, warning 7,74:1, danger 7,48:1, success 7,47:1, control border/surface 3,92:1.
-
-Gunakan Geist untuk huruf yang ringkas dan konsisten pada judul, form dan data. Pakai tabular-nums pada angka dan rata kanan untuk kuantitas dan uang. Ukuran dalam px sebagai target token. Display 32–40/1,15, h1 24–32/1,2, h2 22/1,25, h3 18/1,3, body-lg 18/1,5, body 16/1,5, body-sm 14/1,45 untuk metadata, caption 13/1,4, button 14/1,25 medium. Prosa panjang dibatasi sekitar 65ch.
-
-Spacing 4, 8, 12, 16, 24, 32, 48 px. Radius 4 untuk status, 6 untuk kontrol, 8 untuk dialog/panel. Pemisah tipis pada row dan input. Shadow ringan untuk popover dan dialog dengan 0 8px 24px rgba(32,42,36,0.14). Prioritaskan slot untuk data. Gunakan identitas produk dalam bentuk wordmark teks. Foto dipakai untuk bukti transaksi bila fitur aktif. Pilih satu keluarga ikon fungsional Phosphor, 16–20 px.
+Spacing 4, 8, 12, 16, 24, 32, 48 px. Radius 4 untuk status, 6 untuk kontrol, 8 untuk dialog/panel. Pemisah tipis pada row dan input. Shadow ringan untuk popover dan dialog dengan 0 8px 24px rgba(32,42,36,0.14). Prioritaskan slot untuk data. Gunakan identitas produk dalam bentuk wordmark teks. Foto dipakai untuk bukti transaksi bila fitur aktif. Pilih satu keluarga ikon fungsional Lucide, 16–20 px.
 
 ## Layout dan navigasi
 

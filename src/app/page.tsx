@@ -2,7 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import {
   ArrowRight, Database, Package, Truck,
-} from "@phosphor-icons/react/dist/ssr";
+} from "lucide-react";
 import { ConfigurationStatus } from "@/components/configuration-status";
 import { WorkspaceShell } from "@/components/workspace-shell";
 import { readSupabaseConfig } from "@/lib/supabase/config";

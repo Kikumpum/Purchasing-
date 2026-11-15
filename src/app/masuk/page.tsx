@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { AccessShell } from "@/components/access-shell";
 import { readSupabaseConfig } from "@/lib/supabase/config";
-import { requestPasswordReset, signIn } from "@/features/requests/actions";
+import { requestPasswordReset } from "@/features/requests/actions";
+import { LoginForm } from "@/features/requests/login-form";
 
 export const dynamic = "force-dynamic";
 
@@ -12,12 +13,7 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
     <AccessShell title="Purchasing" description="Masuk dengan email akun Purchasing Anda.">
         {config ? (
           <>
-          <form action={signIn} className="request-form">
-            {error && <p role="alert" className="copy-error">Tidak bisa masuk. Periksa email dan kata sandi Anda.</p>}
-            <label>Email kerja<input type="email" name="email" autoComplete="username" required maxLength={254} /></label>
-            <label>Kata sandi<input type="password" name="password" autoComplete="current-password" required maxLength={1024} /></label>
-            <button className="button button-primary" type="submit">Masuk</button>
-          </form>
+          <LoginForm hasError={Boolean(error)} />
           <details open={Boolean(pemulihan) || undefined}>
             <summary className="inline-link cursor-pointer">Lupa kata sandi?</summary>
             {pemulihan === "email" && <p role="alert">Masukkan alamat email yang valid.</p>}
