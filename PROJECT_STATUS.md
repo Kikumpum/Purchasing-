@@ -1,5 +1,9 @@
 # Status proyek
 
+Bukti cetak serah terima tersedia dari detail PR yang disetujui setelah ada transaksi. Halaman cetak memakai akses dan batas 50 transaksi dari migrasi 015. Perubahan ini tidak memerlukan migrasi baru.
+
+Typecheck, lint, dan pemeriksaan diff lulus. Uji cetak dengan data transaksi ditunda.
+
 Migrasi 015 menambahkan riwayat hingga 50 serah terima terbaru per PR. Akses mengikuti pemeriksaan pemenuhan PR dan riwayat dibaca dari transaksi stok; transaksi lama tetap terlihat bila penerimanya belum tercatat.
 
 Migrasi 015 diterapkan ke Production. Lint dan typecheck lulus. Verifikasi isi riwayat dengan transaksi nyata masih ditunda.

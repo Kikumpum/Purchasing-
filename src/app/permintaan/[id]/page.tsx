@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { z } from "zod";
 import { WorkspaceShell } from "@/components/workspace-shell";
 import { transitionRequest } from "@/features/requests/actions";
+import { handoverDate, loadHandovers } from "@/features/requests/handovers";
 import { RequestForm } from "@/features/requests/request-form";
 import { requireRequestSession, statusLabel } from "@/features/requests/session";
 
@@ -19,19 +20,6 @@ const orderStatus: Record<string, string> = {
   received: "Diterima lengkap",
 };
 
-const eventDate = new Intl.DateTimeFormat("id-ID", {
-  dateStyle: "medium", timeStyle: "short", timeZone: "Asia/Jakarta",
-});
-
-type Handover = {
-  id: string;
-  quantity: number;
-  created_at: string;
-  warehouse_name: string;
-  recipient: string | null;
-  shipping_reference: string | null;
-};
-
 export default async function RequestPage({ params, searchParams }: {
   params: Promise<{ id: string }>;
   searchParams: Promise<{ error?: string }>;
@@ -45,7 +33,7 @@ export default async function RequestPage({ params, searchParams }: {
     .eq("id", id).maybeSingle();
   if (loadError) throw new Error("Permintaan gagal dimuat.");
   if (!request || !profile) notFound();
-  const [history, fulfillment, handovers] = await Promise.all([
+  const [history, fulfillment, events] = await Promise.all([
     supabase.from("purchase_request_status_history")
       .select("id, status, note, created_at").eq("request_id", id).order("id", { ascending: false }),
     request.status === "approved" ? supabase.rpc("request_delivery_progress", { p_id: id }).maybeSingle<{
@@ -53,9 +41,8 @@ export default async function RequestPage({ params, searchParams }: {
       po_number: number | null; po_status: string | null; ordered: number | null; received: number;
       vendor_name: string | null; warehouse_name: string | null;
     }>() : null,
-    request.status === "approved" ? supabase.rpc("request_handover_history", { p_id: id }) : null,
+    request.status === "approved" ? loadHandovers(supabase, id) : null,
   ]);
-  const events: Handover[] | null = Array.isArray(handovers?.data) ? handovers.data : null;
   const canEdit = profile.role === "employee" && request.requester_id === profile.id &&
     ["draft", "revision_requested"].includes(request.status);
   const canDecide = profile.role === "manager" && request.approver_id === profile.id &&
@@ -107,7 +94,7 @@ export default async function RequestPage({ params, searchParams }: {
             {history.data?.map((entry) => (
               <li key={entry.id}><div className="min-w-0">
                 <strong>{statusLabel[entry.status]}</strong>
-                <p><time dateTime={entry.created_at}>{eventDate.format(new Date(entry.created_at))}</time></p>
+                <p><time dateTime={entry.created_at}>{handoverDate.format(new Date(entry.created_at))}</time></p>
                 {entry.note && <p className="whitespace-pre-wrap wrap-anywhere">{entry.note}</p>}
               </div></li>
             ))}
@@ -130,16 +117,17 @@ export default async function RequestPage({ params, searchParams }: {
               <div><dt>Sudah diserahkan</dt><dd>{fulfillment.data.issued} dari {request.quantity} {request.item_unit ?? request.requested_unit}</dd></div>
             </dl>}
         </section>}
-        {handovers && <section className="setup-panel">
+        {request.status === "approved" && <section className="setup-panel">
           <h2>Riwayat serah terima</h2>
-          {handovers.error || !events ? <p role="alert">Riwayat serah terima gagal dimuat. Muat ulang halaman untuk mencoba lagi.</p>
+          {!events ? <p role="alert">Riwayat serah terima gagal dimuat. Muat ulang halaman untuk mencoba lagi.</p>
             : !events.length ? <p>Belum ada barang yang diserahkan.</p>
             : <>
+              <Link className="inline-link" href={`/permintaan/${id}/serah-terima`}>Buka bukti cetak</Link>
               {events.length === 50 && <p>Menampilkan 50 transaksi terbaru.</p>}
               <ol className="module-list">{events.map((entry) => (
                 <li key={entry.id}><div className="min-w-0 break-words">
                   <strong>{entry.quantity} {request.item_unit ?? request.requested_unit} · {entry.warehouse_name}</strong>
-                  <p><time dateTime={entry.created_at}>{eventDate.format(new Date(entry.created_at))}</time></p>
+                  <p><time dateTime={entry.created_at}>{handoverDate.format(new Date(entry.created_at))}</time></p>
                   {entry.recipient && <p>Penerima {entry.recipient}</p>}
                   {entry.shipping_reference && <p>Referensi pengiriman {entry.shipping_reference}</p>}
                 </div></li>

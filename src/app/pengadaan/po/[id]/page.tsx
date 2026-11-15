@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { z } from "zod";
 import { WorkspaceShell } from "@/components/workspace-shell";
 import { requireProcurementSession } from "@/features/procurement/session";
-import { PrintOrderButton } from "@/features/procurement/print-order-button";
+import { PrintButton } from "@/components/print-button";
 
 const money = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" });
 const date = new Intl.DateTimeFormat("id-ID", { dateStyle: "long", timeZone: "Asia/Jakarta" });
@@ -32,7 +32,7 @@ export default async function PurchaseOrderPage({ params }: { params: Promise<{ 
     <WorkspaceShell current="procurement">
       <div className="page-heading flex flex-wrap items-center justify-between gap-3 print:hidden">
         <Link className="inline-link" href={`/pengadaan/${order.request_id}`}>Kembali ke pengadaan</Link>
-        <PrintOrderButton />
+        <PrintButton label="Cetak PO" />
       </div>
       <article className="setup-panel">
         <div className="page-heading">

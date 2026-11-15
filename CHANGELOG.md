@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-15 · Bukti cetak serah terima
+
+- Detail PR menyediakan halaman cetak yang merangkum serah terima terbaru beserta identitas transaksi, gudang, penerima, dan referensi pengiriman.
+
 ## 2026-11-15 · Riwayat serah terima PR
 
 - Detail PR yang disetujui menampilkan transaksi serah terima terbaru dengan waktu WIB, gudang, jumlah, penerima, dan referensi pengiriman.
