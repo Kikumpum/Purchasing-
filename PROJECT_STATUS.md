@@ -1,5 +1,7 @@
 # Status proyek
 
+Halaman Konfigurasi membedakan deployment Vercel dari workspace lokal. Deployment yang terhubung menampilkan status Supabase Auth dan tautan masuk.
+
 Bukti cetak serah terima tersedia dari detail PR yang disetujui setelah ada transaksi. Halaman cetak memakai akses dan batas 50 transaksi dari migrasi 015. Perubahan ini tidak memerlukan migrasi baru.
 
 Typecheck, lint, dan pemeriksaan diff lulus. Uji cetak dengan data transaksi ditunda.

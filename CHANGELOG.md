@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-15 · Status integrasi di Vercel
+
+- Halaman Konfigurasi di Vercel menampilkan status Supabase Auth. Panduan .env.local tampil pada lingkungan lokal.
+
 ## 2026-11-15 · Bukti cetak serah terima
 
 - Detail PR menyediakan halaman cetak yang merangkum serah terima terbaru beserta identitas transaksi, gudang, penerima, dan referensi pengiriman.
