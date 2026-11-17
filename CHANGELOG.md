@@ -1,5 +1,7 @@
 # Changelog
 
+- Menambahkan favicon Aryocorp untuk tab browser.
+
 - Menambahkan tabel antrean Pengadaan dengan filter nama barang dan OPKB, tanggal kebutuhan, serta status PO aktif.
 
 - Menambahkan antrean penerimaan ke Dashboard Warehouse dan tabel operasional ke daftar PR.
