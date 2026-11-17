@@ -16,9 +16,15 @@ export async function proxy(request: NextRequest) {
       },
     },
   });
-  await supabase.auth.getClaims();
+  const { data, error } = await supabase.auth.getClaims();
+  if (error || !data?.claims?.sub) {
+    const login = NextResponse.redirect(new URL("/masuk", request.url));
+    for (const cookie of response.cookies.getAll()) login.cookies.set(cookie);
+    login.headers.set("Cache-Control", "private, no-store");
+    return login;
+  }
   response.headers.set("Cache-Control", "private, no-store");
   return response;
 }
 
-export const config = { matcher: ["/dashboard", "/permintaan/:path*", "/katalog", "/pengadaan/:path*", "/gudang", "/notifikasi", "/laporan"] };
+export const config = { matcher: ["/dashboard", "/permintaan/:path*", "/katalog", "/pengadaan/:path*", "/gudang", "/notifikasi", "/laporan", "/laporan/pergerakan"] };

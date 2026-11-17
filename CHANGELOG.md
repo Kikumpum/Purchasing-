@@ -1,5 +1,7 @@
 # Changelog
 
+- Menambahkan status pemuatan untuk semua menu operasional, mengarahkan tamu sebelum halaman dimuat, dan menempatkan fungsi aplikasi di region database.
+
 - Menambahkan umpan balik saat membuka Gudang serta membatasi dan memisahkan pemuatan panel saldo stok.
 
 - Menambahkan rincian pengeluaran dan transfer beserta ekspor CSV dengan filter yang sama.

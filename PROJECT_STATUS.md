@@ -1,5 +1,7 @@
 # Status proyek
 
+Ketujuh menu operasional memiliki tampilan pemuatan yang dapat dipramuat saat tautan muncul. Fungsi Vercel dikonfigurasi di Singapura agar dekat dengan Supabase. Proxy mengarahkan tamu ke login sebelum halaman operasional mulai dikirim. Pengukuran waktu klik hingga data tampil untuk sesi Admin Procurement di laptop masih terbuka.
+
 Rute Gudang menyediakan status loading saat navigasi dan menampilkan saldo 25 baris per halaman. Saldo dan lookup produknya dirender melalui Suspense secara terpisah dari daftar transaksi. Pengukuran kinerja dengan volume besar dan uji transaksi lintas jobdesk masih terbuka.
 
 Laporan pergerakan menampilkan pengeluaran dan transfer terposting bagi Warehouse dan Admin Procurement, dengan paginasi 25 transaksi, filter periode WIB dan jenis, serta CSV untuk halaman aktif. Pengelolaan pengguna, transit gudang, pajak/diskon, notifikasi stok, dan laporan detail lainnya tetap mengikuti fase masing-masing.
