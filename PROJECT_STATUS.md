@@ -1,5 +1,7 @@
 # Status proyek
 
+Antrean Pengadaan menampilkan tabel PR yang disetujui dan PO aktif dalam cakupan Procurement. Pencarian nama barang dan filter OPKB dipertahankan saat berpindah halaman. Perubahan memakai relasi PR–PO yang tersedia tanpa migrasi.
+
 Dashboard Warehouse menampilkan antrean PO sesuai penugasan, sisa penerimaan, dan jumlah PO parsial. Daftar PR memakai tabel dengan pilihan pengajuan atau persetujuan bersama saat filter OPKB aktif. Kedua layar memakai sumber Supabase yang sudah tersedia tanpa migrasi.
 
 Tahap awal redesign ERP menerapkan token forest green, Inter, Lucide, menu profil, akses notifikasi dan ringkasan dashboard dengan data Supabase. Antrean dashboard Employee, Manager dan Procurement memakai tabel. Redesign per modul transaksi, detail metrik Warehouse dan verifikasi setiap role masih terbuka.
