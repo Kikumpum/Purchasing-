@@ -45,7 +45,7 @@ export async function POST(request: Request) {
   if (error || !id) return reply({ error: "Masuk ke akun Purchasing untuk menggunakan AI." }, 401);
   const profile = await supabase.from("profiles").select("role, active").eq("id", id).maybeSingle();
   if (!profile.data?.active || profile.error) return reply({ error: "Profil aktif diperlukan untuk menggunakan AI." }, 403);
-  const apiKey = process.env.OPENAI_API_KEY;
+  const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) return reply({ error: "Koneksi AI belum diaktifkan. Panduan otomatis tetap tersedia." }, 503);
 
   const now = Date.now();
@@ -58,7 +58,7 @@ export async function POST(request: Request) {
   windows.set(id, window);
   try {
     const answer = await requestAiAnswer(parsed.data.question, profile.data.role, apiKey,
-      process.env.OPENAI_MODEL || "gpt-4.1-mini",
+      process.env.GEMINI_MODEL || "gemini-3.5-flash-lite",
       guideTopics.map((topic) => `${topic.title}: ${topic.text}`).join("\n"));
     return reply({ answer });
   } catch {

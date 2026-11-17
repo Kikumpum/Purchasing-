@@ -24,8 +24,11 @@ Gunakan tujuan undangan Production `https://purchasing-inky.vercel.app/aktifkan`
 
 ## Asisten AI opsional
 
-Tambahkan OPENAI_API_KEY sebagai variabel sensitif server untuk Production di Vercel, lalu deploy ulang. OPENAI_MODEL opsional, default gpt-4.1-mini. Kunci harus berasal dari akun OpenAI API pemilik aplikasi. Jangan menambahkan awalan NEXT_PUBLIC atau memasukkan kunci ke Git.
+Tambahkan GEMINI_API_KEY sebagai variabel sensitif server untuk Production di Vercel, lalu deploy ulang. GEMINI_MODEL opsional, default gemini-3.5-flash-lite. Kunci harus berasal dari akun Google AI Studio pemilik aplikasi. Jangan menambahkan awalan NEXT_PUBLIC atau memasukkan kunci ke Git.
 
-Mode Panduan berjalan secara lokal tanpa provider. Mode Tanya AI memerlukan sesi dan profil aktif. Server hanya meneruskan pertanyaan, peran dan panduan statis ke Responses API dengan store=false. Riwayat chat dan data transaksi tidak diteruskan otomatis. Jawaban dirender sebagai teks biasa.
+Mode Panduan berjalan secara lokal tanpa provider. Mode Tanya AI memerlukan sesi dan profil aktif. Server hanya meneruskan pertanyaan, peran dan panduan statis ke Google Gemini generateContent. Riwayat chat dan data transaksi tidak diteruskan otomatis. Jawaban dirender sebagai teks biasa.
 
-Batas lima permintaan per menit berlaku per akun dalam satu instance server. Untuk batas lintas instance, terapkan pembatasan terpusat dan kuota provider sebelum penggunaan luas. Uji error kunci kosong, sesi kedaluwarsa, timeout dan jawaban nyata setelah aktivasi. Dokumentasi Responses API https://developers.openai.com/api/reference/resources/responses/methods/create
+Batas lima permintaan per menit berlaku per akun dalam satu instance server. Untuk batas lintas instance, terapkan pembatasan terpusat dan kuota provider sebelum penggunaan luas. Uji error kunci kosong, sesi kedaluwarsa, timeout dan jawaban nyata setelah aktivasi. Dokumentasi Gemini API https://ai.google.dev/gemini-api/docs/generate-content
+
+Pilih proyek Free Tier tanpa billing untuk memenuhi batas biaya pengguna. Paket gratis memiliki kuota yang harus diperiksa di AI Studio dan dapat menggunakan pertanyaan untuk peningkatan produk Google. Jangan masukkan data rahasia ke pertanyaan. Tidak ada perpindahan otomatis ke provider berbayar. Dokumentasi harga https://ai.google.dev/gemini-api/docs/pricing
+

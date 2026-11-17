@@ -1,5 +1,7 @@
 # Changelog
 
+- Mengganti koneksi AI ke Gemini Flash-Lite dengan penyiapan Free Tier dan pemberitahuan penggunaan data paket gratis.
+
 - Menyiapkan Asisten Purchasing dengan mode panduan lokal dan koneksi AI server untuk akun aktif.
 - Memisahkan pemuatan data dashboard agar menu, judul dan tombol utama dapat tampil lebih awal.
 

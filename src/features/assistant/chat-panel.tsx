@@ -73,7 +73,7 @@ export default function ChatPanel({ onClose }: { onClose: () => void }) {
             <button type="button" disabled={busy} aria-pressed={mode === "guide"} onClick={() => { setMode("guide"); setError(""); }}>Panduan</button>
             <button type="button" disabled={busy} aria-pressed={mode === "ai"} onClick={() => { setMode("ai"); setError(""); }}>Tanya AI</button>
           </div>
-          <p className="text-sm text-muted">{mode === "guide" ? "Jawaban dari panduan aplikasi." : "Pertanyaan dikirim ke layanan OpenAI. Masuk ke akun Purchasing untuk menggunakan AI. Jawaban AI dapat keliru, periksa kembali sebelum mengambil tindakan."}</p>
+          <p className="text-sm text-muted">{mode === "guide" ? "Jawaban dari panduan aplikasi." : "Pertanyaan dikirim ke Google Gemini dan dapat digunakan Google untuk meningkatkan produknya pada paket gratis. Masuk untuk memakai AI. Kuota terbatas. Periksa kembali jawaban AI."}</p>
           <div className="assistant-suggestions">{suggestions.map((suggestion) =>
             <button type="button" key={suggestion} disabled={busy} onClick={() => void ask(suggestion)}>{suggestion}</button>)}</div>
           <div role="log" aria-label="Percakapan bantuan" aria-live="polite" aria-relevant="additions">
