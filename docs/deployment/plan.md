@@ -21,3 +21,11 @@ Lihat [panduan GitHub di Vercel](https://vercel.com/docs/git/vercel-for-github) 
 Undang pengguna melalui Supabase Auth. Setelah akun muncul, gunakan ID Auth sebagai ID profil dan tetapkan departemen serta peran yang disetujui. Admin Procurement memakai peran `admin_procurement`. Petugas gudang memakai peran `warehouse` dan memerlukan baris penugasan di `user_warehouse_access` untuk setiap gudang yang diberikan.
 
 Gunakan tujuan undangan Production `https://purchasing-inky.vercel.app/aktifkan`. Pemilik akun menetapkan kata sandi melalui tautan undangan. Periksa profil aktif, peran dan penugasan gudang setelah provisioning.
+
+## Asisten AI opsional
+
+Tambahkan OPENAI_API_KEY sebagai variabel sensitif server untuk Production di Vercel, lalu deploy ulang. OPENAI_MODEL opsional, default gpt-4.1-mini. Kunci harus berasal dari akun OpenAI API pemilik aplikasi. Jangan menambahkan awalan NEXT_PUBLIC atau memasukkan kunci ke Git.
+
+Mode Panduan berjalan secara lokal tanpa provider. Mode Tanya AI memerlukan sesi dan profil aktif. Server hanya meneruskan pertanyaan, peran dan panduan statis ke Responses API dengan store=false. Riwayat chat dan data transaksi tidak diteruskan otomatis. Jawaban dirender sebagai teks biasa.
+
+Batas lima permintaan per menit berlaku per akun dalam satu instance server. Untuk batas lintas instance, terapkan pembatasan terpusat dan kuota provider sebelum penggunaan luas. Uji error kunci kosong, sesi kedaluwarsa, timeout dan jawaban nyata setelah aktivasi. Dokumentasi Responses API https://developers.openai.com/api/reference/resources/responses/methods/create

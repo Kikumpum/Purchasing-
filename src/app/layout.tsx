@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "@fontsource-variable/inter";
 import "./globals.css";
+import { AssistantLauncher } from "@/features/assistant/launcher";
 
 export const metadata: Metadata = {
   title: { default: "Purchasing · Aryocorp", template: "%s · Purchasing Aryocorp" },
@@ -15,6 +16,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body>
         <a className="skip-link" href="#main-content">Lewati ke konten</a>
         {children}
+        <AssistantLauncher />
       </body>
     </html>
   );

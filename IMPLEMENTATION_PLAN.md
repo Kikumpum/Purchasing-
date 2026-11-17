@@ -1,5 +1,7 @@
 # Rencana implementasi
 
+Task pendukung operasional mencakup Asisten Purchasing. Panduan berbasis fitur tersedia tanpa layanan eksternal. Pertanyaan AI memakai OpenAI Responses melalui server setelah kredensial Production dikonfigurasi. Asisten menerima pertanyaan dan panduan statis, tanpa akses transaksi atau alat perubahan data. Pengujian provider nyata, UI browser dan batas pemakaian global masih terbuka sebelum aktivasi AI.
+
 | Fase | Dependensi | Cakupan dan kriteria keluar |
 |---|---|---|
 | 0 · Discovery | Brief dan workspace | Spesifikasi, arsitektur, ERD, aturan, akses, desain, uji, risiko dan rilis terdokumentasi. Tinjau keputusan material bersama pemilik proses. |

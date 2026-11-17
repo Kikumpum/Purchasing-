@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import Link from "next/link";
 import { z } from "zod";
 import { WorkspaceShell } from "@/components/workspace-shell";
@@ -34,7 +35,7 @@ const warehouseReceiving = z.object({
 });
 
 export default async function DashboardPage() {
-  const { supabase, profile, profileError } = await requireRequestSession();
+  const { profile, profileError } = await requireRequestSession();
   const role = profile?.role;
   if (!profile || !role || !isRole(role)) {
     return (
@@ -51,11 +52,28 @@ export default async function DashboardPage() {
   const dashboard = roles[role];
   const canProcure = role === "admin_procurement";
   const canWarehouse = canProcure || role === "warehouse";
+  return (
+    <WorkspaceShell current="dashboard" canProcure={canProcure} canWarehouse={canWarehouse}>
+      <div className="page-heading flex flex-wrap items-start justify-between gap-3">
+        <div><h1>Dashboard {dashboard.title}</h1><p>{profile.display_name}</p></div>
+        <Link className="button button-primary" href={dashboard.href}>{dashboard.action}</Link>
+      </div>
+      <Suspense fallback={<section className="setup-panel"><p role="status">Memuat antrean dan ringkasan pekerjaan…</p></section>}>
+        <DashboardData role={role} profileId={profile.id} />
+      </Suspense>
+    </WorkspaceShell>
+  );
+}
+
+async function DashboardData({ role, profileId }: { role: Role; profileId: string }) {
+  const { supabase } = await requireRequestSession();
+  const dashboard = roles[role];
+  const canProcure = role === "admin_procurement";
   const recent = role === "warehouse" ? null : supabase.from("purchase_requests")
     .select("id, number, item_name, quantity, status")
     .order("created_at", { ascending: false }).order("id").limit(6);
-  if (role === "employee") recent?.eq("requester_id", profile.id);
-  if (role === "manager") recent?.eq("approver_id", profile.id).eq("status", "pending_approval");
+  if (role === "employee") recent?.eq("requester_id", profileId);
+  if (role === "manager") recent?.eq("approver_id", profileId).eq("status", "pending_approval");
   if (canProcure) recent?.eq("status", "approved");
   const warehouseOrders = role === "warehouse"
     ? supabase.rpc("warehouse_dashboard_receiving")
@@ -69,8 +87,8 @@ export default async function DashboardPage() {
     ["pending_approval", "Menunggu keputusan Anda"], ["approved", "Disetujui di departemen"], ["rejected", "Ditolak"], ["revision_requested", "Perlu revisi"],
   ] : [["approved", "PR disetujui"]]).map(async ([status, label]) => {
     let query = supabase.from("purchase_requests").select("id", { count: "exact", head: true }).eq("status", status);
-    if (role === "employee") query = query.eq("requester_id", profile.id);
-    if (role === "manager" && status === "pending_approval") query = query.eq("approver_id", profile.id);
+    if (role === "employee") query = query.eq("requester_id", profileId);
+    if (role === "manager" && status === "pending_approval") query = query.eq("approver_id", profileId);
     const { count, error } = await query;
     return { label, count: error ? null : count };
   })), recent, warehouseOrders]);
@@ -84,11 +102,6 @@ export default async function DashboardPage() {
   }
 
   return (
-    <WorkspaceShell current="dashboard" canProcure={canProcure} canWarehouse={canWarehouse}>
-      <div className="page-heading flex flex-wrap items-start justify-between gap-3">
-        <div><h1>Dashboard {dashboard.title}</h1><p>{profile.display_name}</p></div>
-        <Link className="button button-primary" href={dashboard.href}>{dashboard.action}</Link>
-      </div>
       <div className="dashboard-layout">
         {inbound && <section className="setup-panel">
           <h2>Antrean penerimaan gudang</h2>
@@ -135,6 +148,5 @@ export default async function DashboardPage() {
           </section>
         </div>
       </div>
-    </WorkspaceShell>
   );
 }

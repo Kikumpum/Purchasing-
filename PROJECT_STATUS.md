@@ -1,5 +1,7 @@
 # Status proyek
 
+Asisten Purchasing menyediakan panduan akun, peran, PR/OPKB, approval, pengadaan, penerimaan, stok, pembatalan dan laporan. Chat dimuat saat dibuka dan percakapan hanya disimpan dalam memori tab. Mode AI memakai endpoint server dengan sesi dan profil aktif, validasi ukuran pertanyaan, timeout dan pembatasan burst per instance. Aktivasi membutuhkan OPENAI_API_KEY di Vercel. Kunci dan panggilan provider nyata belum dapat diverifikasi karena sesi CLI Vercel tidak valid. Uji tampilan browser juga terhenti oleh alat karena URL tidak dapat diverifikasi. Dashboard kini mengirim shell, judul dan tombol utama sebelum query antrean/ringkasan selesai.
+
 Daftar penerimaan petugas Gudang membatasi respons menjadi 26 PO (25 ditampilkan dan satu untuk mendeteksi halaman berikutnya). Tautan antrean dashboard memfilter satu PO sesuai akses gudang. Typecheck dan empat tes konfigurasi lulus. Volume kerja internal fungsi SQL dan waktu navigasi Admin pada data besar belum diukur.
 
 Ketujuh menu operasional memiliki tampilan pemuatan yang dapat dipramuat saat tautan muncul. Fungsi Vercel dikonfigurasi di Singapura agar dekat dengan Supabase. Proxy mengarahkan tamu ke login sebelum halaman operasional mulai dikirim. Pengukuran waktu klik hingga data tampil untuk sesi Admin Procurement di laptop masih terbuka.

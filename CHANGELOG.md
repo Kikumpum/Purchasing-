@@ -1,5 +1,8 @@
 # Changelog
 
+- Menyiapkan Asisten Purchasing dengan mode panduan lokal dan koneksi AI server untuk akun aktif.
+- Memisahkan pemuatan data dashboard agar menu, judul dan tombol utama dapat tampil lebih awal.
+
 - Membagi daftar penerimaan PO per 25 baris dan membuka PO pilihan langsung dari dashboard petugas Gudang.
 
 - Menambahkan status pemuatan untuk semua menu operasional, mengarahkan tamu sebelum halaman dimuat, dan menempatkan fungsi aplikasi di region database.
