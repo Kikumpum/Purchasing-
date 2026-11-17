@@ -3,7 +3,7 @@ import { PublisherFooter } from "@/components/publisher-footer";
 import { signOut } from "@/features/requests/actions";
 import { requireRequestSession } from "@/features/requests/session";
 import {
-  ArrowUpRight, Bell, ChartBar, FileText, Settings, ListChecks, Package, PanelLeft, LayoutGrid, Truck,
+  ArrowUpRight, Bell, ChartBar, FileText, Settings, Package, PanelLeft, LayoutGrid, Truck,
 } from "lucide-react";
 
 type Section = "overview" | "dashboard" | "setup" | "requests" | "catalog" | "procurement" | "warehouse" | "notifications" | "reports";
@@ -34,16 +34,12 @@ export async function WorkspaceShell({
     <div className="workspace">
       <aside className="sidebar">
         <Link href="/" className="wordmark">
-          <span className="brand-mark"><ListChecks size={19} aria-hidden /></span>
-          <span>Purchasing</span>
+          <span className="brand-mark" aria-hidden="true">A</span>
+          <span>Aryocorp<small>Purchasing</small></span>
         </Link>
         <nav className="desktop-navigation" aria-label="Navigasi utama">
           <WorkspaceLinks current={current} canProcure={canProcure} canWarehouse={canWarehouse} showSetup={showSetup} />
         </nav>
-        <div className="sidebar-foot">
-          <span className="local-dot" />
-          Workspace
-        </div>
       </aside>
       <div className="workspace-body">
         <header className="topbar">
@@ -51,7 +47,7 @@ export async function WorkspaceShell({
             <summary aria-label="Buka navigasi"><PanelLeft size={21} aria-hidden /></summary>
             <nav aria-label="Navigasi utama"><WorkspaceLinks current={current} canProcure={canProcure} canWarehouse={canWarehouse} showSetup={showSetup} /></nav>
           </details>
-          <div className="breadcrumb"><span>Workspace</span><span aria-hidden>/</span><strong>{section}</strong></div>
+          <div className="breadcrumb"><Link href="/dashboard">Purchasing</Link><span aria-hidden>/</span><strong>{section}</strong></div>
           {showSetup && <a className="top-link" href="https://supabase.com/docs/guides/getting-started" target="_blank" rel="noreferrer">
             Panduan Supabase <ArrowUpRight size={13} aria-hidden />
           </a>}

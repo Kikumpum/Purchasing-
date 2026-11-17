@@ -1,5 +1,7 @@
 # Status proyek
 
+Redesign lintas workspace menerapkan login dua panel, identitas Aryocorp pada sidebar, antrean sebagai fokus dashboard, status transaksi yang lebih mudah dibedakan, dan tautan bagian pada Pengadaan serta Gudang. Akses data dan transaksi tetap memakai jalur Supabase yang tersedia.
+
 Favicon Aryocorp memakai monogram A forest green dan tersedia dalam ukuran 16, 32, serta 48 piksel melalui konvensi metadata Next.js.
 
 Antrean Pengadaan menampilkan tabel PR yang disetujui dan PO aktif dalam cakupan Procurement. Pencarian nama barang dan filter OPKB dipertahankan saat berpindah halaman. Perubahan memakai relasi PR–PO yang tersedia tanpa migrasi.

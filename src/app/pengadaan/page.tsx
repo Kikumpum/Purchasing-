@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { StatusBadge } from "@/components/status-badge";
 import { WorkspaceShell } from "@/components/workspace-shell";
 import { ProcurementPagination } from "@/features/procurement/pagination";
 import { procurementPage, requireProcurementSession } from "@/features/procurement/session";
@@ -59,7 +60,7 @@ export default async function ProcurementPage({ searchParams }: {
                   </td>
                   <td className="tabular-nums">{request.quantity} {request.item_unit ?? request.requested_unit}</td>
                   <td><time dateTime={request.need_by}>{dateFormat.format(new Date(request.need_by))}</time></td>
-                  <td>{order ? <><span className="badge">{orderLabel[order.status] ?? order.status}</span><p>PO-{order.number}</p></> : "Belum ada PO aktif"}</td>
+                  <td>{order ? <><StatusBadge status={order.status} label={orderLabel[order.status]} /><p>PO-{order.number}</p></> : "Belum ada PO aktif"}</td>
                 </tr>;
               })}</tbody>
             </table>

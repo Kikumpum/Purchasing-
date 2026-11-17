@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { WorkspaceShell } from "@/components/workspace-shell";
 import { signOut } from "@/features/requests/actions";
-import { requireRequestSession, statusLabel } from "@/features/requests/session";
+import { requireRequestSession } from "@/features/requests/session";
+import { StatusBadge } from "@/components/status-badge";
 
 export const dynamic = "force-dynamic";
 
@@ -81,10 +82,7 @@ export default async function DashboardPage() {
         <div><h1>Dashboard {dashboard.title}</h1><p>{profile.display_name}</p></div>
         <Link className="button button-primary" href={dashboard.href}>{dashboard.action}</Link>
       </div>
-      <dl className="dashboard-metrics" aria-label="Ringkasan pekerjaan">
-        {metrics.map(({ label, count }) => <div key={label}><dt>{label}</dt><dd>{count ?? "Gagal dimuat"}</dd></div>)}
-      </dl>
-      <div className="setup-grid">
+      <div className="dashboard-layout">
         {inbound && <section className="setup-panel">
           <h2>Antrean penerimaan gudang</h2>
           {inbound.error ? <p role="alert">Antrean penerimaan gagal dimuat.</p>
@@ -110,17 +108,25 @@ export default async function DashboardPage() {
                 <tbody>{activity.data.map((row) => <tr key={row.id}>
                   <td><Link className="inline-link" href={`${canProcure ? "/pengadaan" : "/permintaan"}/${row.id}`}>PR-{row.number}</Link><p>{row.item_name}</p></td>
                   <td className="tabular-nums">{row.quantity}</td>
-                  <td><span className="badge">{statusLabel[row.status]}</span></td>
+                  <td><StatusBadge status={row.status} /></td>
                 </tr>)}</tbody>
               </table>
             </div>}
         </section>}
-        <section className="setup-panel">
-          <h2>Akses cepat</h2>
-          <ul className="module-list">{dashboard.links.map(({ href, label }) => (
-            <li key={href}><Link className="inline-link" href={href}>{label}</Link></li>
-          ))}</ul>
-        </section>
+        <div className="dashboard-aside">
+          <section className="setup-panel">
+            <h2>Ringkasan pekerjaan</h2>
+            <dl className="dashboard-metrics">
+              {metrics.map(({ label, count }) => <div key={label}><dt>{label}</dt><dd>{count ?? "Gagal dimuat"}</dd></div>)}
+            </dl>
+          </section>
+          <section className="setup-panel">
+            <h2>Akses cepat</h2>
+            <ul className="module-list">{dashboard.links.map(({ href, label }) => (
+              <li key={href}><Link className="inline-link" href={href}>{label}</Link></li>
+            ))}</ul>
+          </section>
+        </div>
       </div>
     </WorkspaceShell>
   );

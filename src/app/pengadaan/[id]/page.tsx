@@ -3,6 +3,7 @@ import { randomUUID } from "node:crypto";
 import { notFound } from "next/navigation";
 import { z } from "zod";
 import { WorkspaceShell } from "@/components/workspace-shell";
+import { SectionLinks } from "@/components/section-links";
 import { createPurchaseOrder, manageReservation, recordQuotation, transitionPurchaseOrder } from "@/features/procurement/order-actions";
 import { requireProcurementSession } from "@/features/procurement/session";
 
@@ -61,7 +62,8 @@ export default async function ProcurementRequestPage({ params, searchParams }: {
         <Link className="inline-link" href={`/permintaan/${id}`}>Lihat permintaan</Link>
       </div>
       {error && messages[error] && <p role="alert" className="copy-error">{messages[error]}</p>}
-      <section className="setup-panel mb-6">
+      <SectionLinks links={[["alokasi", "Alokasi stok"], ["penawaran", "Penawaran vendor"], ["purchase-order", "Purchase order"]]} />
+      <section className="setup-panel mb-6" id="alokasi" tabIndex={-1}>
         <h2>Alokasi dan serah terima</h2>
         <p>Jumlah di luar alokasi internal {remaining} {pr.data.item_unit}</p>
         {!pr.data.product_id && <p>Alokasi stok internal tersedia untuk PR yang memakai produk katalog.</p>}
@@ -97,7 +99,7 @@ export default async function ProcurementRequestPage({ params, searchParams }: {
         )}
       </section>
       <div className="setup-grid">
-        <section className="setup-panel">
+        <section className="setup-panel" id="penawaran" tabIndex={-1}>
           <h2>Penawaran vendor</h2>
           {quotations.data.length === 0 && <p>Belum ada penawaran.</p>}
           <ul className="module-list">
@@ -135,7 +137,7 @@ export default async function ProcurementRequestPage({ params, searchParams }: {
           )}
         </section>
       </div>
-      <section className="setup-panel mt-6">
+      <section className="setup-panel mt-6" id="purchase-order" tabIndex={-1}>
         <h2>Purchase order</h2>
         {orders.data.length === 0 && <p>Belum ada PO.</p>}
         <ul className="module-list">

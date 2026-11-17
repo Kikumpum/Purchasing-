@@ -2,7 +2,8 @@ import Link from "next/link";
 import { WorkspaceShell } from "@/components/workspace-shell";
 import { updateOpkbRequests, signOut } from "@/features/requests/actions";
 import { RequestForm } from "@/features/requests/request-form";
-import { requireRequestSession, statusLabel } from "@/features/requests/session";
+import { StatusBadge } from "@/components/status-badge";
+import { requireRequestSession } from "@/features/requests/session";
 
 export default async function RequestsPage({ searchParams }: {
   searchParams: Promise<{ error?: string; halaman?: string; opkb?: string; tersimpan?: string; disetujui?: string; diajukan?: string }>;
@@ -83,7 +84,7 @@ export default async function RequestsPage({ searchParams }: {
                       {canSelectRows && <p className="text-sm">{request.purpose}</p>}
                     </td>
                     <td className="tabular-nums">{request.quantity} {request.item_unit ?? request.requested_unit}</td>
-                    <td><span className="badge">{statusLabel[request.status]}</span></td>
+                    <td><StatusBadge status={request.status} /></td>
                   </tr>
                 ))}
                 </tbody>

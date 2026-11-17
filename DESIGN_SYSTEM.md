@@ -14,7 +14,7 @@ Review konsep pada rancangan menemukan bahwa kartu statistik bisa menyembunyikan
 
 ## Token
 
-Palet forest green terpusat di `src/app/globals.css`. Sidebar dan aksi utama memakai #174D38, hover #216247, fokus #2F7A58 dan pilihan aktif #E7F1EB. Latar #F5F8F6 dan permukaan #FFFFFF dipisahkan oleh border #DCE5DE. Teks utama #26352D dan metadata #64736A. Warna status #16A36A, #D97706, #DC2626, dan #2563EB disediakan sebagai token. Pesan teks menggunakan nada gelap agar kontras.
+Palet forest green terpusat di `src/app/globals.css`. Sidebar memakai #102F25 dan aksi utama memakai #174D38, hover #216247, fokus #2F7A58 dan pilihan aktif #E7F1EB. Latar #EDF2EE dan permukaan #FFFFFF dipisahkan oleh border #DCE5DE. Teks utama #26352D dan metadata #64736A. Warna status #16A36A, #D97706, #DC2626, dan #2563EB disediakan sebagai token. Pesan teks menggunakan nada gelap agar kontras.
 
 Gunakan Inter untuk judul, form dan data. Pakai tabular-nums pada angka dan rata kanan untuk kuantitas dan uang. Ukuran dalam px sebagai target token. Display 32–40/1,15, h1 24–32/1,2, h2 22/1,25, h3 18/1,3, body-lg 18/1,5, body 16/1,5, body-sm 14/1,45 untuk metadata, caption 13/1,4, button 14/1,25 medium. Prosa panjang dibatasi sekitar 65ch.
 
@@ -22,11 +22,11 @@ Spacing 4, 8, 12, 16, 24, 32, 48 px. Radius 4 untuk status, 6 untuk kontrol, 8 u
 
 ## Layout dan navigasi
 
-Layar masuk dan aktivasi memakai foto jabat tangan dari referensi pengguna dengan panel di kanan pada desktop dan panel di tengah pada layar sempit. Navigasi workspace muncul setelah autentikasi di Production.
+Layar masuk dan aktivasi memakai foto jabat tangan dari referensi pengguna dengan foto dan formulir berdampingan pada desktop serta tersusun vertikal pada layar sempit. Navigasi workspace muncul setelah autentikasi di Production.
 
 Form OPKB menempatkan nomor dan tanggal bersama di awal. Setiap barang memakai kelompok isian berlabel dengan tombol hapus per baris. Tombol tambah dan simpan mengikuti kelompok terakhir dan dapat membungkus pada layar kecil.
 
-- Desktop memakai sidebar 232 px, top bar 56 px untuk lokasi/breadcrumb, notifikasi dan akun. Content gutter 24–32 px. Struktur halaman judul, keterangan relevan, satu aksi primer, filter, daftar/form, dan aksi kontekstual.
+- Desktop memakai sidebar 240 px, top bar 64 px untuk lokasi/breadcrumb, notifikasi dan akun. Content gutter 24–32 px. Struktur halaman judul, keterangan relevan, satu aksi primer, filter, daftar/form, dan aksi kontekstual.
 - Sidebar Employee berisi Ringkasan, Permintaan Saya dan Notifikasi. Manager berisi Ringkasan, Persetujuan dan Permintaan Tim. Procurement berisi Antrean PR, Vendor, Quotation, PO, Master Data dan Laporan. Warehouse berisi Stok, Penerimaan, Pengeluaran, Transfer, Opname dan Laporan. Profil/notifikasi konsisten di top bar. Menu mengikuti matrix dan capability.
 - Di bawah 1024 px, sidebar menjadi drawer. Pada 768 px ke bawah, tabel menampilkan kolom inti lalu membuka detail untuk kolom tambahan. Area scroll horizontal hanya untuk tabel yang perlu mempertahankan perbandingan dan memiliki label serta fokus keyboard. Pada 375 px, filter terbuka lewat tombol dan form satu kolom. Kontrol sentuh utama memberi target minimal 44 px.
 - Dashboard tiap role menempatkan antrean di awal. Employee melihat draft dan permintaan revisi. Manager melihat antrean approval. Procurement melihat PR belum dialokasikan dan PO terbuka. Warehouse melihat receipt, issue dan transfer yang bisa dikerjakan. Ringkasan singkat berisi angka yang dapat ditelusuri ke daftar dan aktivitas terbaru dari event yang sah.

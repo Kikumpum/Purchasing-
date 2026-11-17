@@ -1,6 +1,7 @@
 import { randomUUID } from "node:crypto";
 import { redirect } from "next/navigation";
 import { WorkspaceShell } from "@/components/workspace-shell";
+import { SectionLinks } from "@/components/section-links";
 import { requireRequestSession } from "@/features/requests/session";
 import { createWarehouse, issueReservation, receiveOrder, recordMovement, reviewCount, submitCount } from "@/features/warehouse/actions";
 
@@ -55,10 +56,15 @@ export default async function WarehousePage({ searchParams }: {
   return (
     <WorkspaceShell current="warehouse" canProcure={canManage} canWarehouse>
       <div className="page-heading"><h1>Gudang</h1></div>
+      <SectionLinks links={[
+        ["gudang-penerimaan", canManage ? "Daftar gudang" : "Penerimaan PO"],
+        ["gudang-stok", "Saldo stok"], ["gudang-pengeluaran", "Pengeluaran PR"],
+        ["gudang-opname", "Opname"], ["gudang-riwayat", "Riwayat stok"],
+      ]} />
       {error && errors[error] && <p role="alert" className="copy-error">{errors[error]}</p>}
       {saved === "1" && <p role="status">Data tersimpan.</p>}
       <div className="setup-grid">
-        <section className="setup-panel">
+        <section className="setup-panel" id="gudang-penerimaan" tabIndex={-1}>
           <h2>{canManage ? "Daftar gudang" : "Penerimaan PO"}</h2>
           {canManage ? (
             warehouses.error ? <p role="alert">Gudang gagal dimuat.</p>
@@ -93,7 +99,7 @@ export default async function WarehousePage({ searchParams }: {
             <button className="button button-primary">Tambah gudang</button>
           </form>
         </section>}
-        <section className="setup-panel">
+        <section className="setup-panel" id="gudang-stok" tabIndex={-1}>
           <h2>Saldo stok per gudang</h2>
           {stock.error || products?.error ? <p role="alert">Saldo stok gagal dimuat.</p>
             : stock.data.length === 0 ? <p>Belum ada saldo barang.</p>
@@ -137,7 +143,7 @@ export default async function WarehousePage({ searchParams }: {
               );
             })}</ul>}
         </section>
-        <section className="setup-panel">
+        <section className="setup-panel" id="gudang-pengeluaran" tabIndex={-1}>
           <h2>Pengeluaran untuk PR</h2>
           {reservations.error ? <p role="alert">Alokasi gagal dimuat.</p>
             : reservations.data.length === 0 ? <p>Tidak ada alokasi yang menunggu pengeluaran.</p>
@@ -158,7 +164,7 @@ export default async function WarehousePage({ searchParams }: {
               </div></li>
             ))}</ul>}
         </section>
-        <section className="setup-panel">
+        <section className="setup-panel" id="gudang-opname" tabIndex={-1}>
           <h2>Opname</h2>
           {counts.error ? <p role="alert">Hasil opname gagal dimuat.</p>
             : counts.data.length === 0 ? <p>Belum ada hasil opname.</p>
@@ -176,7 +182,7 @@ export default async function WarehousePage({ searchParams }: {
               </div></li>
             ))}</ul>}
         </section>
-        <section className="setup-panel">
+        <section className="setup-panel" id="gudang-riwayat" tabIndex={-1}>
           <h2>Pergerakan stok terakhir</h2>
           {movements.error ? <p role="alert">Riwayat gagal dimuat.</p>
             : movements.data.length === 0 ? <p>Belum ada pengeluaran atau transfer.</p>

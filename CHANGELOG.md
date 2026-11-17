@@ -1,5 +1,7 @@
 # Changelog
 
+- Merombak layout masuk, identitas navigasi, dashboard peran, tampilan tabel dan status, serta navigasi bagian pada transaksi Pengadaan dan Gudang.
+
 - Menambahkan favicon Aryocorp untuk tab browser.
 
 - Menambahkan tabel antrean Pengadaan dengan filter nama barang dan OPKB, tanggal kebutuhan, serta status PO aktif.
