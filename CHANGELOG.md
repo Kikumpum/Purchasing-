@@ -1,5 +1,7 @@
 # Changelog
 
+- Merapikan tampilan Asisten Purchasing dan menambahkan konteks untuk pertanyaan lanjutan di Tanya AI.
+
 - Mengganti koneksi AI ke Gemini Flash-Lite dengan penyiapan Free Tier dan pemberitahuan penggunaan data paket gratis.
 
 - Menyiapkan Asisten Purchasing dengan mode panduan lokal dan koneksi AI server untuk akun aktif.

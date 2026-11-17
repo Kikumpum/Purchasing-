@@ -1,6 +1,6 @@
 # Design system · Purchasing
 
-Asisten dibuka melalui tombol Bantuan di kanan bawah. Dialog memakai palet dan tipografi aplikasi, mode Panduan/Tanya AI, area percakapan yang dapat digulir, label pertanyaan dan aksi Kirim. Escape dan tombol tutup memakai perilaku dialog native. Isi chat dimuat setelah pengguna membuka bantuan.
+Asisten dibuka melalui tombol Bantuan di kanan bawah. Panel memakai palet dan tipografi aplikasi, sapaan dan saran yang tampil sebelum pesan pertama, balon pesan, serta kolom pesan yang tetap terlihat saat percakapan digulir. Enter mengirim dan Shift+Enter membuat baris baru. Escape dan tombol tutup mengikuti perilaku dialog native. Panel dan pemeriksaan kesiapan AI dimuat saat Bantuan dibuka.
 
 Rancangan untuk web enterprise responsif dengan profil Dashboard/Admin dan App/Product UI. Pengguna utama bekerja lewat antrean PR, PO dan gudang. Fokus visualnya adalah dokumen yang membutuhkan tindakan, jumlah yang masih terbuka, dan gudang penanggung jawab.
 

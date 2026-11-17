@@ -1,5 +1,7 @@
 # Status proyek
 
+Asisten Purchasing memakai tampilan percakapan, pengiriman dengan Enter, dan indikator kesiapan AI. Mode Tanya AI menjadi pilihan awal untuk akun aktif dengan konfigurasi Gemini. Pada setiap pertanyaan lanjutan, server meneruskan maksimal tiga putaran AI terbaru dari panel aktif. Panduan tetap tersedia untuk tamu dan ketika Gemini belum siap. Tes multi-putaran memakai respons Gemini tiruan.
+
 Koneksi AI beralih ke Gemini 3.5 Flash-Lite atas permintaan layanan gratis dan ringan. Pilih proyek Google AI Studio Free Tier tanpa billing. Pemrosesan AI berada di server Google, chat dimuat saat dibuka, dan jawaban dibatasi 600 token. Kuota gratis berlaku sesuai proyek Google. Pertanyaan pada paket gratis dapat digunakan Google untuk peningkatan produk dan hal ini ditampilkan sebelum pengiriman. API key nyata belum tersedia, sehingga jawaban provider langsung belum diuji. Dua belas tes dan typecheck lulus.
 
 Asisten Purchasing menyediakan panduan akun, peran, PR/OPKB, approval, pengadaan, penerimaan, stok, pembatalan dan laporan. Chat dimuat saat dibuka dan percakapan hanya disimpan dalam memori tab. Mode AI memakai endpoint server dengan sesi dan profil aktif, validasi ukuran pertanyaan, timeout dan pembatasan burst per instance. Aktivasi membutuhkan GEMINI_API_KEY di Vercel. Kunci dan panggilan provider nyata belum dapat diverifikasi karena sesi CLI Vercel tidak valid. Uji tampilan browser juga terhenti oleh alat karena URL tidak dapat diverifikasi. Dashboard kini mengirim shell, judul dan tombol utama sebelum query antrean/ringkasan selesai.

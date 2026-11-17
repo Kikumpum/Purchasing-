@@ -1,6 +1,6 @@
 # Rencana implementasi
 
-Task pendukung operasional mencakup Asisten Purchasing. Panduan berbasis fitur tersedia tanpa layanan eksternal. Pertanyaan AI memakai Google Gemini generateContent melalui server setelah kredensial Production dikonfigurasi. Asisten menerima pertanyaan dan panduan statis, tanpa akses transaksi atau alat perubahan data. Pengujian provider nyata, UI browser dan batas pemakaian global masih terbuka sebelum aktivasi AI.
+Task pendukung operasional mencakup Asisten Purchasing. Panduan berbasis fitur tersedia tanpa layanan eksternal. Pertanyaan AI memakai Google Gemini generateContent melalui server setelah kredensial Production dikonfigurasi. Asisten menerima pertanyaan, panduan statis, dan maksimal tiga putaran AI sebelumnya. Akses asisten terbatas pada percakapan. Pengujian provider nyata, UI browser dan batas pemakaian global masih terbuka sebelum aktivasi AI.
 
 | Fase | Dependensi | Cakupan dan kriteria keluar |
 |---|---|---|

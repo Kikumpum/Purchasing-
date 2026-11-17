@@ -5,7 +5,7 @@ import { useState } from "react";
 import { MessageCircle } from "lucide-react";
 
 const ChatPanel = dynamic(() => import("./chat-panel"), { ssr: false,
-  loading: () => <p role="status" className="assistant-loading">Membuka panduan…</p> });
+  loading: () => <p role="status" className="assistant-loading">Membuka asisten…</p> });
 
 export function AssistantLauncher() {
   const [open, setOpen] = useState(false);

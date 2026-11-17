@@ -39,7 +39,7 @@ export function answerGuide(question: string): GuideAnswer {
   })).sort((a, b) => b.score - a.score);
   const match = ranked[0];
   if (!match || match.score === 0) {
-    return { text: "Panduan ini mencakup akun, jobdesk, permintaan, persetujuan, pengadaan, gudang dan laporan. Coba pertanyaan seperti Bagaimana membuat OPKB? atau Bagaimana menerima barang PO? Jawaban AI untuk pertanyaan umum belum diaktifkan." };
+    return { text: "Panduan ini membahas akun, permintaan, pengadaan, dan gudang. Coba tanyakan cara membuat OPKB atau menerima barang dari PO." };
   }
   return { text: match.topic.text, href: match.topic.href, title: match.topic.title };
 }

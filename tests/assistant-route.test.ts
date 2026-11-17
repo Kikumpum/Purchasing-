@@ -17,5 +17,5 @@ test("AI endpoint rejects foreign origins before authentication or provider call
 test("AI endpoint rejects malformed and oversized input", async () => {
   assert.equal((await POST(request("{"))).status, 400);
   assert.equal((await POST(request(JSON.stringify({ question: "a".repeat(1001) })))).status, 400);
-  assert.equal((await POST(request("a".repeat(8200)))).status, 413);
+  assert.equal((await POST(request("a".repeat(65537)))).status, 413);
 });

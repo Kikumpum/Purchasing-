@@ -26,7 +26,7 @@ Gunakan tujuan undangan Production `https://purchasing-inky.vercel.app/aktifkan`
 
 Tambahkan GEMINI_API_KEY sebagai variabel sensitif server untuk Production di Vercel, lalu deploy ulang. GEMINI_MODEL opsional, default gemini-3.5-flash-lite. Kunci harus berasal dari akun Google AI Studio pemilik aplikasi. Jangan menambahkan awalan NEXT_PUBLIC atau memasukkan kunci ke Git.
 
-Mode Panduan berjalan secara lokal tanpa provider. Mode Tanya AI memerlukan sesi dan profil aktif. Server hanya meneruskan pertanyaan, peran dan panduan statis ke Google Gemini generateContent. Riwayat chat dan data transaksi tidak diteruskan otomatis. Jawaban dirender sebagai teks biasa.
+Mode Panduan berjalan secara lokal tanpa provider. Mode Tanya AI memerlukan sesi dan profil aktif. Server meneruskan pertanyaan, peran, panduan statis, dan paling banyak tiga putaran AI sebelumnya dari panel aktif ke Gemini. Data transaksi tidak disertakan. Jawaban dirender sebagai teks biasa.
 
 Batas lima permintaan per menit berlaku per akun dalam satu instance server. Untuk batas lintas instance, terapkan pembatasan terpusat dan kuota provider sebelum penggunaan luas. Uji error kunci kosong, sesi kedaluwarsa, timeout dan jawaban nyata setelah aktivasi. Dokumentasi Gemini API https://ai.google.dev/gemini-api/docs/generate-content
 
