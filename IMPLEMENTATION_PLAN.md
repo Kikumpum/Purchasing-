@@ -1,5 +1,7 @@
 # Rencana implementasi
 
+Pengajuan Warehouse memanfaatkan tautan aktivasi yang sudah ada. Form publik mencatat pengajuan di antrean privat. Pengelola Supabase tetap memeriksa identitas, membuat undangan, dan menetapkan akses per gudang. Ini memberi petugas jalur untuk meminta akun dan mempertahankan kewenangan pengelola.
+
 Task pendukung operasional mencakup Asisten Purchasing. Panduan berbasis fitur tersedia tanpa layanan eksternal. Pertanyaan AI memakai Google Gemini generateContent melalui server setelah kredensial Production dikonfigurasi. Asisten menerima pertanyaan, panduan statis, dan maksimal tiga putaran AI sebelumnya. Akses asisten terbatas pada percakapan. Pengujian provider nyata, UI browser dan batas pemakaian global masih terbuka sebelum aktivasi AI.
 
 | Fase | Dependensi | Cakupan dan kriteria keluar |

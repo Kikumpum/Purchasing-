@@ -15,6 +15,8 @@ Hak akses terperinci ada di [Permission matrix](docs/security/permissions.md).
 
 ## Kebutuhan fungsional
 
+Calon petugas Warehouse dapat mengajukan akun dari halaman masuk. Pengajuan hanya mencatat nama dan email untuk pemeriksaan pengelola. Setelah verifikasi, pengelola mengundang pengguna dan menetapkan gudang. Akun Employee, Manager, dan Admin Procurement disiapkan melalui undangan pengelola.
+
 | Area | Kebutuhan |
 |---|---|
 | Identitas | Login, logout, session refresh, profil, akun aktif/nonaktif, pemulihan password, dan pengelolaan role/scope yang diaudit. |

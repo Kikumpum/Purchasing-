@@ -22,6 +22,15 @@ Undang pengguna melalui Supabase Auth. Setelah akun muncul, gunakan ID Auth seba
 
 Gunakan tujuan undangan Production `https://purchasing-inky.vercel.app/aktifkan`. Pemilik akun menetapkan kata sandi melalui tautan undangan. Periksa profil aktif, peran dan penugasan gudang setelah provisioning.
 
+## Pengajuan akun Warehouse
+
+1. Terapkan migrasi `202611180020_warehouse_account_requests.sql` pada database tujuan. Halaman **Ajukan akun Warehouse** memeriksa fungsi kesiapan dari migrasi tersebut dan menampilkan formulir setelah database siap. Rilis halaman dapat dilakukan sebelum migrasi.
+2. Di Supabase **Table Editor**, buka `warehouse_account_requests` dan filter `status = pending`. Verifikasi nama dan email pemohon dengan penanggung jawab gudang. Email yang ditulis dalam formulir adalah informasi dari pemohon.
+3. Untuk pengajuan yang disetujui, undang email tersebut lewat **Authentication → Users** ke tautan aktivasi Production. Pastikan email belum terdaftar sebelum mengundang. Buat profil berperan `warehouse` dengan departemen yang tepat dan satu baris `user_warehouse_access` untuk setiap gudang yang disetujui. Verifikasi profil dan penugasan, lalu ubah status pengajuan menjadi `invited`. Untuk pengajuan yang ditolak, ubah status menjadi `declined`.
+4. Petugas membuka undangan, mengatur kata sandi, lalu masuk dan bekerja pada gudang yang ditugaskan. Untuk peran lain, pengelola mengikuti penyiapan akun operasional.
+
+Antrean hanya dapat dibaca melalui akses administrasi database. Formulir menerima satu pengajuan tertunda per email dan membatasi pengajuan baru menjadi 100 per jam untuk seluruh proyek.
+
 ## Asisten AI opsional
 
 Tambahkan GEMINI_API_KEY sebagai variabel sensitif server untuk Production di Vercel, lalu deploy ulang. GEMINI_MODEL opsional, default gemini-3.5-flash-lite. Kunci harus berasal dari akun Google AI Studio pemilik aplikasi. Jangan menambahkan awalan NEXT_PUBLIC atau memasukkan kunci ke Git.

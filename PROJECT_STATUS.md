@@ -1,5 +1,7 @@
 # Status proyek
 
+Halaman pengajuan akun Warehouse menampilkan formulir ketika Supabase mengonfirmasi migrasi 020 tersedia. Migrasi menambah antrean privat dengan deduplikasi email dan batas pengajuan bersama. PostgreSQL lokal memverifikasi pengajuan tamu, penolakan baca dan tulis langsung, validasi, deduplikasi, dan batas pengajuan. Pengelola Supabase tetap meninjau, mengundang, dan menetapkan akses gudang. Migrasi Production dan verifikasi pengiriman dari URL publik masih tertunda.
+
 Asisten Purchasing memakai tampilan percakapan, pengiriman dengan Enter, dan indikator kesiapan AI. Mode Tanya AI menjadi pilihan awal untuk akun aktif dengan konfigurasi Gemini. Pada setiap pertanyaan lanjutan, server meneruskan maksimal tiga putaran AI terbaru dari panel aktif. Panduan tetap tersedia untuk tamu dan ketika Gemini belum siap. Tes multi-putaran memakai respons Gemini tiruan.
 
 Koneksi AI beralih ke Gemini 3.5 Flash-Lite atas permintaan layanan gratis dan ringan. Pilih proyek Google AI Studio Free Tier tanpa billing. Pemrosesan AI berada di server Google, chat dimuat saat dibuka, dan jawaban dibatasi 600 token. Kuota gratis berlaku sesuai proyek Google. Pertanyaan pada paket gratis dapat digunakan Google untuk peningkatan produk dan hal ini ditampilkan sebelum pengiriman. API key nyata belum tersedia, sehingga jawaban provider langsung belum diuji. Dua belas tes dan typecheck lulus.

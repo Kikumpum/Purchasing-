@@ -23,6 +23,7 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
               <button className="button button-primary">Minta tautan pemulihan</button>
             </form>
           </details>
+          <Link className="inline-link mt-4 inline-block" href="/daftar-warehouse">Ajukan akun Warehouse</Link>
           </>
         ) : process.env.VERCEL_ENV
           ? <p role="alert">Layanan masuk belum tersedia. Hubungi pengelola Purchasing.</p>

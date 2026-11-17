@@ -1,5 +1,7 @@
 # Changelog
 
+- Menambahkan tautan dan formulir pengajuan akun Warehouse di halaman masuk, dengan antrean privat di Supabase untuk diperiksa pengelola.
+
 - Merapikan tampilan Asisten Purchasing dan menambahkan konteks untuk pertanyaan lanjutan di Tanya AI.
 
 - Mengganti koneksi AI ke Gemini Flash-Lite dengan penyiapan Free Tier dan pemberitahuan penggunaan data paket gratis.
