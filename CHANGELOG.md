@@ -1,5 +1,7 @@
 # Changelog
 
+- Membagi daftar penerimaan PO per 25 baris dan membuka PO pilihan langsung dari dashboard petugas Gudang.
+
 - Menambahkan status pemuatan untuk semua menu operasional, mengarahkan tamu sebelum halaman dimuat, dan menempatkan fungsi aplikasi di region database.
 
 - Menambahkan umpan balik saat membuka Gudang serta membatasi dan memisahkan pemuatan panel saldo stok.

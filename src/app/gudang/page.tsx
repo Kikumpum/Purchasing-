@@ -1,3 +1,6 @@
+import Link from "next/link";
+import { z } from "zod";
+import { ProcurementPagination } from "@/features/procurement/pagination";
 import { Suspense } from "react";
 import { loadStockPage, StockPanel, StockPanelLoading } from "@/features/warehouse/stock-panel";
 import { randomUUID } from "node:crypto";
@@ -23,18 +26,25 @@ const errors: Record<string, string> = {
 };
 
 export default async function WarehousePage({ searchParams }: {
-  searchParams: Promise<{ error?: string; saved?: string; stok?: string }>;
+  searchParams: Promise<{ error?: string; saved?: string; stok?: string; penerimaan?: string; po?: string }>;
 }) {
-  const { error, saved, stok } = await searchParams;
+  const { error, saved, stok, penerimaan, po } = await searchParams;
   const { profile, supabase } = await requireRequestSession();
   const canManage = profile?.role === "admin_procurement";
   if (!canManage && profile?.role !== "warehouse") redirect("/permintaan");
 
   const stockPage = typeof stok === "string" && /^(?:[1-9]\d{0,4}|100000)$/.test(stok) ? Number(stok) : 1;
+  const orderPage = z.string().regex(/^[1-9]\d{0,4}$/).transform(Number).safeParse(penerimaan);
+  const page = orderPage.success ? orderPage.data : 1;
+  const selectedOrder = z.uuid().safeParse(po);
+  const orderStart = selectedOrder.success ? 0 : (page - 1) * 25;
+  const orderQuery = canManage ? null : supabase.rpc("warehouse_orders").order("number", { ascending: false })
+    .range(orderStart, orderStart + 25);
+  if (selectedOrder.success) orderQuery?.eq("id", selectedOrder.data);
   const stock = Promise.resolve(loadStockPage(supabase, stockPage));
   const [warehouses, orders, movements, counts, reservations] = await Promise.all([
     supabase.from("warehouses").select("id, code, name").order("code"),
-    canManage ? null : supabase.rpc("warehouse_orders"),
+    orderQuery,
     supabase.from("stock_movements").select("id, product_id, warehouse_id, destination_id, quantity, note, created_at, recipient, shipping_reference")
       .order("created_at", { ascending: false }).order("id").limit(25),
     supabase.from("stock_counts").select("id, product_id, warehouse_id, expected_quantity, actual_quantity, note, status")
@@ -75,7 +85,7 @@ export default async function WarehousePage({ searchParams }: {
               ))}</ul>
           ) : orders?.error ? <p role="alert">Daftar PO gagal dimuat.</p>
             : !warehouseOrders.length ? <p>Belum ada PO untuk gudang yang ditugaskan kepada Anda.</p>
-            : <ul className="module-list">{warehouseOrders.map((order) => {
+            : <ul className="module-list">{warehouseOrders.slice(0, 25).map((order) => {
               const remaining = order.quantity - order.received;
               return (
                 <li key={order.id} id={`penerimaan-${order.id}`} tabIndex={-1}><div className="w-full min-w-0">
@@ -91,6 +101,10 @@ export default async function WarehousePage({ searchParams }: {
                 </div></li>
               );
             })}</ul>}
+          {!canManage && (selectedOrder.success
+            ? <Link className="inline-link" href="/gudang#gudang-penerimaan">Semua penerimaan</Link>
+            : <ProcurementPagination page={page} hasNext={warehouseOrders.length > 25 && page < 99999}
+                href={(next) => `/gudang?stok=${stockPage}&penerimaan=${next}#gudang-penerimaan`} />)}
         </section>
         {canManage && <section className="setup-panel">
           <h2>Gudang baru</h2>
@@ -101,7 +115,7 @@ export default async function WarehousePage({ searchParams }: {
           </form>
         </section>}
         <Suspense fallback={<StockPanelLoading />}>
-          <StockPanel supabase={supabase} pending={stock} warehouses={warehouses.data ?? []} canManage={canManage} page={stockPage} />
+          <StockPanel supabase={supabase} pending={stock} warehouses={warehouses.data ?? []} canManage={canManage} page={stockPage} receivingFilter={selectedOrder.success ? `po=${selectedOrder.data}` : `penerimaan=${page}`} />
         </Suspense>
         <section className="setup-panel" id="gudang-pengeluaran" tabIndex={-1}>
           <h2>Pengeluaran untuk PR</h2>

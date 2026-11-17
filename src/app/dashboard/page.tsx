@@ -98,7 +98,7 @@ export default async function DashboardPage() {
               <table>
                 <thead><tr><th scope="col">PO dan barang</th><th scope="col">Gudang</th><th scope="col">Sisa diterima</th></tr></thead>
                 <tbody>{receivingQueue.map((order) => <tr key={order.id}>
-                  <td><Link className="inline-link" href={`/gudang#penerimaan-${order.id}`}>PO-{order.number}</Link><p>{order.item_name}</p></td>
+                  <td><Link className="inline-link" href={`/gudang?po=${order.id}#penerimaan-${order.id}`}>PO-{order.number}</Link><p>{order.item_name}</p></td>
                   <td>{order.warehouse_name}</td>
                   <td className="tabular-nums">{order.quantity - order.received} {order.item_unit}</td>
                 </tr>)}</tbody>

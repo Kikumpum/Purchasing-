@@ -14,17 +14,17 @@ export function loadStockPage(supabase: Supabase, page: number) {
     .order("warehouse_id").order("product_id").range(start, start + stockPageSize);
 }
 
-function stockHref(page: number) {
-  return `/gudang?stok=${page}#gudang-stok`;
+function stockHref(page: number, receivingFilter: string) {
+  return `/gudang?stok=${page}&${receivingFilter}#gudang-stok`;
 }
 
 export function StockPanelLoading() {
   return <section className="setup-panel" id="gudang-stok" aria-busy="true"><h2>Saldo stok per gudang</h2><p role="status">Memuat saldo stok…</p></section>;
 }
 
-export async function StockPanel({ supabase, pending, warehouses, canManage, page }: {
+export async function StockPanel({ supabase, pending, warehouses, canManage, page, receivingFilter }: {
   supabase: Supabase; pending: PromiseLike<Awaited<ReturnType<typeof loadStockPage>>>;
-  warehouses: Warehouse[]; canManage: boolean; page: number;
+  warehouses: Warehouse[]; canManage: boolean; page: number; receivingFilter: string;
 }) {
   const stock = await pending;
   const ids = [...new Set(stock.data?.slice(0, stockPageSize).map((entry) => entry.product_id) ?? [])];
@@ -78,8 +78,8 @@ export async function StockPanel({ supabase, pending, warehouses, canManage, pag
           );
         })}</ul>}
       {!stock.error && <nav className="flex flex-wrap gap-4" aria-label="Halaman saldo stok">
-        {page > 1 && <Link className="inline-link" href={stockHref(page - 1)}>Sebelumnya</Link>}
-        {hasNext && <Link className="inline-link" href={stockHref(page + 1)}>Berikutnya</Link>}
+        {page > 1 && <Link className="inline-link" href={stockHref(page - 1, receivingFilter)}>Sebelumnya</Link>}
+        {hasNext && <Link className="inline-link" href={stockHref(page + 1, receivingFilter)}>Berikutnya</Link>}
       </nav>}
     </section>
   );

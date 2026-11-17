@@ -1,5 +1,7 @@
 # Status proyek
 
+Daftar penerimaan petugas Gudang membatasi respons menjadi 26 PO (25 ditampilkan dan satu untuk mendeteksi halaman berikutnya). Tautan antrean dashboard memfilter satu PO sesuai akses gudang. Typecheck dan empat tes konfigurasi lulus. Volume kerja internal fungsi SQL dan waktu navigasi Admin pada data besar belum diukur.
+
 Ketujuh menu operasional memiliki tampilan pemuatan yang dapat dipramuat saat tautan muncul. Fungsi Vercel dikonfigurasi di Singapura agar dekat dengan Supabase. Proxy mengarahkan tamu ke login sebelum halaman operasional mulai dikirim. Pengukuran waktu klik hingga data tampil untuk sesi Admin Procurement di laptop masih terbuka.
 
 Rute Gudang menyediakan status loading saat navigasi dan menampilkan saldo 25 baris per halaman. Saldo dan lookup produknya dirender melalui Suspense secara terpisah dari daftar transaksi. Pengukuran kinerja dengan volume besar dan uji transaksi lintas jobdesk masih terbuka.
