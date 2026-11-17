@@ -34,7 +34,7 @@ export async function WorkspaceShell({
     <div className="workspace">
       <aside className="sidebar">
         <Link href="/" className="wordmark">
-          <span className="brand-mark" aria-hidden="true">A</span>
+          <span className="brand-mark" aria-hidden="true" />
           <span>Aryocorp<small>Purchasing</small></span>
         </Link>
         <nav className="desktop-navigation" aria-label="Navigasi utama">

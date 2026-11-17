@@ -72,6 +72,13 @@ body {
   border-radius: 6px;
 }
 .brand-mark { width: 32px; height: 32px; }
+.brand-mark::before {
+  content: "";
+  width: 66%;
+  aspect-ratio: 1;
+  background: currentColor;
+  mask: url("/aryocorp-ledger.svg") center / contain no-repeat;
+}
 .desktop-navigation { display: grid; gap: 4px; margin-top: 28px; }
 .desktop-navigation a, .mobile-navigation nav a {
   display: flex;

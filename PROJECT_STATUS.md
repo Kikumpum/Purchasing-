@@ -1,5 +1,7 @@
 # Status proyek
 
+Konsep logo B Ledger yang dipilih pengguna memakai forest green dan menggantikan monogram A pada login, sidebar dan favicon. Master simbol tersedia di public/aryocorp-ledger.svg.
+
 Redesign lintas workspace menerapkan login dua panel, identitas Aryocorp pada sidebar, antrean sebagai fokus dashboard, status transaksi yang lebih mudah dibedakan, dan tautan bagian pada Pengadaan serta Gudang. Akses data dan transaksi tetap memakai jalur Supabase yang tersedia.
 
 Favicon Aryocorp memakai monogram A forest green dan tersedia dalam ukuran 16, 32, serta 48 piksel melalui konvensi metadata Next.js.

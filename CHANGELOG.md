@@ -1,5 +1,7 @@
 # Changelog
 
+- Memasang logo Ledger Aryocorp di halaman masuk, sidebar, dan favicon.
+
 - Merombak layout masuk, identitas navigasi, dashboard peran, tampilan tabel dan status, serta navigasi bagian pada transaksi Pengadaan dan Gudang.
 
 - Menambahkan favicon Aryocorp untuk tab browser.
