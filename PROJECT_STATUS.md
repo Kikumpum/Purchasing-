@@ -1,5 +1,7 @@
 # Status proyek
 
+Rute Gudang menyediakan status loading saat navigasi dan menampilkan saldo 25 baris per halaman. Saldo dan lookup produknya dirender melalui Suspense secara terpisah dari daftar transaksi. Pengukuran kinerja dengan volume besar dan uji transaksi lintas jobdesk masih terbuka.
+
 Laporan pergerakan menampilkan pengeluaran dan transfer terposting bagi Warehouse dan Admin Procurement, dengan paginasi 25 transaksi, filter periode WIB dan jenis, serta CSV untuk halaman aktif. Pengelolaan pengguna, transit gudang, pajak/diskon, notifikasi stok, dan laporan detail lainnya tetap mengikuti fase masing-masing.
 
 Dashboard Warehouse menghitung PO aktif di PostgreSQL dan hanya meminta detail enam PO terbaru. Migrasi 019 menambah indeks PO aktif per gudang. Foto login memakai WebP gudang berukuran terpisah untuk desktop dan ponsel. Uji beban dashboard dengan volume representatif masih terbuka.

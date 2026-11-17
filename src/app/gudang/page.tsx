@@ -1,9 +1,11 @@
+import { Suspense } from "react";
+import { loadStockPage, StockPanel, StockPanelLoading } from "@/features/warehouse/stock-panel";
 import { randomUUID } from "node:crypto";
 import { redirect } from "next/navigation";
 import { WorkspaceShell } from "@/components/workspace-shell";
 import { SectionLinks } from "@/components/section-links";
 import { requireRequestSession } from "@/features/requests/session";
-import { createWarehouse, issueReservation, receiveOrder, recordMovement, reviewCount, submitCount } from "@/features/warehouse/actions";
+import { createWarehouse, issueReservation, receiveOrder, reviewCount } from "@/features/warehouse/actions";
 
 type WarehouseOrder = {
   id: string; number: number; item_name: string; item_sku: string | null; item_unit: string | null;
@@ -21,18 +23,18 @@ const errors: Record<string, string> = {
 };
 
 export default async function WarehousePage({ searchParams }: {
-  searchParams: Promise<{ error?: string; saved?: string }>;
+  searchParams: Promise<{ error?: string; saved?: string; stok?: string }>;
 }) {
-  const { error, saved } = await searchParams;
+  const { error, saved, stok } = await searchParams;
   const { profile, supabase } = await requireRequestSession();
   const canManage = profile?.role === "admin_procurement";
   if (!canManage && profile?.role !== "warehouse") redirect("/permintaan");
 
-  const [warehouses, orders, stock, movements, counts, reservations] = await Promise.all([
+  const stockPage = typeof stok === "string" && /^(?:[1-9]\d{0,4}|100000)$/.test(stok) ? Number(stok) : 1;
+  const stock = Promise.resolve(loadStockPage(supabase, stockPage));
+  const [warehouses, orders, movements, counts, reservations] = await Promise.all([
     supabase.from("warehouses").select("id, code, name").order("code"),
     canManage ? null : supabase.rpc("warehouse_orders"),
-    supabase.from("inventory_availability").select("warehouse_id, product_id, quantity, available, reserved")
-      .order("warehouse_id").order("product_id"),
     supabase.from("stock_movements").select("id, product_id, warehouse_id, destination_id, quantity, note, created_at, recipient, shipping_reference")
       .order("created_at", { ascending: false }).order("id").limit(25),
     supabase.from("stock_counts").select("id, product_id, warehouse_id, expected_quantity, actual_quantity, note, status")
@@ -41,7 +43,6 @@ export default async function WarehousePage({ searchParams }: {
       .gt("remaining", 0).order("created_at").order("id").limit(25),
   ]);
   const productIds = [...new Set([
-    ...(stock.data ?? []).map((row) => row.product_id),
     ...(movements.data ?? []).map((row) => row.product_id),
     ...(counts.data ?? []).map((row) => row.product_id),
     ...(reservations.data ?? []).map((row) => row.product_id),
@@ -99,50 +100,9 @@ export default async function WarehousePage({ searchParams }: {
             <button className="button button-primary">Tambah gudang</button>
           </form>
         </section>}
-        <section className="setup-panel" id="gudang-stok" tabIndex={-1}>
-          <h2>Saldo stok per gudang</h2>
-          {stock.error || products?.error ? <p role="alert">Saldo stok gagal dimuat.</p>
-            : stock.data.length === 0 ? <p>Belum ada saldo barang.</p>
-            : <ul className="module-list">{stock.data.map((entry) => {
-              const product = productById.get(entry.product_id);
-              return (
-                <li key={`${entry.warehouse_id}/${entry.product_id}`}>
-                  <div><h3>{product?.name ?? "Produk nonaktif"}</h3>
-                    <p>{warehouseById.get(entry.warehouse_id)} · {entry.quantity} {product?.unit}</p>
-                    <p>{entry.available} tersedia · {entry.reserved} dialokasikan</p>
-                    {!canManage && <details>
-                      <summary className="inline-link cursor-pointer">Catat hasil hitung fisik</summary>
-                      <form className="request-form" action={submitCount}>
-                        <input type="hidden" name="id" value={randomUUID()} />
-                        <input type="hidden" name="product" value={entry.product_id} />
-                        <input type="hidden" name="warehouse" value={entry.warehouse_id} />
-                        <label>Jumlah fisik<input name="actual" type="number" min={0} max={99999999} required /></label>
-                        <label>Catatan<textarea name="note" required maxLength={500} rows={2} /></label>
-                        <button className="button button-primary">Ajukan hasil hitung</button>
-                      </form>
-                    </details>}
-                    {!canManage && entry.available > 0 && <details>
-                      <summary className="inline-link cursor-pointer">Catat pengeluaran atau transfer</summary>
-                      <form className="request-form" action={recordMovement}>
-                        <input type="hidden" name="id" value={randomUUID()} />
-                        <input type="hidden" name="product" value={entry.product_id} />
-                        <input type="hidden" name="source" value={entry.warehouse_id} />
-                        <label>Tujuan<select name="destination" defaultValue="">
-                          <option value="">Pengeluaran dari gudang</option>
-                          {warehouses.data?.filter((warehouse) => warehouse.id !== entry.warehouse_id).map((warehouse) => (
-                            <option key={warehouse.id} value={warehouse.id}>Transfer ke {warehouse.name}</option>
-                          ))}
-                        </select></label>
-                        <label>Jumlah<input name="quantity" type="number" min={1} max={Math.min(entry.available, 1000000)} required /></label>
-                        <label>Alasan atau referensi<textarea name="note" required maxLength={500} rows={2} /></label>
-                        <button className="button button-primary">Simpan pergerakan</button>
-                      </form>
-                    </details>}
-                  </div>
-                </li>
-              );
-            })}</ul>}
-        </section>
+        <Suspense fallback={<StockPanelLoading />}>
+          <StockPanel supabase={supabase} pending={stock} warehouses={warehouses.data ?? []} canManage={canManage} page={stockPage} />
+        </Suspense>
         <section className="setup-panel" id="gudang-pengeluaran" tabIndex={-1}>
           <h2>Pengeluaran untuk PR</h2>
           {reservations.error ? <p role="alert">Alokasi gagal dimuat.</p>

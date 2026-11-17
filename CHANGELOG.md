@@ -1,5 +1,7 @@
 # Changelog
 
+- Menambahkan umpan balik saat membuka Gudang serta membatasi dan memisahkan pemuatan panel saldo stok.
+
 - Menambahkan rincian pengeluaran dan transfer beserta ekspor CSV dengan filter yang sama.
 
 - Mengganti foto login dengan foto gudang dan menyediakan WebP yang lebih kecil untuk ponsel.
