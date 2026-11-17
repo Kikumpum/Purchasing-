@@ -112,7 +112,7 @@ export default function ChatPanel({ onClose }: { onClose: () => void }) {
   }
 
   return (
-    <dialog ref={dialog} className="assistant-dialog" aria-labelledby="assistant-title" onClose={onClose}
+    <dialog ref={dialog} className="assistant-dialog" data-mode={mode} aria-labelledby="assistant-title" onClose={onClose}
       onClick={(event) => { if (event.target === dialog.current) dialog.current?.close(); }}>
       <div className="assistant-panel">
         <header className="assistant-header">

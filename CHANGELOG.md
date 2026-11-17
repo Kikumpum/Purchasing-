@@ -1,6 +1,8 @@
 # Changelog
 
-- Menambahkan tautan dan formulir pengajuan akun Warehouse di halaman masuk, dengan antrean privat di Supabase untuk diperiksa pengelola.
+- Menerapkan burgundi dan latar hangat di Purchasing serta biru batu di Tanya AI.
+
+- Mengaktifkan pengajuan akun Warehouse di halaman masuk Production, dengan antrean privat di Supabase untuk diperiksa pengelola.
 
 - Merapikan tampilan Asisten Purchasing dan menambahkan konteks untuk pertanyaan lanjutan di Tanya AI.
 

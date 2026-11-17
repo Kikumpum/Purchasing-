@@ -2,13 +2,13 @@
 
 Halaman masuk menautkan **Ajukan akun Warehouse** setelah pemulihan kata sandi. Form pengajuan menggunakan panel akses yang sama dengan dua isian berlabel, status pengiriman dan konfirmasi bahwa pengelola akan memeriksa pengajuan.
 
-Asisten dibuka melalui tombol Bantuan di kanan bawah. Panel memakai palet dan tipografi aplikasi, sapaan dan saran yang tampil sebelum pesan pertama, balon pesan, serta kolom pesan yang tetap terlihat saat percakapan digulir. Enter mengirim dan Shift+Enter membuat baris baru. Escape dan tombol tutup mengikuti perilaku dialog native. Panel dan pemeriksaan kesiapan AI dimuat saat Bantuan dibuka.
+Asisten dibuka melalui tombol Bantuan di kanan bawah. Biru batu menandai tombol Bantuan dan mode Tanya AI, sementara mode Panduan memakai burgundi. Panel menampilkan sapaan dan saran sebelum pesan pertama, balon pesan, serta kolom pesan yang tetap terlihat saat percakapan digulir. Enter mengirim dan Shift+Enter membuat baris baru. Escape dan tombol tutup mengikuti perilaku dialog native. Panel dan pemeriksaan kesiapan AI dimuat saat Bantuan dibuka.
 
 Rancangan untuk web enterprise responsif dengan profil Dashboard/Admin dan App/Product UI. Pengguna utama bekerja lewat antrean PR, PO dan gudang. Fokus visualnya adalah dokumen yang membutuhkan tindakan, jumlah yang masih terbuka, dan gudang penanggung jawab.
 
 ## Konsep dan referensi
 
-Setiap antrean menempatkan dokumen dan tanggal kebutuhan di kiri, status dan kuantitas tersisa di tengah, serta gudang atau pemilik tindakan di kanan. Detail memakai ringkasan jumlah diminta, dialokasikan, diterima dan dikeluarkan sesuai konteks. Font dengan angka tabular membuat perbandingan mudah. Aksen hijau gelap menandai satu aksi utama. Perubahan status tetap terlihat setelah request selesai melalui badge dan histori.
+Setiap antrean menempatkan dokumen dan tanggal kebutuhan di kiri, status dan kuantitas tersisa di tengah, serta gudang atau pemilik tindakan di kanan. Detail memakai ringkasan jumlah diminta, dialokasikan, diterima dan dikeluarkan sesuai konteks. Font dengan angka tabular membuat perbandingan mudah. Burgundi menandai aksi utama. Perubahan status tetap terlihat setelah request selesai melalui badge dan histori.
 
 - Linear menginspirasi filter yang dapat digunakan kembali dan antrean yang bisa ditautkan. [Linear Custom Views](https://linear.app/docs/custom-views)
 - Dokumentasi Stripe menginspirasi penyajian status dokumen dan langkah selanjutnya. [Stripe Invoicing](https://docs.stripe.com/invoicing/overview)
@@ -18,7 +18,7 @@ Review konsep pada rancangan menemukan bahwa kartu statistik bisa menyembunyikan
 
 ## Token
 
-Palet forest green terpusat di `src/app/globals.css`. Sidebar memakai #102F25 dan aksi utama memakai #174D38, hover #216247, fokus #2F7A58 dan pilihan aktif #E7F1EB. Latar #EDF2EE dan permukaan #FFFFFF dipisahkan oleh border #DCE5DE. Teks utama #26352D dan metadata #64736A. Warna status #16A36A, #D97706, #DC2626, dan #2563EB disediakan sebagai token. Pesan teks menggunakan nada gelap agar kontras.
+Palet Purchasing terpusat di `src/app/globals.css`. Burgundi #683D4A dipakai pada identitas dan tombol utama, dengan sidebar #422832, hover #7D4C5B, fokus #764B5C dan latar pilihan #F2E6EA. Latar hangat #F7F2EF dan panel putih #FFFFFF memakai pemisah #E4D9DE. Teks utama #2C2529 dan teks sekunder #655861. Biru batu #3E5E78 dan latar biru pucat #E8EEF4 menandai mode Tanya AI. Indikator status memakai label serta warna semantik, termasuk hijau gelap #22533B untuk persetujuan dan penerimaan lengkap.
 
 Gunakan Inter untuk judul, form dan data. Pakai tabular-nums pada angka dan rata kanan untuk kuantitas dan uang. Ukuran dalam px sebagai target token. Display 32–40/1,15, h1 24–32/1,2, h2 22/1,25, h3 18/1,3, body-lg 18/1,5, body 16/1,5, body-sm 14/1,45 untuk metadata, caption 13/1,4, button 14/1,25 medium. Prosa panjang dibatasi sekitar 65ch.
 
@@ -26,7 +26,7 @@ Spacing 4, 8, 12, 16, 24, 32, 48 px. Radius 4 untuk status, 6 untuk kontrol, 8 u
 
 ## Layout dan navigasi
 
-Layar masuk dan aktivasi memakai foto lorong gudang dengan foto dan formulir berdampingan pada desktop serta tersusun vertikal pada layar sempit. Foto disajikan dalam WebP dengan versi lebih kecil untuk ponsel. Navigasi workspace muncul setelah autentikasi di Production. [Foto Erwin Salas](https://www.pexels.com/photo/aisle-of-a-huge-store-24862481/)
+Layar masuk, pengajuan Warehouse, dan aktivasi memakai foto lorong gudang dan panel formulir berlatar hangat. Keduanya berdampingan pada desktop serta tersusun vertikal pada layar sempit. Foto disajikan dalam WebP dengan versi lebih kecil untuk ponsel. Navigasi workspace muncul setelah autentikasi di Production. [Foto Erwin Salas](https://www.pexels.com/photo/aisle-of-a-huge-store-24862481/)
 
 Form OPKB menempatkan nomor dan tanggal bersama di awal. Setiap barang memakai kelompok isian berlabel dengan tombol hapus per baris. Tombol tambah dan simpan mengikuti kelompok terakhir dan dapat membungkus pada layar kecil.
 

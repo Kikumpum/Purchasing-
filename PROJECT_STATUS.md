@@ -1,6 +1,8 @@
 # Status proyek
 
-Halaman pengajuan akun Warehouse menampilkan formulir ketika Supabase mengonfirmasi migrasi 020 tersedia. Migrasi menambah antrean privat dengan deduplikasi email dan batas pengajuan bersama. PostgreSQL lokal memverifikasi pengajuan tamu, penolakan baca dan tulis langsung, validasi, deduplikasi, dan batas pengajuan. Pengelola Supabase tetap meninjau, mengundang, dan menetapkan akses gudang. Migrasi Production dan verifikasi pengiriman dari URL publik masih tertunda.
+Palet burgundi dan biru batu diterapkan pada halaman masuk, pengajuan Warehouse, workspace, logo, favicon, dan panel Bantuan. Mode Panduan memakai burgundi. Mode Tanya AI memakai biru batu. Status persetujuan dan penerimaan lengkap tetap dibedakan dengan label dan warna semantik.
+
+Halaman pengajuan akun Warehouse aktif di Production sejak 18 November 2026. Migrasi 020 menambah antrean privat dengan deduplikasi email dan batas pengajuan bersama. Verifikasi Production mencakup tautan dari halaman masuk, formulir publik, pembuatan baris berstatus pending sebagai anon di transaksi uji yang dibatalkan, dan penolakan akses tabel langsung. PostgreSQL lokal memverifikasi validasi, deduplikasi, dan batas pengajuan. Pengelola Supabase meninjau pengajuan, mengundang petugas, dan menetapkan akses gudang.
 
 Asisten Purchasing memakai tampilan percakapan, pengiriman dengan Enter, dan indikator kesiapan AI. Mode Tanya AI menjadi pilihan awal untuk akun aktif dengan konfigurasi Gemini. Pada setiap pertanyaan lanjutan, server meneruskan maksimal tiga putaran AI terbaru dari panel aktif. Panduan tetap tersedia untuk tamu dan ketika Gemini belum siap. Tes multi-putaran memakai respons Gemini tiruan.
 
