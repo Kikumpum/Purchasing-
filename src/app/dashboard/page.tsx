@@ -22,6 +22,11 @@ function isRole(value: string): value is Role {
   return Object.hasOwn(roles, value);
 }
 
+type WarehouseOrder = {
+  id: string; number: number; item_name: string; item_unit: string | null;
+  warehouse_name: string; quantity: number; received: number; status: string;
+};
+
 export default async function DashboardPage() {
   const { supabase, profile, profileError } = await requireRequestSession();
   const role = profile?.role;
@@ -46,11 +51,8 @@ export default async function DashboardPage() {
   if (role === "employee") recent?.eq("requester_id", profile.id);
   if (role === "manager") recent?.eq("approver_id", profile.id).eq("status", "pending_approval");
   if (canProcure) recent?.eq("status", "approved");
-  const metrics = await Promise.all(role === "warehouse" ? [
-    supabase.rpc("warehouse_orders").then(({ data, error }) => ({
-      label: "PO menunggu penerimaan",
-      count: error ? null : ((data ?? []) as { status: string }[]).filter((row) => ["sent", "partial"].includes(row.status)).length,
-    })),
+  const warehouseOrders = role === "warehouse" ? supabase.rpc("warehouse_orders") : null;
+  const [metrics, activity, inbound] = await Promise.all([Promise.all(role === "warehouse" ? [
     supabase.from("stock_reservation_balances").select("id", { count: "exact", head: true }).gt("remaining", 0)
       .then(({ count, error }) => ({ label: "Alokasi menunggu pengeluaran", count: error ? null : count })),
   ] : (role === "employee" ? [
@@ -63,8 +65,15 @@ export default async function DashboardPage() {
     if (role === "manager" && status === "pending_approval") query = query.eq("approver_id", profile.id);
     const { count, error } = await query;
     return { label, count: error ? null : count };
-  }));
-  const activity = await recent;
+  })), recent, warehouseOrders]);
+  const receivingQueue = ((inbound?.data ?? []) as WarehouseOrder[])
+    .filter((order) => order.status === "sent" || order.status === "partial");
+  if (inbound) {
+    metrics.unshift(
+      { label: "PO menunggu penerimaan", count: inbound.error ? null : receivingQueue.length },
+      { label: "PO diterima sebagian", count: inbound.error ? null : receivingQueue.filter((order) => order.status === "partial").length },
+    );
+  }
 
   return (
     <WorkspaceShell current="dashboard" canProcure={canProcure} canWarehouse={canWarehouse}>
@@ -76,6 +85,21 @@ export default async function DashboardPage() {
         {metrics.map(({ label, count }) => <div key={label}><dt>{label}</dt><dd>{count ?? "Gagal dimuat"}</dd></div>)}
       </dl>
       <div className="setup-grid">
+        {inbound && <section className="setup-panel">
+          <h2>Antrean penerimaan gudang</h2>
+          {inbound.error ? <p role="alert">Antrean penerimaan gagal dimuat.</p>
+            : receivingQueue.length === 0 ? <p>Belum ada PO yang menunggu penerimaan.</p>
+            : <div className="dashboard-table" tabIndex={0} role="region" aria-label="Antrean penerimaan">
+              <table>
+                <thead><tr><th scope="col">PO dan barang</th><th scope="col">Gudang</th><th scope="col">Sisa diterima</th></tr></thead>
+                <tbody>{receivingQueue.slice(0, 6).map((order) => <tr key={order.id}>
+                  <td><Link className="inline-link" href={`/gudang#penerimaan-${order.id}`}>PO-{order.number}</Link><p>{order.item_name}</p></td>
+                  <td>{order.warehouse_name}</td>
+                  <td className="tabular-nums">{order.quantity - order.received} {order.item_unit}</td>
+                </tr>)}</tbody>
+              </table>
+            </div>}
+        </section>}
         {activity && <section className="setup-panel">
           <h2>{role === "manager" ? "Antrean persetujuan" : "Permintaan terbaru"}</h2>
           {activity.error ? <p role="alert">Daftar permintaan gagal dimuat.</p>

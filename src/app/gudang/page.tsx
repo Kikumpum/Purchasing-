@@ -71,7 +71,7 @@ export default async function WarehousePage({ searchParams }: {
             : <ul className="module-list">{warehouseOrders.map((order) => {
               const remaining = order.quantity - order.received;
               return (
-                <li key={order.id}><div className="w-full min-w-0">
+                <li key={order.id} id={`penerimaan-${order.id}`} tabIndex={-1}><div className="w-full min-w-0">
                   <h3 className="wrap-anywhere">PO-{order.number} · {order.item_name}</h3>
                   <p>{order.warehouse_name} · Diterima {order.received} dari {order.quantity} {order.item_unit}</p>
                   {remaining > 0 && <form className="request-form" action={receiveOrder}>

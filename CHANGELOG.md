@@ -1,5 +1,7 @@
 # Changelog
 
+- Menambahkan antrean penerimaan ke Dashboard Warehouse dan tabel operasional ke daftar PR.
+
 - Menerapkan fondasi tampilan ERP forest green pada navigasi, login, dan dashboard. Login menampilkan status proses dan opsi melihat kata sandi.
 
 - Menambahkan Hapus draft dan Batalkan pengajuan untuk pemohon sebelum PR disetujui dengan jejak histori.

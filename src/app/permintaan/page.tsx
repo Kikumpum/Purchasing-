@@ -67,21 +67,28 @@ export default async function RequestsPage({ searchParams }: {
               : <form action={canSelectRows ? updateOpkbRequests : undefined}>
                 <input type="hidden" name="operation" value={employee ? "submit" : "approve"} />
                 <input type="hidden" name="reference" value={reference} />
-                <ul className="module-list">
+                <div className="dashboard-table" role="region" aria-label="Daftar permintaan pembelian" tabIndex={0}>
+                <table>
+                <thead><tr>{canSelectRows && <th scope="col">Pilih</th>}<th scope="col">PR dan barang</th><th scope="col">Jumlah</th><th scope="col">Status</th></tr></thead>
+                <tbody>
                 {rows.map((request) => (
-                  <li key={request.id}><div className="min-w-0">
-                    {canSelect(request) &&
-                      <label className="flex min-h-11 items-center gap-2">
-                        <input type="checkbox" name="selected" value={`${request.id}:${request.version}`} />
-                        Pilih PR-{request.number}
-                      </label>}
-                    <Link className="inline-link flex-wrap" href={`/permintaan/${request.id}`}>
-                      PR-{request.number}{request.opkb_number && ` · ${request.opkb_number}`} · {request.item_name} <span className="badge">{statusLabel[request.status]}</span>
-                    </Link>
-                    {canSelectRows && <p className="wrap-anywhere">{request.quantity} {request.item_unit ?? request.requested_unit} · {request.purpose}</p>}
-                  </div></li>
+                  <tr key={request.id}>
+                    {canSelectRows && <td>{canSelect(request) && <label className="flex min-h-11 min-w-11 items-center justify-center">
+                      <input type="checkbox" aria-label={`Pilih PR-${request.number}`} name="selected" value={`${request.id}:${request.version}`} />
+                    </label>}</td>}
+                    <td className="wrap-anywhere">
+                      <Link className="inline-link" href={`/permintaan/${request.id}`}>PR-{request.number}</Link>
+                      <p>{request.item_name}</p>
+                      {request.opkb_number && <p className="text-sm text-muted">{request.opkb_number}</p>}
+                      {canSelectRows && <p className="text-sm">{request.purpose}</p>}
+                    </td>
+                    <td className="tabular-nums">{request.quantity} {request.item_unit ?? request.requested_unit}</td>
+                    <td><span className="badge">{statusLabel[request.status]}</span></td>
+                  </tr>
                 ))}
-                </ul>
+                </tbody>
+                </table>
+                </div>
                 {canSelectRows && <button type="submit" className="button button-primary my-3">{employee ? "Ajukan PR yang dipilih" : "Setujui PR yang dipilih"}</button>}
               </form>}
             <nav className="flex flex-wrap gap-4" aria-label="Halaman permintaan">
