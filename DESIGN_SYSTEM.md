@@ -22,7 +22,7 @@ Spacing 4, 8, 12, 16, 24, 32, 48 px. Radius 4 untuk status, 6 untuk kontrol, 8 u
 
 ## Layout dan navigasi
 
-Layar masuk dan aktivasi memakai foto jabat tangan dari referensi pengguna dengan foto dan formulir berdampingan pada desktop serta tersusun vertikal pada layar sempit. Navigasi workspace muncul setelah autentikasi di Production.
+Layar masuk dan aktivasi memakai foto lorong gudang dengan foto dan formulir berdampingan pada desktop serta tersusun vertikal pada layar sempit. Foto disajikan dalam WebP dengan versi lebih kecil untuk ponsel. Navigasi workspace muncul setelah autentikasi di Production. [Foto Erwin Salas](https://www.pexels.com/photo/aisle-of-a-huge-store-24862481/)
 
 Form OPKB menempatkan nomor dan tanggal bersama di awal. Setiap barang memakai kelompok isian berlabel dengan tombol hapus per baris. Tombol tambah dan simpan mengikuti kelompok terakhir dan dapat membungkus pada layar kecil.
 

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { z } from "zod";
 import { WorkspaceShell } from "@/components/workspace-shell";
 import { signOut } from "@/features/requests/actions";
 import { requireRequestSession } from "@/features/requests/session";
@@ -23,10 +24,14 @@ function isRole(value: string): value is Role {
   return Object.hasOwn(roles, value);
 }
 
-type WarehouseOrder = {
-  id: string; number: number; item_name: string; item_unit: string | null;
-  warehouse_name: string; quantity: number; received: number; status: string;
-};
+const warehouseReceiving = z.object({
+  pending: z.number().int().nonnegative(),
+  partial: z.number().int().nonnegative(),
+  orders: z.array(z.object({
+    id: z.uuid(), number: z.number(), item_name: z.string(), item_unit: z.string().nullable(),
+    warehouse_name: z.string(), quantity: z.number(), received: z.number(),
+  })).max(6),
+});
 
 export default async function DashboardPage() {
   const { supabase, profile, profileError } = await requireRequestSession();
@@ -52,7 +57,9 @@ export default async function DashboardPage() {
   if (role === "employee") recent?.eq("requester_id", profile.id);
   if (role === "manager") recent?.eq("approver_id", profile.id).eq("status", "pending_approval");
   if (canProcure) recent?.eq("status", "approved");
-  const warehouseOrders = role === "warehouse" ? supabase.rpc("warehouse_orders") : null;
+  const warehouseOrders = role === "warehouse"
+    ? supabase.rpc("warehouse_dashboard_receiving")
+    : null;
   const [metrics, activity, inbound] = await Promise.all([Promise.all(role === "warehouse" ? [
     supabase.from("stock_reservation_balances").select("id", { count: "exact", head: true }).gt("remaining", 0)
       .then(({ count, error }) => ({ label: "Alokasi menunggu pengeluaran", count: error ? null : count })),
@@ -67,12 +74,12 @@ export default async function DashboardPage() {
     const { count, error } = await query;
     return { label, count: error ? null : count };
   })), recent, warehouseOrders]);
-  const receivingQueue = ((inbound?.data ?? []) as WarehouseOrder[])
-    .filter((order) => order.status === "sent" || order.status === "partial");
+  const parsedInbound = warehouseReceiving.safeParse(inbound?.data);
+  const receivingQueue = parsedInbound.data?.orders ?? [];
   if (inbound) {
     metrics.unshift(
-      { label: "PO menunggu penerimaan", count: inbound.error ? null : receivingQueue.length },
-      { label: "PO diterima sebagian", count: inbound.error ? null : receivingQueue.filter((order) => order.status === "partial").length },
+      { label: "PO menunggu penerimaan", count: parsedInbound.data?.pending ?? null },
+      { label: "PO diterima sebagian", count: parsedInbound.data?.partial ?? null },
     );
   }
 
@@ -85,12 +92,12 @@ export default async function DashboardPage() {
       <div className="dashboard-layout">
         {inbound && <section className="setup-panel">
           <h2>Antrean penerimaan gudang</h2>
-          {inbound.error ? <p role="alert">Antrean penerimaan gagal dimuat.</p>
+          {inbound.error || !parsedInbound.success ? <p role="alert">Antrean penerimaan gagal dimuat.</p>
             : receivingQueue.length === 0 ? <p>Belum ada PO yang menunggu penerimaan.</p>
             : <div className="dashboard-table" tabIndex={0} role="region" aria-label="Antrean penerimaan">
               <table>
                 <thead><tr><th scope="col">PO dan barang</th><th scope="col">Gudang</th><th scope="col">Sisa diterima</th></tr></thead>
-                <tbody>{receivingQueue.slice(0, 6).map((order) => <tr key={order.id}>
+                <tbody>{receivingQueue.map((order) => <tr key={order.id}>
                   <td><Link className="inline-link" href={`/gudang#penerimaan-${order.id}`}>PO-{order.number}</Link><p>{order.item_name}</p></td>
                   <td>{order.warehouse_name}</td>
                   <td className="tabular-nums">{order.quantity - order.received} {order.item_unit}</td>

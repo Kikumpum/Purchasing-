@@ -1,5 +1,8 @@
 # Changelog
 
+- Mengganti foto login dengan foto gudang dan menyediakan WebP yang lebih kecil untuk ponsel.
+- Membatasi data PO pada Dashboard Warehouse dan menghitung total antrean langsung di PostgreSQL.
+
 - Memasang logo Ledger Aryocorp di halaman masuk, sidebar, dan favicon.
 
 - Merombak layout masuk, identitas navigasi, dashboard peran, tampilan tabel dan status, serta navigasi bagian pada transaksi Pengadaan dan Gudang.

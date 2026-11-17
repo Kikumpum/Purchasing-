@@ -254,7 +254,7 @@ h3 { font-size: 1.125rem; line-height: 1.3; font-weight: 600; }
 .setup-note { color: var(--muted); font-size: .875rem; }
 
 .access-shell { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); min-height: 100dvh; background: var(--surface); }
-.access-photo { background: linear-gradient(rgb(16 47 37 / 12%), rgb(16 47 37 / 36%)), #102f25 url("/purchasing-login.png") center / cover no-repeat; }
+.access-photo { background: linear-gradient(rgb(16 47 37 / 12%), rgb(16 47 37 / 34%)), #102f25 url("/purchasing-warehouse.webp") center / cover no-repeat; }
 .access-panel { align-self: center; justify-self: center; width: min(100%, 31rem); padding: clamp(26px, 5vw, 54px); }
 .access-wordmark { display: inline-flex; gap: 10px; align-items: center; font-weight: 700; color: var(--primary); }
 .access-wordmark .brand-mark { background: var(--primary); }
@@ -267,6 +267,7 @@ h3 { font-size: 1.125rem; line-height: 1.3; font-weight: 600; }
 .button:disabled { opacity: .65; cursor: wait; }
 @media (max-width: 767px) {
   .access-shell { grid-template-columns: 1fr; grid-template-rows: clamp(110px, 23vh, 180px) 1fr; }
+  .access-photo { background-image: linear-gradient(rgb(16 47 37 / 12%), rgb(16 47 37 / 34%)), url("/purchasing-warehouse-mobile.webp"); }
   .access-panel { align-self: start; }
 }
 
