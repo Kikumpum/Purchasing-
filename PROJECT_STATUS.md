@@ -1,5 +1,7 @@
 # Status proyek
 
+Laporan pergerakan menampilkan pengeluaran dan transfer terposting bagi Warehouse dan Admin Procurement, dengan paginasi 25 transaksi, filter periode WIB dan jenis, serta CSV untuk halaman aktif. Pengelolaan pengguna, transit gudang, pajak/diskon, notifikasi stok, dan laporan detail lainnya tetap mengikuti fase masing-masing.
+
 Dashboard Warehouse menghitung PO aktif di PostgreSQL dan hanya meminta detail enam PO terbaru. Migrasi 019 menambah indeks PO aktif per gudang. Foto login memakai WebP gudang berukuran terpisah untuk desktop dan ponsel. Uji beban dashboard dengan volume representatif masih terbuka.
 
 Konsep logo B Ledger yang dipilih pengguna memakai forest green dan menggantikan monogram A pada login, sidebar dan favicon. Master simbol tersedia di public/aryocorp-ledger.svg.

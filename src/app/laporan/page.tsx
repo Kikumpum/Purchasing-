@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { WorkspaceShell } from "@/components/workspace-shell";
 import { requireRequestSession } from "@/features/requests/session";
@@ -31,6 +32,7 @@ export default async function ReportsPage({ searchParams }: {
             <button className="button button-primary">Terapkan periode</button>
             {period.success && metrics.every((metric) => metric.count !== null) &&
               <a className="inline-link" href={`/laporan/ekspor?${filters}`}>Unduh CSV</a>}
+            {canWarehouse && <Link className="inline-link" href={`/laporan/pergerakan?${filters}`}>Lihat pergerakan stok</Link>}
           </div>
         </form>
         {!period.success && <p role="alert" className="copy-error">Periksa format tanggal dan urutan periode.</p>}

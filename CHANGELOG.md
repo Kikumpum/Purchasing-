@@ -1,5 +1,7 @@
 # Changelog
 
+- Menambahkan rincian pengeluaran dan transfer beserta ekspor CSV dengan filter yang sama.
+
 - Mengganti foto login dengan foto gudang dan menyediakan WebP yang lebih kecil untuk ponsel.
 - Membatasi data PO pada Dashboard Warehouse dan menghitung total antrean langsung di PostgreSQL.
 
